@@ -1,0 +1,40 @@
+@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/variable/pretendardvariable.css");
+
+html {
+  background-color: #ffffff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  -webkit-touch-callout: none;
+  -webkit-tap-highlight-color: rgb(0 0 0 / 0%);
+  scroll-behavior: smooth;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+:root {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  min-height: 100vh;
+
+  --fontFamily: "Pretendard", "-apple-system", "BlinkMacSystemFont", "system-ui", "Malgun Gothic", "sans-serif";
+}
+
+body {
+  font-family: var(--fontFamily);
+  /* background: var(--background); 
+  color: var(--foreground); */
+}
+
+.swiper-pagination-bullet {
+  background-color: #999 !important;
+  opacity: 0.5;
+}
+
+.swiper-pagination-bullet-active {
+  background-color: #fff !important;
+  box-shadow: 0 0 0 3px #ff6d01; /* 바깥쪽 테두리처럼 보이게 */
+  opacity: 1;
+}
