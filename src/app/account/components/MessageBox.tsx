@@ -14,14 +14,7 @@ export default function MessageBox({
   children,
 }: MessageBoxProps) {
   return (
-    <div
-      className=""
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-      }}
-    >
+    <div className="flex flex-col items-center justify-center">
       <Image
         src={
           userType === "student"
@@ -34,17 +27,13 @@ export default function MessageBox({
         style={{ marginBottom: "-15px" }}
       />
       <div
+        className="flex flex-col justify-center items-center"
         style={{
           backgroundColor:
             userType === "student" ? COLORS.primary.navy : COLORS.primary.mint,
           borderRadius: "16px",
           width: `${width}px`,
           height: "110px",
-          padding: "10px",
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          justifyContent: "center",
         }}
       >
         <span

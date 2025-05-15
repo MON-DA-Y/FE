@@ -19,21 +19,14 @@ export default function Icon({ userType }: IconProps) {
   };
 
   return (
-    <div
-      style={{ display: "flex", flexDirection: "column", alignItems: "center" }}
-    >
+    <div className="flex flex-col items-center">
       <div
         onClick={handleClick}
+        className="flex items-center justify-center w-[100px] h-[100px] p-6"
         style={{
-          display: "flex",
-          width: "80px",
-          height: "80px",
-          padding: "25px",
           borderRadius: "30px",
           backgroundColor:
             userType === "student" ? COLORS.primary.navy : COLORS.primary.mint,
-          justifyContent: "center",
-          alignItems: "center",
         }}
       >
         <span

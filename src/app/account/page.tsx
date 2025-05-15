@@ -5,15 +5,7 @@ import { COLORS } from "@/styles/theme/tokens";
 
 export default function AccountPage() {
   return (
-    <div
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        justifyContent: "center",
-        paddingTop: "60px",
-      }}
-    >
+    <div className="flex flex-col items-center justify-center">
       <Image
         src="/images/logo.svg"
         width={318}
@@ -22,25 +14,11 @@ export default function AccountPage() {
         priority
       />
       <div style={{ fontSize: "45px", fontWeight: "bold" }}>회원가입</div>
-      <div
-        style={{
-          paddingTop: "60px",
-          display: "flex",
-          gap: "150px",
-        }}
-      >
+      <div className="flex pt-15 gap-40">
         <Icon userType={"student"} />
         <Icon userType={"parent"} />
       </div>
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "row",
-          gap: "60px",
-          paddingTop: "39px",
-          paddingLeft: "40px",
-        }}
-      >
+      <div className="flex pt-5 pl-10 gap-15">
         <MessageBox userType="student" width={160}>
           경제 지식이 <span style={{ color: COLORS.primary.mint }}>쑥쑥</span>
           <br /> 늘고 싶다면?

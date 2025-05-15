@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import "@/styles/globals.css";
 import { SHADOW } from "@/styles/theme/tokens";
 
 export const metadata: Metadata = {
@@ -11,19 +10,14 @@ export default function AccountLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <div className="justify-items-center pt-8">
-      <div
-        style={{
-          width: "630px",
-          height: "710px",
-          textAlign: "center",
-          backgroundColor: "white",
-          boxShadow: SHADOW.interactive,
-          borderRadius: "40px",
-        }}
-      >
-        <main>{children}</main>
-      </div>
+    <div
+      className="flex items-center justify-center w-[630px] h-[710px] bg-white"
+      style={{
+        boxShadow: SHADOW.interactive,
+        borderRadius: "40px",
+      }}
+    >
+      <main>{children}</main>
     </div>
   );
 }
