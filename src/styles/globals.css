@@ -19,7 +19,8 @@ html {
   overflow: hidden;
   min-height: 100vh;
 
-  --fontFamily: "Pretendard", "-apple-system", "BlinkMacSystemFont", "system-ui", "Malgun Gothic", "sans-serif";
+  --fontFamily: "Pretendard", "-apple-system", "BlinkMacSystemFont", "system-ui",
+    "Malgun Gothic", "sans-serif";
 }
 
 body {
