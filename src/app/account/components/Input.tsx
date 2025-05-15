@@ -2,18 +2,29 @@ import { COLORS } from "@/styles/theme/tokens";
 import { ReactNode } from "react";
 
 interface InputProps {
-  children: ReactNode;
+  type: string;
+  placeholder: string;
+  value?: string;
+  children?: ReactNode;
 }
 
-export default function Input({ children }: InputProps) {
-  <div
-    className="w-[354px] h-[51px] p-4 bg-white"
-    style={{
-      borderRadius: "69px",
-      border: COLORS.sub.gray2,
-      font: COLORS.sub.gray2,
-    }}
-  >
-    {children}
-  </div>;
+export default function Input({
+  type,
+  placeholder,
+  value,
+  children,
+}: InputProps) {
+  return (
+    <div
+      className="flex items-center w-[354px] h-[51px] p-4 bg-white border gap-9"
+      style={{
+        borderRadius: "69px",
+        borderColor: COLORS.sub.gray2,
+        color: COLORS.sub.gray2,
+      }}
+    >
+      <input type={type} placeholder={placeholder} value={value} />
+      {children}
+    </div>
+  );
 }

@@ -2,12 +2,14 @@
 
 import { useRouter } from "next/navigation";
 import { COLORS, FONT_SIZE, SHADOW } from "@/styles/theme/tokens";
+import Image from "next/image";
 
 interface IconProps {
   userType: "student" | "parent";
+  label?: string;
 }
 
-export default function Icon({ userType }: IconProps) {
+export default function Icon({ userType, label }: IconProps) {
   const router = useRouter();
 
   const handleClick = () => {
@@ -36,7 +38,16 @@ export default function Icon({ userType }: IconProps) {
             lineHeight: 1,
           }}
         >
-          {userType === "student" ? "🧒🏻" : "🧑🏻"}
+          <Image
+            src={
+              userType === "student"
+                ? "/images/student.png"
+                : "/images/parent.png"
+            }
+            alt="user"
+            width={50}
+            height={50}
+          />
         </span>
       </div>
       <span
@@ -45,7 +56,7 @@ export default function Icon({ userType }: IconProps) {
           paddingTop: "5px",
         }}
       >
-        {userType === "student" ? "학생" : "학부모"}
+        {label}
       </span>
     </div>
   );

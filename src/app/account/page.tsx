@@ -15,8 +15,8 @@ export default function AccountPage() {
       />
       <div style={{ fontSize: "45px", fontWeight: "bold" }}>회원가입</div>
       <div className="flex pt-15 gap-40">
-        <Icon userType={"student"} />
-        <Icon userType={"parent"} />
+        <Icon userType={"student"} label="학생" />
+        <Icon userType={"parent"} label="학부모" />
       </div>
       <div className="flex pt-5 pl-10 gap-15">
         <MessageBox userType="student" width={160}>
