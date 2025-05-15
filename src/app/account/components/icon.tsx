@@ -1,7 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { COLORS, FONT_SIZE } from "@/styles/theme/tokens";
+import { COLORS, FONT_SIZE, SHADOW } from "@/styles/theme/tokens";
 
 interface IconProps {
   userType: "student" | "parent";
@@ -12,9 +12,9 @@ export default function Icon({ userType }: IconProps) {
 
   const handleClick = () => {
     if (userType === "student") {
-      router.push("../signup");
+      router.push("/account/signup");
     } else {
-      router.push("../signup");
+      router.push("/account/signup");
     }
   };
 
@@ -25,6 +25,7 @@ export default function Icon({ userType }: IconProps) {
         className="flex items-center justify-center w-[100px] h-[100px] p-6"
         style={{
           borderRadius: "30px",
+          boxShadow: SHADOW.interactive,
           backgroundColor:
             userType === "student" ? COLORS.primary.navy : COLORS.primary.mint,
         }}

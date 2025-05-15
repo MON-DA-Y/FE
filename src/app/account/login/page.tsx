@@ -1,3 +1,3 @@
-export default function ParentPage() {
+export default function LoginPage() {
   return <div></div>;
 }

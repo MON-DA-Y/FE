@@ -1,4 +1,4 @@
-import { COLORS } from "@/styles/theme/tokens";
+import { COLORS, SHADOW } from "@/styles/theme/tokens";
 import Image from "next/image";
 import { ReactNode } from "react";
 
@@ -34,6 +34,7 @@ export default function MessageBox({
           borderRadius: "16px",
           width: `${width}px`,
           height: "110px",
+          boxShadow: SHADOW.interactive,
         }}
       >
         <span
