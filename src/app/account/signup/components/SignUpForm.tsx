@@ -1,7 +1,11 @@
 import Input from "../../components/Input";
 import { COLORS, FONT_SIZE, FONT_WEIGHT } from "@/styles/theme/tokens";
 
-export default function SignUpForm() {
+interface SignUpFormProps {
+  userType: "student" | "parent";
+}
+
+export default function SignUpForm({ userType }: SignUpFormProps) {
   return (
     <div className="flex flex-col items-center gap-6">
       <Input type="name" placeholder="이름을 입력해주세요." />
@@ -18,7 +22,11 @@ export default function SignUpForm() {
           중복 확인
         </button>
       </Input>
-      <Input type="birth" placeholder="생년월일을 입력해주세요." />
+      {userType === "student" ? (
+        <Input type="birth" placeholder="생년월일을 입력해주세요." />
+      ) : (
+        <Input type="birth" placeholder="휴대폰 번호를 입력해주세요." />
+      )}
       <Input type="password" placeholder="비밀번호를 입력해주세요." />
       <Input type="password" placeholder="비밀번호를 다시 입력해주세요." />
     </div>

@@ -14,9 +14,9 @@ export default function Icon({ userType, label }: IconProps) {
 
   const handleClick = () => {
     if (userType === "student") {
-      router.push("/account/signup");
+      router.push("/account/signup/student");
     } else {
-      router.push("/account/signup");
+      router.push("/account/signup/parent");
     }
   };
 

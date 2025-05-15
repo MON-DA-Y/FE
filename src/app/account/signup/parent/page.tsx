@@ -1,10 +1,10 @@
 import { FONT_SIZE, FONT_WEIGHT } from "@/styles/theme/tokens";
 import Image from "next/image";
-import Icon from "../components/Icon";
-import SignUpBtn from "./components/SignUpBtn";
-import SignUpForm from "./components/SignUpForm";
+import Icon from "@/app/account/components/Icon";
+import SignUpBtn from "../components/SignUpBtn";
+import SignUpForm from "../components/SignUpForm";
 
-export default function SignUpPage() {
+export default function ParentSignUpPage() {
   return (
     <div>
       <div className="flex justify-center items-center gap-8">
@@ -30,14 +30,14 @@ export default function SignUpPage() {
               fontWeight: FONT_WEIGHT.subtitle1,
             }}
           >
-            학생 회원가입
+            학부모 회원가입
           </p>
         </div>
-        <Icon userType="student"></Icon>
+        <Icon userType="parent" />
       </div>
       <div className="flex flex-col justify-center items-center pt-7 gap-8">
-        <SignUpForm />
-        <SignUpBtn userType="student" />
+        <SignUpForm userType="parent" />
+        <SignUpBtn userType="parent" />
       </div>
     </div>
   );
