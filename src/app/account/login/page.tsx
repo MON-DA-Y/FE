@@ -7,13 +7,9 @@ import { COLORS, FONT_SIZE, FONT_WEIGHT, SHADOW } from "@/styles/theme/tokens";
 import Input from "../components/Input";
 import { useState } from "react";
 
-interface LoginPageProps {
-  userType: "student" | "parent";
-}
-
-export default function LoginPage({ userType }: LoginPageProps) {
+export default function LoginPage() {
   const [selectedType, setSelectedType] = useState<"student" | "parent">(
-    userType
+    "student"
   );
 
   return (
