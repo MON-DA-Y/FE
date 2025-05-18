@@ -34,7 +34,7 @@ export default function SuccessPage() {
       <p className="text-5xl font-bold">하루를 시작해보세요</p>
       <div className="flex flex-col items-center pt-20 gap-8">
         <Icon userType="student" label="학생" />
-        <MessageBox userType="student" width={234}>
+        <MessageBox userType="student" width={234} height={110}>
           경제 지식 <span style={{ color: COLORS.primary.mint }}>쑥쑥</span>
           <br /> 자라날 준비 완료!!
         </MessageBox>
