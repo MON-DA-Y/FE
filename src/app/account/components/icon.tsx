@@ -1,29 +1,17 @@
-"use client";
-
-import { useRouter } from "next/navigation";
 import { COLORS, FONT_SIZE, SHADOW } from "@/styles/theme/tokens";
 import Image from "next/image";
 
 interface IconProps {
   userType: "student" | "parent";
   label?: string;
+  onClick?: () => void;
 }
 
-export default function Icon({ userType, label }: IconProps) {
-  const router = useRouter();
-
-  const handleClick = () => {
-    if (userType === "student") {
-      router.push("/account/signup/student");
-    } else {
-      router.push("/account/signup/parent");
-    }
-  };
-
+export default function Icon({ userType, label, onClick }: IconProps) {
   return (
     <div className="flex flex-col items-center">
       <div
-        onClick={handleClick}
+        onClick={onClick}
         className="flex items-center justify-center w-[100px] h-[100px] p-6"
         style={{
           borderRadius: "30px",

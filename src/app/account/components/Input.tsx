@@ -16,7 +16,7 @@ export default function Input({
 }: InputProps) {
   return (
     <div
-      className="flex items-center w-[354px] h-[51px] p-4 bg-white border gap-9"
+      className="flex items-center w-[330px] h-[55px] p-4 bg-white border gap-9"
       style={{
         borderRadius: "69px",
         borderColor: COLORS.sub.gray2,

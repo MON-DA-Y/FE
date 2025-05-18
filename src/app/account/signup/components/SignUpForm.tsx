@@ -25,7 +25,7 @@ export default function SignUpForm({ userType }: SignUpFormProps) {
       {userType === "student" ? (
         <Input type="birth" placeholder="생년월일을 입력해주세요." />
       ) : (
-        <Input type="birth" placeholder="휴대폰 번호를 입력해주세요." />
+        <Input type="phone" placeholder="휴대폰 번호를 입력해주세요." />
       )}
       <Input type="password" placeholder="비밀번호를 입력해주세요." />
       <Input type="password" placeholder="비밀번호를 다시 입력해주세요." />

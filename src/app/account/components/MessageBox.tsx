@@ -5,13 +5,17 @@ import { ReactNode } from "react";
 interface MessageBoxProps {
   userType: "student" | "parent";
   width: number;
+  height: number;
   children: ReactNode;
+  marginLeft?: number;
 }
 
 export default function MessageBox({
   userType,
   width,
+  height,
   children,
+  marginLeft,
 }: MessageBoxProps) {
   return (
     <div className="flex flex-col items-center justify-center">
@@ -24,7 +28,7 @@ export default function MessageBox({
         width={43}
         height={47}
         alt="polygon"
-        style={{ marginBottom: "-15px" }}
+        style={{ marginBottom: "-15px", marginLeft: `${marginLeft}px` }}
       />
       <div
         className="flex flex-col justify-center items-center"
@@ -33,7 +37,7 @@ export default function MessageBox({
             userType === "student" ? COLORS.primary.navy : COLORS.primary.mint,
           borderRadius: "16px",
           width: `${width}px`,
-          height: "110px",
+          height: `${height}px`,
           boxShadow: SHADOW.interactive,
         }}
       >
