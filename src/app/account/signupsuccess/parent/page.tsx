@@ -34,7 +34,7 @@ export default function SuccessPage() {
       <p className="text-5xl font-bold">하루를 시작해보세요</p>
       <div className="flex flex-col items-center pt-20 gap-8">
         <Icon userType="parent" label="학부모" />
-        <MessageBox userType="parent" width={279}>
+        <MessageBox userType="parent" width={279} height={110}>
           우리 아이{" "}
           <span style={{ color: COLORS.primary.navy }}>학습 리포트</span>를
           <br /> 보러 가볼까요?

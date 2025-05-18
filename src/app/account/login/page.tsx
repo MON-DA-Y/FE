@@ -37,14 +37,14 @@ export default function LoginPage() {
       <div className="flex pt-5">
         <MessageBox
           userType={selectedType}
-          width={470}
+          width={444}
           height={203}
           marginLeft={selectedType === "student" ? -255 : 265}
         >
           <div className="flex items-center justify-center gap-4">
             <div className="flex flex-col gap-3">
-              <Input type="email" placeholder="이메일" />
-              <Input type="password" placeholder="비밀번호" />
+              <Input type="email" placeholder="이메일" width={303} />
+              <Input type="password" placeholder="비밀번호" width={303} />
             </div>
             <button
               style={{

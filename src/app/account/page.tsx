@@ -1,20 +1,16 @@
 "use client";
 
 import Image from "next/image";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import Icon from "./components/Icon";
 import MessageBox from "./components/MessageBox";
 import { COLORS } from "@/styles/theme/tokens";
 
-interface AccountPageProps {
-  userType: "student" | "parent";
-}
-
-export default function AccountPage({ userType }: AccountPageProps) {
+export default function AccountPage() {
   const router = useRouter();
 
-  const handleClick = () => {
-    if (userType === "student") {
+  const handleClick = (type: "student" | "parent") => {
+    if (type === "student") {
       router.push("/account/signup/student");
     } else {
       router.push("/account/signup/parent");
@@ -32,8 +28,16 @@ export default function AccountPage({ userType }: AccountPageProps) {
       />
       <div style={{ fontSize: "45px", fontWeight: "bold" }}>회원가입</div>
       <div className="flex pt-15 gap-40">
-        <Icon userType={"student"} label="학생" onClick={handleClick} />
-        <Icon userType={"parent"} label="학부모" onClick={handleClick} />
+        <Icon
+          userType={"student"}
+          label="학생"
+          onClick={() => handleClick("student")}
+        />
+        <Icon
+          userType={"parent"}
+          label="학부모"
+          onClick={() => handleClick("parent")}
+        />
       </div>
       <div className="flex pt-5 pl-10 gap-15">
         <MessageBox userType="student" width={160} height={110}>
