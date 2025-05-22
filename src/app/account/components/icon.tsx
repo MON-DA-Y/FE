@@ -7,7 +7,6 @@ interface IconProps {
   onClick?: () => void;
 }
 
-/**/
 export default function Icon({ userType, label, onClick }: IconProps) {
   return (
     <div className="flex flex-col items-center">
