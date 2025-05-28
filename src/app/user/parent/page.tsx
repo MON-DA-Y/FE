@@ -4,6 +4,7 @@ import StudentLevel from "@/app/user/components/StudentLevel";
 import { FONT_SIZE, FONT_WEIGHT } from "@/styles/theme/tokens";
 import Image from "next/image";
 import StudentSchool from "./components/StudentSchool";
+import DateDropdown from "../components/DateDropdown";
 
 export default function ParentPage() {
   return (
@@ -56,6 +57,11 @@ export default function ParentPage() {
             총 학습일 : 63일
           </div>
         </div>
+      </div>
+      <div className="flex pt-10 gap-4.5">
+        <DateDropdown type="year" />
+        <DateDropdown type="month" />
+        <DateDropdown type="week" />
       </div>
     </div>
   );
