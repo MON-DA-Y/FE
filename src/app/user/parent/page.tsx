@@ -5,14 +5,18 @@ import { FONT_SIZE, FONT_WEIGHT } from "@/styles/theme/tokens";
 import Image from "next/image";
 import StudentSchool from "./components/StudentSchool";
 import DateDropdown from "../components/DateDropdown";
+import ProgressBtn from "../components/ProgressBtn";
+import AttendBtn from "../components/AttendBtn";
 
 export default function ParentPage() {
   return (
     <div className="relative w-full h-screen overflow-auto p-13">
+      {/*학부모 프로필*/}
       <div className="pl-180">
         <ParentProfile />
       </div>
 
+      {/*학생 프로필*/}
       <div className="flex flex-row items-start gap-9">
         <div className="flex flex-col items-center">
           <StudentProfile width={100} height={100} />
@@ -21,6 +25,7 @@ export default function ParentPage() {
           </div>
         </div>
 
+        {/*학생 소개*/}
         <div className="flex flex-col pt-3">
           <div
             className="flex flex-row gap-2.5 items-center"
@@ -58,10 +63,28 @@ export default function ParentPage() {
           </div>
         </div>
       </div>
+
+      {/*날짜 드롭다운*/}
       <div className="flex pt-10 gap-4.5">
         <DateDropdown type="year" />
         <DateDropdown type="month" />
         <DateDropdown type="week" />
+      </div>
+
+      {/*출석 현황*/}
+      <div className="flex pt-7.5 items-center gap-31">
+        <div
+          style={{
+            fontSize: FONT_SIZE.subtitle1,
+            fontWeight: FONT_WEIGHT.subtitle1,
+          }}
+        >
+          이번 주 출석 현황
+        </div>
+        <ProgressBtn />
+      </div>
+      <div className="pt-4">
+        <AttendBtn />
       </div>
     </div>
   );

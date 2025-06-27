@@ -15,7 +15,7 @@ export default function SuccessPage() {
   useEffect(() => {
     setIsClient(true);
     const timer = setTimeout(() => {
-      router.push("/main");
+      router.push("/src/app/account/login");
     }, 3000);
 
     return () => clearTimeout(timer);
