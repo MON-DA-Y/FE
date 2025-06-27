@@ -11,6 +11,7 @@ import DateDropdown from "../components/DateDropdown";
 import ProgressBtn from "../components/ProgressBtn";
 import AttendBtn from "../components/AttendBtn";
 import TabBar from "../components/TabBar";
+import Slider from "../components/Slider";
 
 export default function ParentPage() {
   const [selectedTab, setSelectedTab] = useState<"series" | "keyword">(
@@ -134,6 +135,12 @@ export default function ParentPage() {
         </div>
         <div className="pt-3.5 px-75">
           <TabBar onChange={handleTabChange} selectedTab={selectedTab} />
+        </div>
+        <div className="flex flex-col px-8 pt-5 gap-6">
+          <Slider type="RULES" />
+          <Slider type="TECH" />
+          <Slider type="BIGPICTURE" />
+          <Slider type="MONEY" />
         </div>
       </div>
     </div>
