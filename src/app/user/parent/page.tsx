@@ -14,6 +14,7 @@ import TabBar from "../components/TabBar";
 import Slider from "../components/Slider";
 import HistoryBtn from "../components/HistoryBtn";
 import InputBox from "../components/InputBox";
+import QuizBox from "./components/QuizBtn";
 
 export default function ParentPage() {
   const [selectedTab, setSelectedTab] = useState<"series" | "keyword">(
@@ -173,6 +174,24 @@ export default function ParentPage() {
           00이의 교육에 바라는 한마디
         </div>
         <InputBox />
+      </div>
+
+      {/*이번 주 퀴즈*/}
+      <div className="relative top-[-1070px] left-[530px]">
+        <div
+          className="whitespace-nowrap"
+          style={{
+            fontSize: FONT_SIZE.subtitle1,
+            fontWeight: FONT_WEIGHT.subtitle1,
+          }}
+        >
+          이번 주 퀴즈
+        </div>
+        <div className="flex flex-col pt-5 gap-2.5">
+          <QuizBox />
+          <QuizBox />
+          <QuizBox />
+        </div>
       </div>
     </div>
   );
