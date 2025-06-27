@@ -13,6 +13,7 @@ import AttendBtn from "../components/AttendBtn";
 import TabBar from "../components/TabBar";
 import Slider from "../components/Slider";
 import HistoryBtn from "../components/HistoryBtn";
+import InputBox from "../components/InputBox";
 
 export default function ParentPage() {
   const [selectedTab, setSelectedTab] = useState<"series" | "keyword">(
@@ -158,6 +159,20 @@ export default function ParentPage() {
         <HistoryBtn type="wordHistory" />
         <HistoryBtn type="newsHistory" />
         <HistoryBtn type="seriesHistory" />
+      </div>
+
+      {/*바라는 한마디*/}
+      <div className="relative top-[-1125px] left-[530px]">
+        <div
+          className="whitespace-nowrap"
+          style={{
+            fontSize: FONT_SIZE.subtitle1,
+            fontWeight: FONT_WEIGHT.subtitle1,
+          }}
+        >
+          00이의 교육에 바라는 한마디
+        </div>
+        <InputBox />
       </div>
     </div>
   );
