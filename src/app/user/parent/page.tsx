@@ -193,6 +193,85 @@ export default function ParentPage() {
           <QuizBox />
         </div>
       </div>
+
+      {/*경제 TalkTalk*/}
+      <div className="relative top-[-1000px] left-[530px]">
+        <div
+          className="whitespace-nowrap"
+          style={{
+            fontSize: FONT_SIZE.subtitle1,
+            fontWeight: FONT_WEIGHT.subtitle1,
+          }}
+        >
+          00이와의 경제TalkTalk
+        </div>
+        <div
+          className="px-13 py-3 ml-[-8px] mt-6 w-92 h-24 rounded-[30px]"
+          style={{
+            backgroundColor: COLORS.sub.gray1,
+          }}
+        >
+          <div
+            style={{
+              fontSize: FONT_SIZE.subtitle2,
+              fontWeight: FONT_WEIGHT.subtitle2,
+            }}
+          >
+            00이는 이번 주에
+          </div>
+          <span
+            style={{
+              fontSize: FONT_SIZE.subtitle1,
+              fontWeight: FONT_WEIGHT.subtitle1,
+            }}
+          >
+            "관세율 인상"
+          </span>
+          <span
+            style={{
+              fontSize: FONT_SIZE.subtitle2,
+              fontWeight: FONT_WEIGHT.subtitle2,
+            }}
+          >
+            을 배웠어요
+          </span>
+          <div className="flex flex-col pt-8 gap-10">
+            <Image
+              src="/images/messageBox.svg"
+              width={238}
+              height={89}
+              alt="message"
+            />
+            <span
+              className="mt-[-110px] ml-[20px]"
+              style={{
+                fontSize: FONT_SIZE.body2,
+                fontWeight: FONT_WEIGHT.body2,
+              }}
+            >
+              Q. 트럼프가 관세를 팍 올리면 <br />
+              햄버거 가격도 따라 오를까?
+            </span>
+
+            <Image
+              src="/images/messageBox.svg"
+              width={238}
+              height={89}
+              alt="message"
+            />
+            <span
+              className="mt-[-110px] ml-[20px]"
+              style={{
+                fontSize: FONT_SIZE.body2,
+                fontWeight: FONT_WEIGHT.body2,
+              }}
+            >
+              Q. 사람들이 갤럭시로 갈아탈까, <br /> 아니면 비싸도 그냥 아이폰을
+              살까?
+            </span>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
