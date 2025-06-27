@@ -12,6 +12,7 @@ import ProgressBtn from "../components/ProgressBtn";
 import AttendBtn from "../components/AttendBtn";
 import TabBar from "../components/TabBar";
 import Slider from "../components/Slider";
+import HistoryBtn from "../components/HistoryBtn";
 
 export default function ParentPage() {
   const [selectedTab, setSelectedTab] = useState<"series" | "keyword">(
@@ -142,6 +143,21 @@ export default function ParentPage() {
           <Slider type="BIGPICTURE" />
           <Slider type="MONEY" />
         </div>
+        <div
+          className="pt-6"
+          style={{ fontSize: FONT_SIZE.body2, fontWeight: FONT_WEIGHT.body2 }}
+        >
+          경제 흐름을 파악하는 부분은 강하지만, 정책/규제에 대한 설명은 조금
+          약해요. <br /> 관련 제도나 법이 어떤 영향을 주는지 배우면 좋을 것
+          같아요.
+        </div>
+      </div>
+
+      {/*히스토리 버튼*/}
+      <div className="flex flex-col pt-15 gap-5">
+        <HistoryBtn type="wordHistory" />
+        <HistoryBtn type="newsHistory" />
+        <HistoryBtn type="seriesHistory" />
       </div>
     </div>
   );

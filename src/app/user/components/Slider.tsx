@@ -8,11 +8,11 @@ export default function Slider({ type }: { type: Category }) {
   const color = Category_Color[type];
 
   return (
-    <div className="flex flex-col gap-3.5 px-2.5">
-      <div
-        className="flex gap-75"
-        style={{ fontSize: FONT_SIZE.body2, fontWeight: FONT_WEIGHT.body2 }}
-      >
+    <div
+      className="flex flex-col gap-3.5 px-2.5"
+      style={{ fontSize: FONT_SIZE.body2, fontWeight: FONT_WEIGHT.body2 }}
+    >
+      <div className="flex gap-75">
         {label}
         <div className="absolute right-120">2/5</div>
       </div>
