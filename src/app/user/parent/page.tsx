@@ -1,14 +1,26 @@
+"use client";
+
+import { useState } from "react";
 import StudentProfile from "@/app/user/components/StudentProfile";
 import ParentProfile from "./components/ParentProfile";
 import StudentLevel from "@/app/user/components/StudentLevel";
-import { FONT_SIZE, FONT_WEIGHT } from "@/styles/theme/tokens";
+import { COLORS, FONT_SIZE, FONT_WEIGHT } from "@/styles/theme/tokens";
 import Image from "next/image";
 import StudentSchool from "./components/StudentSchool";
 import DateDropdown from "../components/DateDropdown";
 import ProgressBtn from "../components/ProgressBtn";
 import AttendBtn from "../components/AttendBtn";
+import TabBar from "../components/TabBar";
 
 export default function ParentPage() {
+  const [selectedTab, setSelectedTab] = useState<"series" | "keyword">(
+    "series"
+  );
+
+  const handleTabChange = (value: { selectedTab: "series" | "keyword" }) => {
+    setSelectedTab(value.selectedTab);
+  };
+
   return (
     <div className="relative w-full h-screen overflow-auto p-13">
       {/*학부모 프로필*/}
@@ -85,6 +97,44 @@ export default function ParentPage() {
       </div>
       <div className="pt-4">
         <AttendBtn />
+      </div>
+
+      {/*약점 분석*/}
+      <div className="flex flex-col pt-17">
+        <div
+          style={{
+            fontSize: FONT_SIZE.subtitle1,
+            fontWeight: FONT_WEIGHT.subtitle1,
+          }}
+        >
+          00이의 약점 분석
+        </div>
+        <div className="flex items-center gap-42">
+          <div
+            style={{ fontSize: FONT_SIZE.body2, fontWeight: FONT_WEIGHT.body2 }}
+          >
+            2025 4월 첫째주
+          </div>
+          <div
+            className="flex items-center gap-1"
+            style={{
+              fontSize: FONT_SIZE.body1,
+              fontWeight: FONT_WEIGHT.body1,
+              color: COLORS.primary.navy,
+            }}
+          >
+            <Image
+              src="/icons/Arrow_Up_Right.svg"
+              width={30}
+              height={30}
+              alt="arrow"
+            />
+            저번 주보다 4% 성장했어요
+          </div>
+        </div>
+        <div className="pt-3.5 px-75">
+          <TabBar onChange={handleTabChange} selectedTab={selectedTab} />
+        </div>
       </div>
     </div>
   );
