@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import Icon from "../components/Icon";
+import Icon from "../components/icon";
 import MessageBox from "../components/MessageBox";
 import { COLORS, FONT_SIZE, FONT_WEIGHT, SHADOW } from "@/styles/theme/tokens";
 import Input from "../components/Input";

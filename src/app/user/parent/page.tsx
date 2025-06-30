@@ -173,7 +173,7 @@ export default function ParentPage() {
         >
           00이의 교육에 바라는 한마디
         </div>
-        <InputBox />
+        <InputBox type="textarea" />
       </div>
 
       {/*이번 주 퀴즈*/}
