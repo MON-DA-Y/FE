@@ -1,9 +1,10 @@
 "use client";
 
-import { FONT_SIZE, FONT_WEIGHT, SHADOW } from "@/styles/theme/tokens";
+import { FONT_SIZE, FONT_WEIGHT, SHADOW, COLORS } from "@/styles/theme/tokens";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import InputBox from "../../components/InputBox";
+import StudentCard from "../components/StudentCard";
 
 export default function ParentMyPage() {
   const router = useRouter();
@@ -69,6 +70,36 @@ export default function ParentMyPage() {
           }}
         >
           자녀 관리
+        </div>
+        {/*자녀 리스트*/}
+        <div className="flex p-6 gap-3">
+          <StudentCard id={0} name="" grade="" level="" />
+          {/*자녀 추가 버튼*/}
+          <div
+            className="flex items-center justify-center w-64 h-28 rounded-[10px] p-5"
+            style={{
+              borderColor: COLORS.sub.gray3,
+              boxShadow: SHADOW.interactive,
+              color: COLORS.sub.gray3,
+            }}
+            onClick={() => {}}
+          >
+            <div
+              className="flex items-center justify-center w-7 h-7 rounded-full"
+              style={{
+                boxShadow: SHADOW.interactive,
+                backgroundColor: COLORS.primary.navy,
+              }}
+            >
+              <Image
+                src="/icons/Plus.svg"
+                alt="plus"
+                width={20}
+                height={20}
+                className="cursor-pointer"
+              />
+            </div>
+          </div>
         </div>
       </div>
     </div>
