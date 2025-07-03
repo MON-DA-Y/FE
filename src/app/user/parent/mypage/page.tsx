@@ -5,9 +5,19 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import InputBox from "../../components/InputBox";
 import StudentCard from "../components/StudentCard";
+import { useState } from "react";
+import AddStudentModal from "../components/AddStudentModal";
+
+interface StudentProps {
+  name: string;
+  school: string;
+  grade: string;
+}
 
 export default function ParentMyPage() {
   const router = useRouter();
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [students, setStudents] = useState<StudentProps[]>([]);
 
   return (
     <div className="relative w-full h-screen overflow-auto p-13">
@@ -73,7 +83,15 @@ export default function ParentMyPage() {
         </div>
         {/*자녀 리스트*/}
         <div className="flex p-6 gap-3">
-          <StudentCard id={0} name="" grade="" level="" />
+          {students.map((s, idx) => (
+            <StudentCard
+              key={idx}
+              name={s.name || ""}
+              school={s.school || ""}
+              grade={s.grade || ""}
+              level=""
+            />
+          ))}
           {/*자녀 추가 버튼*/}
           <div
             className="flex items-center justify-center w-64 h-28 rounded-[10px] p-5"
@@ -97,7 +115,17 @@ export default function ParentMyPage() {
                 width={20}
                 height={20}
                 className="cursor-pointer"
+                onClick={() => setIsModalOpen(true)}
               />
+              {isModalOpen && (
+                <AddStudentModal
+                  closeRequest={() => setIsModalOpen(false)}
+                  onAddStudent={(newStudent) => {
+                    setStudents([...students, newStudent]);
+                    setIsModalOpen(false);
+                  }}
+                />
+              )}
             </div>
           </div>
         </div>

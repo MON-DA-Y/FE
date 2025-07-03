@@ -3,15 +3,16 @@ import StudentProfile from "../../components/StudentProfile";
 import StudentLevel from "../../components/StudentLevel";
 
 interface StudentCardProps {
-  id: number;
+  id?: number;
   name: string;
+  school: string;
   grade: string;
   level: string;
 }
 
 export default function StudentCard({
-  id,
   name,
+  school,
   grade,
   level,
 }: StudentCardProps) {
@@ -41,7 +42,15 @@ export default function StudentCard({
               fontWeight: FONT_WEIGHT.body2,
             }}
           >
-            00중 2학년
+            00중
+          </div>
+          <div
+            style={{
+              fontSize: FONT_SIZE.body2,
+              fontWeight: FONT_WEIGHT.body2,
+            }}
+          >
+            2학년
           </div>
         </div>
         <StudentLevel />
