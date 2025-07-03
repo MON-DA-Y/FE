@@ -41,7 +41,7 @@ export default function EditModal({ closeRequest, onSave }: EditModalProps) {
                 fontWeight: FONT_WEIGHT.subtitle1,
               }}
             >
-              개인정보 관리
+              개인정보 편집
             </div>
             <div className="flex flex-col px-10 gap-5 pt-4">
               <InputBox
