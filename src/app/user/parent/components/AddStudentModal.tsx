@@ -3,7 +3,6 @@
 import { useState } from "react";
 import { COLORS, FONT_SIZE, FONT_WEIGHT, SHADOW } from "@/styles/theme/tokens";
 import SearchInput from "./SerchInput";
-import StudentCard from "./StudentCard";
 
 interface AddStudentProps {
   closeRequest: () => void;
