@@ -44,7 +44,10 @@ export default function AddStudentModal({
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center">
+    <div
+      className="fixed inset-0 z-50 flex items-center justify-center"
+      onClick={closeRequest}
+    >
       <div className="absolute inset-0 bg-black/50">
         <div
           className="relative z-10 w-[515px] h-96 rounded-[30px] mx-65 my-50"
@@ -52,6 +55,7 @@ export default function AddStudentModal({
             backgroundColor: COLORS.sub.gray1,
             boxShadow: SHADOW.interactive,
           }}
+          onClick={(e) => e.stopPropagation()}
         >
           <div className="flex flex-col items-center p-10 pt-30 gap-6">
             {!student ? (
