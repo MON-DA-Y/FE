@@ -7,21 +7,18 @@ import InputBox from "../../components/InputBox";
 interface EditModalProps {
   closeRequest: () => void;
   onSave: (data: { name: string; phone: string; email: string }) => void;
+  initialData: { name: string; phone: string; email: string };
 }
 
-export default function EditModal({ closeRequest, onSave }: EditModalProps) {
-  const [user, setUser] = useState({
-    name: "",
-    phone: "",
-    email: "",
-  });
+export default function EditModal({
+  closeRequest,
+  onSave,
+  initialData,
+}: EditModalProps) {
+  const [user, setUser] = useState(initialData);
 
   const handleSave = () => {
     onSave(user);
-  };
-
-  const handleCancel = () => {
-    closeRequest();
   };
 
   return (
@@ -46,21 +43,21 @@ export default function EditModal({ closeRequest, onSave }: EditModalProps) {
             <div className="flex flex-col px-10 gap-5 pt-4">
               <InputBox
                 type="text"
-                placeholder={user.name || "이름을 입력하세요"}
+                placeholder="이름을 입력하세요"
                 value={user.name}
                 label="이름"
                 onChange={(e) => setUser({ ...user, name: e.target.value })}
               />
               <InputBox
                 type="text"
-                placeholder="전화번호"
+                placeholder="전화번호를 입력하세요"
                 value={user.phone}
                 label="연락처"
                 onChange={(e) => setUser({ ...user, phone: e.target.value })}
               />
               <InputBox
                 type="text"
-                placeholder="이메일"
+                placeholder="이메일을 입력하세요"
                 value={user.email}
                 label="이메일"
                 onChange={(e) => setUser({ ...user, email: e.target.value })}
@@ -81,7 +78,7 @@ export default function EditModal({ closeRequest, onSave }: EditModalProps) {
                   backgroundColor: COLORS.sub.gray3,
                   boxShadow: SHADOW.interactive,
                 }}
-                onClick={handleCancel}
+                onClick={closeRequest}
               >
                 취소
               </button>

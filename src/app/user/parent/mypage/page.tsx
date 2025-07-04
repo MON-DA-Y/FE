@@ -21,10 +21,13 @@ export default function ParentMyPage() {
   const [isEditOpen, setIsEditOpen] = useState(false);
   const [students, setStudents] = useState<StudentProps[]>([]);
 
+  {
+    /*나중에 회원정보 불러오기*/
+  }
   const [user, setUser] = useState({
-    name: "이00",
-    phone: "010-2769-0890",
-    email: "monday@gmail.com",
+    name: "",
+    phone: "",
+    email: "",
   });
 
   return (
@@ -88,6 +91,7 @@ export default function ParentMyPage() {
         </div>
         {isEditOpen && (
           <EditModal
+            initialData={user}
             onSave={(updatedUser) => {
               setUser(updatedUser);
               setIsEditOpen(false);
@@ -123,7 +127,7 @@ export default function ParentMyPage() {
           ))}
           {/*자녀 추가 버튼*/}
           <div
-            className="flex items-center justify-center w-64 h-28 rounded-[10px] p-5"
+            className="flex items-center justify-center w-64 h-28 rounded-[10px] p-5 border"
             style={{
               borderColor: COLORS.sub.gray3,
               boxShadow: SHADOW.interactive,

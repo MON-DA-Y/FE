@@ -52,8 +52,8 @@ function TextInput({
         {label}
       </div>
       <input
-        className="w-72 h-11 p-5 rounded-[10px] border-[0.5px] placeholder-[#8E8E8E] placeholder:text-xl placeholder:font-semibold"
-        style={{ borderColor: COLORS.sub.gray3 }}
+        className="w-72 h-11 p-5 rounded-[10px] border-[0.5px] placeholder-[#8E8E8E]"
+        style={{ borderColor: COLORS.sub.gray3, color: COLORS.sub.gray3 }}
         type="text"
         placeholder={placeholder}
         value={value ?? ""}
