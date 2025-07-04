@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import Icon from "./components/Icon";
+import Icon from "./components/icon";
 import MessageBox from "./components/MessageBox";
 import { COLORS } from "@/styles/theme/tokens";
 

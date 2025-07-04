@@ -1,6 +1,6 @@
 import { FONT_SIZE, FONT_WEIGHT } from "@/styles/theme/tokens";
 import Image from "next/image";
-import Icon from "@/app/account/components/Icon";
+import Icon from "@/app/account/components/icon";
 import SignUpBtn from "../components/SignUpBtn";
 import SignUpForm from "../components/SignUpForm";
 

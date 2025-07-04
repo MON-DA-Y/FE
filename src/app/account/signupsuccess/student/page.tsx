@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import ReactConfetti from "react-confetti";
 import Image from "next/image";
-import Icon from "../../components/Icon";
+import Icon from "../../components/icon";
 import MessageBox from "../../components/MessageBox";
 import { COLORS } from "@/styles/theme/tokens";
 

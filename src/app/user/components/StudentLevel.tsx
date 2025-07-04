@@ -1,10 +1,11 @@
-import { FONT_SIZE, FONT_WEIGHT, SHADOW } from "@/styles/theme/tokens";
+import { COLORS, FONT_SIZE, FONT_WEIGHT, SHADOW } from "@/styles/theme/tokens";
 
 export default function StudentLevel() {
   return (
     <div
       className="flex w-20 h-6 rounded-[30px] justify-center items-center"
       style={{
+        color: COLORS.sub.black,
         boxShadow: SHADOW.interactive,
         backgroundColor: "#ECFAEF",
         fontSize: FONT_SIZE.body2,
