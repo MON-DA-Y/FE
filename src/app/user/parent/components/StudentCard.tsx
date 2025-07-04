@@ -18,7 +18,7 @@ export default function StudentCard({
 }: StudentCardProps) {
   return (
     <div
-      className="flex w-64 h-28 rounded-[10px] p-5"
+      className="flex w-64 h-28 rounded-[10px] p-5 border"
       style={{
         borderColor: COLORS.sub.gray3,
         boxShadow: SHADOW.interactive,
