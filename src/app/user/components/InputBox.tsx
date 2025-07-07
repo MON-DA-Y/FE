@@ -3,9 +3,69 @@
 import { useState } from "react";
 import { COLORS, FONT_SIZE, FONT_WEIGHT, SHADOW } from "@/styles/theme/tokens";
 
-export default function InputBox() {
-  const [text, setText] = useState("");
+interface InputBoxProps {
+  type: "text" | "textarea";
+  placeholder?: string;
+  label?: string;
+  value?: string;
+  onChange?: (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => void;
+  readOnly?: boolean;
+}
 
+export default function InputBox({
+  type,
+  placeholder,
+  label,
+  value,
+  onChange,
+  readOnly,
+}: InputBoxProps) {
+  const components = {
+    text: TextInput,
+    textarea: TextAreaInput,
+  };
+
+  const Component = components[type];
+  return Component ? (
+    <Component {...{ type, placeholder, label, value, onChange, readOnly }} />
+  ) : null;
+}
+
+function TextInput({
+  placeholder,
+  label,
+  value,
+  onChange,
+  readOnly,
+}: InputBoxProps) {
+  return (
+    <div className="flex items-center">
+      <div
+        className="w-20"
+        style={{
+          fontSize: FONT_SIZE.subtitle2,
+          fontWeight: FONT_WEIGHT.subtitle2,
+        }}
+      >
+        {label}
+      </div>
+      <input
+        className="w-72 h-11 p-5 rounded-[10px] border-[0.5px] placeholder-[#8E8E8E]"
+        style={{ borderColor: COLORS.sub.gray3, color: COLORS.sub.gray3 }}
+        type="text"
+        placeholder={placeholder}
+        value={value ?? ""}
+        onChange={onChange}
+        readOnly={readOnly}
+      />
+    </div>
+  );
+}
+
+function TextAreaInput({ onChange, value }: InputBoxProps) {
+  const [text, setText] = useState("");
   return (
     <div
       className="pt-3.5"
