@@ -4,7 +4,11 @@ import { useRef, useState } from "react";
 import { SHADOW, COLORS } from "@/styles/theme/tokens";
 import Image from "next/image";
 
-export default function ProfileImage() {
+interface ProfileImageProps {
+  onChange: (newUrl: string) => void;
+}
+
+export default function ProfileImage({ onChange }: ProfileImageProps) {
   const [profileImg, setProfileImg] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
@@ -13,6 +17,7 @@ export default function ProfileImage() {
     if (file) {
       const imageUrl = URL.createObjectURL(file);
       setProfileImg(imageUrl);
+      onChange(imageUrl);
     }
   };
 

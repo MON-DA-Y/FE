@@ -13,6 +13,7 @@ import Slider from "../components/Slider";
 import TabBar from "../components/TabBar";
 import HistoryBtn from "../components/HistoryBtn";
 import StudentEdit from "./components/StudentEdit";
+import ProfileImage from "./components/ProfileImage";
 
 export default function StudentMyPage() {
   const router = useRouter();
@@ -20,6 +21,7 @@ export default function StudentMyPage() {
     "series"
   );
   const [isEditOpen, setIsEditOpen] = useState(false);
+  const [profileImg, setProfileImg] = useState<string>("/images/student.png");
 
   const handleTabChange = (value: { selectedTab: "series" | "keyword" }) => {
     setSelectedTab(value.selectedTab);
@@ -58,7 +60,6 @@ export default function StudentMyPage() {
           </div>
         </div>
       </header>
-
       <div className="flex flex-col justify-start w-[950px]">
         <div
           className="pt-3 ml-20"
@@ -98,7 +99,15 @@ export default function StudentMyPage() {
               <StudentEdit
                 initialData={user}
                 onSave={(updatedUser) => {
-                  setUser(updatedUser);
+                  setUser({
+                    name: updatedUser.name,
+                    school: updatedUser.school,
+                    grade: updatedUser.grade,
+                    email: updatedUser.email,
+                  });
+                  if (updatedUser.profileImg) {
+                    setProfileImg(updatedUser.profileImg);
+                  }
                   setIsEditOpen(false);
                 }}
                 closeRequest={() => setIsEditOpen(false)}
@@ -187,7 +196,7 @@ export default function StudentMyPage() {
                 </div>
               </div>
               <div className="absolute flex flex-col left-195">
-                <StudentProfile width={80} height={80} />
+                <Image src={profileImg} alt="image" width={80} height={80} />
                 <div className="-mt-4 mx-2">
                   <StudentLevel />
                 </div>

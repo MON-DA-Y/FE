@@ -3,8 +3,6 @@
 import { COLORS, FONT_SIZE, FONT_WEIGHT, SHADOW } from "@/styles/theme/tokens";
 import { useState } from "react";
 import InputBox from "../../components/InputBox";
-import StudentProfile from "../../components/StudentProfile";
-import Image from "next/image";
 import ProfileImage from "./ProfileImage";
 
 interface StudentEditProps {
@@ -14,8 +12,14 @@ interface StudentEditProps {
     school: string;
     grade: string;
     email: string;
+    profileImg: string | null;
   }) => void;
-  initialData: { name: string; school: string; grade: string; email: string };
+  initialData: {
+    name: string;
+    school: string;
+    grade: string;
+    email: string;
+  };
 }
 
 export default function StudentEdit({
@@ -24,9 +28,10 @@ export default function StudentEdit({
   initialData,
 }: StudentEditProps) {
   const [user, setUser] = useState(initialData);
+  const [profileImg, setProfileImg] = useState<string | null>(null);
 
   const handleSave = () => {
-    onSave(user);
+    onSave({ ...user, profileImg: profileImg });
   };
 
   return (
@@ -80,7 +85,7 @@ export default function StudentEdit({
                   onChange={(e) => setUser({ ...user, email: e.target.value })}
                 />
               </div>
-              <ProfileImage />
+              <ProfileImage onChange={setProfileImg} />
             </div>
             <div
               className="flex gap-4 pt-4"
