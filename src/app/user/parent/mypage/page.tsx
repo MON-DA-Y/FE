@@ -25,9 +25,9 @@ export default function ParentMyPage() {
     /*나중에 회원정보 불러오기*/
   }
   const [user, setUser] = useState({
-    name: "",
-    phone: "",
-    email: "",
+    name: "이00",
+    phone: "010-0000-0000",
+    email: "monday@naver.com",
   });
 
   return (

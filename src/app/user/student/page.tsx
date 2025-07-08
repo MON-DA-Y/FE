@@ -12,16 +12,28 @@ import AttendBtn from "../components/AttendBtn";
 import Slider from "../components/Slider";
 import TabBar from "../components/TabBar";
 import HistoryBtn from "../components/HistoryBtn";
+import StudentEdit from "./components/StudentEdit";
 
 export default function StudentMyPage() {
   const router = useRouter();
   const [selectedTab, setSelectedTab] = useState<"series" | "keyword">(
     "series"
   );
+  const [isEditOpen, setIsEditOpen] = useState(false);
 
   const handleTabChange = (value: { selectedTab: "series" | "keyword" }) => {
     setSelectedTab(value.selectedTab);
   };
+
+  {
+    /*나중에 회원정보 불러오기*/
+  }
+  const [user, setUser] = useState({
+    name: "이00",
+    school: "00중학교",
+    grade: "2학년",
+    email: "monday@naver.com",
+  });
 
   return (
     <div className="relative w-full h-screen overflow-auto px-13 py-5">
@@ -73,6 +85,7 @@ export default function StudentMyPage() {
                 borderColor: COLORS.sub.gray1,
                 backgroundColor: COLORS.sub.white,
               }}
+              onClick={() => setIsEditOpen(true)}
             >
               <Image
                 src="/icons/Edit_Pencil_small.svg"
@@ -81,7 +94,17 @@ export default function StudentMyPage() {
                 height={18}
               />
             </div>
-            <div className="flex items-center gap-65">
+            {isEditOpen && (
+              <StudentEdit
+                initialData={user}
+                onSave={(updatedUser) => {
+                  setUser(updatedUser);
+                  setIsEditOpen(false);
+                }}
+                closeRequest={() => setIsEditOpen(false)}
+              />
+            )}
+            <div className="flex items-center">
               <div className="flex flex-col">
                 <div className="flex gap-3 items-center">
                   <div
@@ -99,7 +122,7 @@ export default function StudentMyPage() {
                       fontWeight: FONT_WEIGHT.subtitle1,
                     }}
                   >
-                    이00
+                    {user.name}
                   </div>
                 </div>
 
@@ -119,7 +142,7 @@ export default function StudentMyPage() {
                       fontWeight: FONT_WEIGHT.subtitle1,
                     }}
                   >
-                    00중학교
+                    {user.school}
                   </div>
                 </div>
 
@@ -139,7 +162,7 @@ export default function StudentMyPage() {
                       fontWeight: FONT_WEIGHT.subtitle1,
                     }}
                   >
-                    2학년
+                    {user.grade}
                   </div>
                 </div>
 
@@ -159,11 +182,11 @@ export default function StudentMyPage() {
                       fontWeight: FONT_WEIGHT.subtitle1,
                     }}
                   >
-                    monday@naver.com
+                    {user.email}
                   </div>
                 </div>
               </div>
-              <div className="flex flex-col">
+              <div className="absolute flex flex-col left-195">
                 <StudentProfile width={80} height={80} />
                 <div className="-mt-4 mx-2">
                   <StudentLevel />
