@@ -4,7 +4,12 @@ import { useState, useEffect } from "react";
 import { FONT_SIZE, FONT_WEIGHT, COLORS, SHADOW } from "@/styles/theme/tokens";
 import Image from "next/image";
 
-export default function AttendBtn() {
+interface AttendBtnProps {
+  days_gap: number;
+  attend_gap: number;
+}
+
+export default function AttendBtn({ days_gap, attend_gap }: AttendBtnProps) {
   const days = ["월", "화", "수", "목", "금", "토", "일"];
   const [todayIndex, setTodayIndex] = useState<number | null>(null);
 
@@ -19,7 +24,7 @@ export default function AttendBtn() {
 
   return (
     <div className="flex flex-col gap-3.5 px-2.5">
-      <div className="flex gap-15">
+      <div className={`flex gap-${days_gap}`}>
         {days.map((day, index) => (
           <div
             key={day}
@@ -34,7 +39,7 @@ export default function AttendBtn() {
         ))}
       </div>
 
-      <div className="flex gap-4 mx-[-20px]">
+      <div className={`flex gap-${attend_gap} mx-[-20px]`}>
         {attendance.map((isAttend, index) => (
           <div key={index} className="relative w-[57px] h-[60px]">
             <Image
