@@ -12,9 +12,9 @@ export default function Slider({ type }: { type: Category }) {
       className="flex flex-col gap-3.5 px-2.5"
       style={{ fontSize: FONT_SIZE.body2, fontWeight: FONT_WEIGHT.body2 }}
     >
-      <div className="flex gap-75">
-        {label}
-        <div className="absolute right-120">2/5</div>
+      <div className="flex w-96 justify-between">
+        <div>{label}</div>
+        <div className="">2/5</div>
       </div>
       <div
         className="relative w-96 h-3 rounded"

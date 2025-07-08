@@ -100,7 +100,7 @@ export default function ParentPage() {
         <ProgressBtn />
       </div>
       <div className="pt-4">
-        <AttendBtn />
+        <AttendBtn days_gap={15} attend_gap={4} />
       </div>
 
       {/*약점 분석*/}

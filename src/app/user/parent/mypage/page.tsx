@@ -51,7 +51,7 @@ export default function ParentMyPage() {
         </div>
       </div>
       <div
-        className="mx-10 pt-3"
+        className="mx-20 pt-3"
         style={{
           fontSize: FONT_SIZE.headline,
           fontWeight: FONT_WEIGHT.headline,
@@ -60,105 +60,107 @@ export default function ParentMyPage() {
         마이페이지
       </div>
 
-      <div
-        className="w-[657px] rounded-[30px] mt-5 px-10 p-3"
-        style={{ boxShadow: SHADOW.interactive }}
-      >
-        <div className="flex pt-4 items-center gap-4">
+      <div className="flex mt-5 px-10">
+        <div
+          className="w-[657px] rounded-[30px] p-3 px-10"
+          style={{ boxShadow: SHADOW.interactive }}
+        >
+          <div className="flex pt-4 items-center gap-4">
+            <div
+              style={{
+                fontSize: FONT_SIZE.subtitle1,
+                fontWeight: FONT_WEIGHT.subtitle1,
+              }}
+            >
+              개인정보 관리
+            </div>
+            <div
+              className="flex items-center justify-center w-7 h-7 border rounded-full"
+              style={{
+                boxShadow: SHADOW.interactive,
+                borderColor: COLORS.sub.gray1,
+              }}
+              onClick={() => setIsEditOpen(true)}
+            >
+              <Image
+                src="/icons/Edit_Pencil_small.svg"
+                alt="pencil"
+                width={18}
+                height={18}
+              />
+            </div>
+          </div>
+          {isEditOpen && (
+            <EditModal
+              initialData={user}
+              onSave={(updatedUser) => {
+                setUser(updatedUser);
+                setIsEditOpen(false);
+              }}
+              closeRequest={() => setIsEditOpen(false)}
+            />
+          )}
+          <div className="flex flex-col px-10 gap-5 pt-6">
+            <InputBox type="text" value={user.name} label="이름" readOnly />
+            <InputBox type="text" value={user.phone} label="연락처" readOnly />
+            <InputBox type="text" value={user.email} label="이메일" readOnly />
+          </div>
+
           <div
+            className="pt-8"
             style={{
               fontSize: FONT_SIZE.subtitle1,
               fontWeight: FONT_WEIGHT.subtitle1,
             }}
           >
-            개인정보 관리
+            자녀 관리
           </div>
-          <div
-            className="flex items-center justify-center w-7 h-7 border rounded-full"
-            style={{
-              boxShadow: SHADOW.interactive,
-              borderColor: COLORS.sub.gray1,
-            }}
-            onClick={() => setIsEditOpen(true)}
-          >
-            <Image
-              src="/icons/Edit_Pencil_small.svg"
-              alt="pencil"
-              width={18}
-              height={18}
-            />
-          </div>
-        </div>
-        {isEditOpen && (
-          <EditModal
-            initialData={user}
-            onSave={(updatedUser) => {
-              setUser(updatedUser);
-              setIsEditOpen(false);
-            }}
-            closeRequest={() => setIsEditOpen(false)}
-          />
-        )}
-        <div className="flex flex-col px-10 gap-5 pt-6">
-          <InputBox type="text" value={user.name} label="이름" readOnly />
-          <InputBox type="text" value={user.phone} label="연락처" readOnly />
-          <InputBox type="text" value={user.email} label="이메일" readOnly />
-        </div>
-
-        <div
-          className="pt-8"
-          style={{
-            fontSize: FONT_SIZE.subtitle1,
-            fontWeight: FONT_WEIGHT.subtitle1,
-          }}
-        >
-          자녀 관리
-        </div>
-        {/*자녀 리스트*/}
-        <div className="flex p-6 gap-3">
-          {students.map((s, idx) => (
-            <StudentCard
-              key={idx}
-              name={s.name || ""}
-              school={s.school || ""}
-              grade={s.grade || ""}
-              level=""
-            />
-          ))}
-          {/*자녀 추가 버튼*/}
-          <div
-            className="flex items-center justify-center w-64 h-28 rounded-[10px] p-5 border"
-            style={{
-              borderColor: COLORS.sub.gray3,
-              boxShadow: SHADOW.interactive,
-              color: COLORS.sub.gray3,
-            }}
-            onClick={() => {}}
-          >
-            <div
-              className="flex items-center justify-center w-7 h-7 rounded-full"
-              style={{
-                boxShadow: SHADOW.interactive,
-                backgroundColor: COLORS.primary.navy,
-              }}
-            >
-              <Image
-                src="/icons/Plus.svg"
-                alt="plus"
-                width={20}
-                height={20}
-                className="cursor-pointer"
-                onClick={() => setIsModalOpen(true)}
+          {/*자녀 리스트*/}
+          <div className="flex p-6 gap-3">
+            {students.map((s, idx) => (
+              <StudentCard
+                key={idx}
+                name={s.name || ""}
+                school={s.school || ""}
+                grade={s.grade || ""}
+                level=""
               />
-              {isModalOpen && (
-                <AddStudentModal
-                  closeRequest={() => setIsModalOpen(false)}
-                  onAddStudent={(newStudent) => {
-                    setStudents([...students, newStudent]);
-                    setIsModalOpen(false);
-                  }}
+            ))}
+            {/*자녀 추가 버튼*/}
+            <div
+              className="flex items-center justify-center w-64 h-28 rounded-[10px] p-5 border"
+              style={{
+                borderColor: COLORS.sub.gray3,
+                boxShadow: SHADOW.interactive,
+                color: COLORS.sub.gray3,
+              }}
+              onClick={() => {}}
+            >
+              <div
+                className="flex items-center justify-center w-7 h-7 rounded-full"
+                style={{
+                  boxShadow: SHADOW.interactive,
+                  backgroundColor: COLORS.primary.navy,
+                }}
+              >
+                <Image
+                  src="/icons/Plus.svg"
+                  alt="plus"
+                  width={20}
+                  height={20}
+                  className="cursor-pointer"
+                  onClick={() => setIsModalOpen(true)}
                 />
-              )}
+                {isModalOpen && (
+                  <AddStudentModal
+                    closeRequest={() => setIsModalOpen(false)}
+                    onAddStudent={(newStudent) => {
+                      setStudents([...students, newStudent]);
+                      setIsModalOpen(false);
+                    }}
+                  />
+                )}
+              </div>
             </div>
           </div>
         </div>
