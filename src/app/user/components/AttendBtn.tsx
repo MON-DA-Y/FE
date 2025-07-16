@@ -24,7 +24,7 @@ export default function AttendBtn({ days_gap, attend_gap }: AttendBtnProps) {
 
   return (
     <div className="flex flex-col gap-3.5 px-2.5">
-      <div className={`flex gap-${days_gap}`}>
+      <div className="flex" style={{ gap: `${days_gap}px` }}>
         {days.map((day, index) => (
           <div
             key={day}

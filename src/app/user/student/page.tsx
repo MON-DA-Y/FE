@@ -230,7 +230,7 @@ export default function StudentMyPage() {
                   </div>
                   <ProgressBtn />
                 </div>
-                <AttendBtn days_gap={20} attend_gap={9} />
+                <AttendBtn days_gap={80} attend_gap={9} />
               </div>
             </div>
           </div>
@@ -295,9 +295,9 @@ export default function StudentMyPage() {
 
             {/*히스토리 버튼*/}
             <div className="flex flex-col gap-5 mx-[-125px]">
-              <HistoryBtn type="wordHistory" />
-              <HistoryBtn type="newsHistory" />
-              <HistoryBtn type="seriesHistory" />
+              <HistoryBtn type="word" />
+              <HistoryBtn type="news" />
+              <HistoryBtn type="series" />
             </div>
           </div>
         </div>
