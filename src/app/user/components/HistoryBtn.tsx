@@ -15,7 +15,7 @@ export default function HistoryBtn({ type }: HistoryBtnProps) {
   const router = useRouter();
 
   const handleClick = () => {
-    router.push(`/src/app/user/student/${type}`);
+    router.push(`/user/student/${type}`);
   };
 
   return (

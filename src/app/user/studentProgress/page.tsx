@@ -17,7 +17,7 @@ export default function StudentMyPage() {
         alt="home"
         width={40}
         height={40}
-        onClick={() => router.push("../page.tsx")}
+        onClick={() => router.push("/user/student")}
         className="cursor-pointer"
       />
       <div className="flex flex-col items-stretch justify-between w-[950px] pt-10 px-12">

@@ -38,12 +38,13 @@ export default function StudentMyPage() {
   return (
     <div className="relative w-full h-screen overflow-auto px-13 py-5">
       <header className="flex justify-between">
+        //학생 메인 페이지로 이동하도록 router 수정
         <Image
           src="/icons/Home.svg"
           alt="home"
           width={40}
           height={40}
-          onClick={() => router.push("../page.tsx")}
+          onClick={() => router.push("/")}
           className="cursor-pointer"
         />
         <div className="flex flex-col -space-y-2">
