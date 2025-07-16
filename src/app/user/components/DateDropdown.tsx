@@ -79,7 +79,7 @@ export default function DateDropdown({ type }: DateDropdownProps) {
         width={24}
         height={24}
         onClick={() => setIsOpen(!isOpen)}
-        className="absolute right-[10.5px]"
+        className="absolute right-[10.5px] cursor-pointer"
       />
       {isOpen && (
         <div

@@ -13,7 +13,7 @@ export default function MonthOptions({ onSelect }: MonthOptionsProps) {
       {months.map((month) => (
         <li
           key={month}
-          className="flex items-center justify-center w-36 h-11 bg-white rounded-lg"
+          className="flex items-center justify-center w-36 h-11 bg-white rounded-lg cursor-pointer"
           style={{
             fontSize: FONT_SIZE.subtitle2,
             fontWeight: FONT_WEIGHT.subtitle2,
