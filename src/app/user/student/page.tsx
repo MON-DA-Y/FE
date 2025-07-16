@@ -4,7 +4,6 @@ import { FONT_SIZE, FONT_WEIGHT, SHADOW, COLORS } from "@/styles/theme/tokens";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import StudentProfile from "../components/StudentProfile";
 import StudentLevel from "../components/StudentLevel";
 import DateDropdown from "../components/DateDropdown";
 import ProgressBtn from "../components/ProgressBtn";
@@ -13,7 +12,6 @@ import Slider from "../components/Slider";
 import TabBar from "../components/TabBar";
 import HistoryBtn from "../components/HistoryBtn";
 import StudentEdit from "./components/StudentEdit";
-import ProfileImage from "./components/ProfileImage";
 
 export default function StudentMyPage() {
   const router = useRouter();
