@@ -3,7 +3,7 @@
 import { FONT_SIZE, FONT_WEIGHT, SHADOW, COLORS } from "@/styles/theme/tokens";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import DateDropdown from "../components/DateDropdown";
+import Dropdown from "../components/Dropdown";
 import ProgressSlider from "./components/ProgressSlider";
 import ProgressItem from "./components/ProgressItem";
 
@@ -30,9 +30,9 @@ export default function StudentMyPage() {
         >
           진도 현황
           <div className="flex gap-4.5">
-            <DateDropdown type="year" />
-            <DateDropdown type="month" />
-            <DateDropdown type="week" />
+            <Dropdown type="year" />
+            <Dropdown type="month" />
+            <Dropdown type="week" />
           </div>
         </div>
         {/*Slider*/}

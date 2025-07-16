@@ -7,7 +7,7 @@ import StudentLevel from "@/app/user/components/StudentLevel";
 import { COLORS, FONT_SIZE, FONT_WEIGHT } from "@/styles/theme/tokens";
 import Image from "next/image";
 import StudentSchool from "../components/StudentSchool";
-import DateDropdown from "../../components/DateDropdown";
+import Dropdown from "../../components/Dropdown";
 import ProgressBtn from "../../components/ProgressBtn";
 import AttendBtn from "../../components/AttendBtn";
 import TabBar from "../../components/TabBar";
@@ -82,9 +82,9 @@ export default function ParentPage() {
 
       {/*날짜 드롭다운*/}
       <div className="flex pt-10 gap-4.5">
-        <DateDropdown type="year" />
-        <DateDropdown type="month" />
-        <DateDropdown type="week" />
+        <Dropdown type="year" />
+        <Dropdown type="month" />
+        <Dropdown type="week" />
       </div>
 
       {/*출석 현황*/}

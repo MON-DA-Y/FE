@@ -5,7 +5,7 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import StudentLevel from "../components/StudentLevel";
-import DateDropdown from "../components/DateDropdown";
+import Dropdown from "../components/Dropdown";
 import ProgressBtn from "../components/ProgressBtn";
 import AttendBtn from "../components/AttendBtn";
 import Slider from "../components/Slider";
@@ -36,9 +36,9 @@ export default function StudentMyPage() {
   });
 
   return (
+    //학생 메인 페이지로 이동하도록 router 수정
     <div className="relative w-full h-screen overflow-auto px-13 py-5">
       <header className="flex justify-between">
-        //학생 메인 페이지로 이동하도록 router 수정
         <Image
           src="/icons/Home.svg"
           alt="home"
@@ -205,9 +205,9 @@ export default function StudentMyPage() {
 
           {/*날짜 드롭다운*/}
           <div className="flex pt-9 gap-4.5 pl-100">
-            <DateDropdown type="year" />
-            <DateDropdown type="month" />
-            <DateDropdown type="week" />
+            <Dropdown type="year" />
+            <Dropdown type="month" />
+            <Dropdown type="week" />
           </div>
 
           {/*출석 현황*/}
