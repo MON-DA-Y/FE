@@ -32,13 +32,21 @@ export const metadata: Metadata = {
 export const viewport = {
   width: "device-width",
   initialScale: 1,
+  maximunScale: 1,
+  userScalable: false,
 };
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   return (
     <html lang="ko">
       <head />
-      <body>{children}</body>
+      <body className="flex justify-center bg-white">
+        <div className="w-[1133px] h-[744px] overflow-x-hidden">{children}</div>
+      </body>
     </html>
   );
 }
