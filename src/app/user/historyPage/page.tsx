@@ -35,9 +35,9 @@ export default function HistoryPage() {
   }
 
   return (
-    <div className="relative w-full h-screen overflow-auto px-13 py-7">
+    <div className="relative w-full h-screen overflow-auto overflow-x-hidden px-13 py-7">
       <HomeBtn />
-      <div className="flex flex-col items-stretch w-[950px] pt-10 px-12">
+      <div className="flex flex-col items-stretch w-[900px] pt-10 px-12">
         <div
           className="flex"
           style={{
@@ -54,7 +54,7 @@ export default function HistoryPage() {
           <Dropdown type="result" />
         </div>
       </div>
-      <main>
+      <main className="p-12">
         <ContentComponent />
       </main>
     </div>
