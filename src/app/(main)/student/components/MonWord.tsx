@@ -4,7 +4,7 @@ import { COLORS } from "@/styles/theme/tokens";
 import Image from "next/image";
 import WordBox from "@components/ui/WordBox";
 
-export default function MonNews() {
+export default function MonWord() {
   const monWords = ["디플레이션", "시장", "코인", "인플레이션"];
 
   return (
