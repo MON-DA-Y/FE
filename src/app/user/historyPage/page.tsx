@@ -10,7 +10,7 @@ import { COLORS, FONT_SIZE, FONT_WEIGHT } from "@/styles/theme/tokens";
 
 export default function HistoryPage() {
   const searchParams = useSearchParams();
-  const type = searchParams.get("type") || "series";
+  const type = searchParams.get("type") || "news";
 
   const label =
     {

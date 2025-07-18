@@ -1,4 +1,3 @@
-import { COLORS, FONT_SIZE, FONT_WEIGHT, SHADOW } from "@/styles/theme/tokens";
 import HistoryCard from "./HistoryCard";
 
 export default function SeriesHistory() {
@@ -8,21 +7,25 @@ export default function SeriesHistory() {
         type="MONEY"
         status="ongoing"
         title="트럼프, 그가 하고 있는 일"
+        isSeries={true}
       />
       <HistoryCard
         type="MONEY"
         status="ongoing"
         title="트럼프, 그가 하고 있는 일"
+        isSeries={true}
       />
       <HistoryCard
         type="MONEY"
         status="ongoing"
         title="트럼프, 그가 하고 있는 일"
+        isSeries={true}
       />
       <HistoryCard
         type="MONEY"
         status="ongoing"
         title="트럼프, 그가 하고 있는 일"
+        isSeries={true}
       />
     </div>
   );

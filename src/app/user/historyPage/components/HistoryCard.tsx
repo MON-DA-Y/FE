@@ -10,6 +10,7 @@ interface HistoryCardProps {
   status: "ongoing" | "done";
   imgUrl?: string;
   title: string;
+  isSeries: boolean;
 }
 
 export default function HistoryCard({
@@ -17,6 +18,7 @@ export default function HistoryCard({
   status,
   imgUrl,
   title,
+  isSeries,
 }: HistoryCardProps) {
   const defaultImg = "/images/logo.svg";
 
@@ -30,22 +32,31 @@ export default function HistoryCard({
     >
       <div className="absolute flex -top-3.5 left-6 gap-4">
         <CategoryBtn type={type} />
-        <HistoryStatusBtn status={status} />
+        {isSeries && <HistoryStatusBtn status={status} />}
       </div>
       <div className="flex items-center justify-center w-44 h-44 rounded-[10px] border border-gray-300">
         <Image src={imgUrl ?? defaultImg} width={59} height={40} alt={title} />
       </div>
       <div
-        className="pt-4 truncate"
+        className="relative group pt-4"
         style={{
           fontSize: FONT_SIZE.subtitle2,
           fontWeight: FONT_WEIGHT.subtitle2,
           color: COLORS.primary.navy,
         }}
       >
-        {title}
+        <div className="truncate">{title}</div>
+        <div
+          className="absolute flex items-center justify-center w-fit h-5 opacity-0 group-hover:opacity-100 bottom-full inset-0 left-0 z-50 rounded-[5px] px-1.5 whitespace-nowrap"
+          style={{
+            backgroundColor: COLORS.sub.gray1,
+            fontSize: FONT_SIZE.caption2,
+            fontWeight: FONT_WEIGHT.caption2,
+          }}
+        >
+          {title}
+        </div>
       </div>
-      <div></div>
     </div>
   );
 }
