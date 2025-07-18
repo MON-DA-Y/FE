@@ -5,7 +5,7 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import StudentLevel from "../components/StudentLevel";
-import DateDropdown from "../components/DateDropdown";
+import Dropdown from "../components/Dropdown";
 import ProgressBtn from "../components/ProgressBtn";
 import AttendBtn from "../components/AttendBtn";
 import Slider from "../components/Slider";
@@ -36,6 +36,7 @@ export default function StudentMyPage() {
   });
 
   return (
+    //학생 메인 페이지로 이동하도록 router 수정
     <div className="relative w-full h-screen overflow-auto px-13 py-5">
       <header className="flex justify-between">
         <Image
@@ -43,7 +44,7 @@ export default function StudentMyPage() {
           alt="home"
           width={40}
           height={40}
-          onClick={() => router.push("../page.tsx")}
+          onClick={() => router.push("/")}
           className="cursor-pointer"
         />
         <div className="flex flex-col -space-y-2">
@@ -58,7 +59,7 @@ export default function StudentMyPage() {
           </div>
         </div>
       </header>
-      <div className="flex flex-col justify-start w-[950px]">
+      <div className="flex flex-col justify-start w-[900px]">
         <div
           className="pt-3 ml-20"
           style={{
@@ -204,9 +205,9 @@ export default function StudentMyPage() {
 
           {/*날짜 드롭다운*/}
           <div className="flex pt-9 gap-4.5 pl-100">
-            <DateDropdown type="year" />
-            <DateDropdown type="month" />
-            <DateDropdown type="week" />
+            <Dropdown type="year" />
+            <Dropdown type="month" />
+            <Dropdown type="week" />
           </div>
 
           {/*출석 현황*/}
@@ -220,7 +221,7 @@ export default function StudentMyPage() {
               <div className="flex flex-col items-center gap-7">
                 <div className="flex justify-between gap-95">
                   <div
-                    className="text-[25px]"
+                    className="text-[25px] whitespace-nowrap"
                     style={{
                       fontWeight: FONT_WEIGHT.subtitle1,
                     }}
@@ -229,11 +230,11 @@ export default function StudentMyPage() {
                   </div>
                   <ProgressBtn />
                 </div>
-                <AttendBtn days_gap={20} attend_gap={9} />
+                <AttendBtn days_gap={80} attend_gap={9} />
               </div>
             </div>
           </div>
-          <div className="flex items-center pt-13">
+          <div className="flex items-center pt-13 -ml-2">
             {/*약점 분석*/}
             <div className="flex flex-col">
               <div
@@ -244,7 +245,7 @@ export default function StudentMyPage() {
               >
                 나의 약점 분석
               </div>
-              <div className="flex items-center gap-15">
+              <div className="flex items-center gap-13">
                 <div
                   style={{
                     fontSize: FONT_SIZE.body2,
@@ -254,7 +255,7 @@ export default function StudentMyPage() {
                   2025 4월 첫째주
                 </div>
                 <div
-                  className="flex items-center gap-1"
+                  className="flex items-center"
                   style={{
                     fontSize: FONT_SIZE.body1,
                     fontWeight: FONT_WEIGHT.body1,
@@ -270,17 +271,17 @@ export default function StudentMyPage() {
                   저번 주보다 4% 성장했어요
                 </div>
               </div>
-              <div className="pt-3.5 px-48">
+              <div className="pt-3.5 px-45">
                 <TabBar onChange={handleTabChange} selectedTab={selectedTab} />
               </div>
-              <div className="flex flex-col pt-5 gap-6">
+              <div className="flex flex-col pt-5 gap-6 -ml-4">
                 <Slider type="RULES" />
                 <Slider type="TECH" />
                 <Slider type="BIGPICTURE" />
                 <Slider type="MONEY" />
               </div>
               <div
-                className="pt-6 max-w-[44ch] "
+                className="pt-6 max-w-[44ch] -ml-2"
                 style={{
                   fontSize: FONT_SIZE.body2,
                   fontWeight: FONT_WEIGHT.body2,
@@ -294,9 +295,9 @@ export default function StudentMyPage() {
 
             {/*히스토리 버튼*/}
             <div className="flex flex-col gap-5 mx-[-125px]">
-              <HistoryBtn type="wordHistory" />
-              <HistoryBtn type="newsHistory" />
-              <HistoryBtn type="seriesHistory" />
+              <HistoryBtn type="word" />
+              <HistoryBtn type="news" />
+              <HistoryBtn type="series" />
             </div>
           </div>
         </div>

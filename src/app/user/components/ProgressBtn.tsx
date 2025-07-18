@@ -8,7 +8,7 @@ export default function ProgressBtn() {
   const router = useRouter();
 
   const handleClick = () => {
-    router.push("../studentProgress");
+    router.push("/user/studentProgress");
   };
 
   return (

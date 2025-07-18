@@ -3,7 +3,7 @@
 import { FONT_SIZE, FONT_WEIGHT, SHADOW, COLORS } from "@/styles/theme/tokens";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import DateDropdown from "../components/DateDropdown";
+import Dropdown from "../components/Dropdown";
 import ProgressSlider from "./components/ProgressSlider";
 import ProgressItem from "./components/ProgressItem";
 
@@ -17,10 +17,10 @@ export default function StudentMyPage() {
         alt="home"
         width={40}
         height={40}
-        onClick={() => router.push("../page.tsx")}
+        onClick={() => router.push("/user/student")}
         className="cursor-pointer"
       />
-      <div className="flex flex-col items-stretch justify-between w-[950px] pt-10 px-12">
+      <div className="flex flex-col items-stretch justify-between w-[900px] pt-10 px-12">
         <div
           className="flex justify-between"
           style={{
@@ -30,9 +30,9 @@ export default function StudentMyPage() {
         >
           진도 현황
           <div className="flex gap-4.5">
-            <DateDropdown type="year" />
-            <DateDropdown type="month" />
-            <DateDropdown type="week" />
+            <Dropdown type="year" />
+            <Dropdown type="month" />
+            <Dropdown type="week" />
           </div>
         </div>
         {/*Slider*/}
@@ -40,9 +40,9 @@ export default function StudentMyPage() {
           <ProgressSlider />
         </div>
         {/*진도 현황*/}
-        <div className="flex items-center pt-10">
+        <div className="flex items-center pt-13">
           <div
-            className="flex pl-19 gap-83"
+            className="flex pl-19 gap-80"
             style={{
               fontSize: FONT_SIZE.subtitle1,
               fontWeight: FONT_WEIGHT.subtitle1,
