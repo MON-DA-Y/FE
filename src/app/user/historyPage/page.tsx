@@ -10,7 +10,7 @@ import { COLORS, FONT_SIZE, FONT_WEIGHT } from "@/styles/theme/tokens";
 
 export default function HistoryPage() {
   const searchParams = useSearchParams();
-  const type = searchParams.get("type") || "word";
+  const type = searchParams.get("type") || "series";
 
   const label =
     {
@@ -51,7 +51,11 @@ export default function HistoryPage() {
         <div className="flex justify-end -mt-3 gap-4.5">
           <Dropdown type="day" />
           <Dropdown type="category" />
-          <Dropdown type="result" />
+          {type === "series" ? (
+            <Dropdown type="status" />
+          ) : (
+            <Dropdown type="result" />
+          )}
         </div>
       </div>
       <main className="p-12">

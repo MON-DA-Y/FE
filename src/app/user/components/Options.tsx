@@ -1,7 +1,7 @@
 import { FONT_SIZE, FONT_WEIGHT, COLORS } from "@/styles/theme/tokens";
 
 interface OptionsProps {
-  type: "year" | "month" | "week" | "day" | "category" | "result";
+  type: "year" | "month" | "week" | "day" | "category" | "result" | "status";
   onSelect: (value: string | number) => void;
   selected: string | number | null;
 }
@@ -15,9 +15,10 @@ export default function Options({ type, onSelect }: OptionsProps) {
       case "month":
         return Array.from({ length: 12 }, (_, i) => `${i + 1}월`);
       case "week":
-        return ["첫째주", "둘째주", "셋째주", "넷째주", "다섯째주"];
+        return ["전체", "첫째주", "둘째주", "셋째주", "넷째주", "다섯째주"];
       case "day":
         return [
+          "전체",
           "월요일",
           "화요일",
           "수요일",
@@ -28,7 +29,7 @@ export default function Options({ type, onSelect }: OptionsProps) {
         ];
       case "category":
         return [
-          "카테고리",
+          "전체",
           "정책/규제",
           "거시경제",
           "특집이슈",
@@ -37,6 +38,8 @@ export default function Options({ type, onSelect }: OptionsProps) {
         ];
       case "result":
         return ["전체", "오답", "정답"];
+      case "status":
+        return ["전체", "학습중", "완료"];
       default:
         return [];
     }
@@ -48,7 +51,7 @@ export default function Options({ type, onSelect }: OptionsProps) {
       {options.map((option, index) => (
         <li
           key={index}
-          className="flex items-center justify-center w-36 h-11 bg-white rounded-lg cursor-pointer"
+          className="flex items-center justify-center w-full px-7 h-11 bg-white rounded-lg cursor-pointer whitespace-nowrap"
           style={{
             fontSize: FONT_SIZE.subtitle2,
             fontWeight: FONT_WEIGHT.subtitle2,
