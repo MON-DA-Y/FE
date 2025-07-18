@@ -29,7 +29,13 @@ export default function HistoryStatusBtn({ status }: HistoryStatusProps) {
             height={40}
             alt="status"
           />
-          <span className="absolute top-0 left-3.5">3/11</span>
+          <span
+            className="absolute top-[1.5px] left-[17px]"
+            style={{ fontSize: FONT_SIZE.body2, fontWeight: FONT_WEIGHT.body2 }}
+          >
+            {/*이후에 비율 data 받아와서 수정*/}
+            3/11
+          </span>
         </div>
       </div>
     </div>

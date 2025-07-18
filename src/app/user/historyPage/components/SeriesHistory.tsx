@@ -7,25 +7,21 @@ export default function SeriesHistory() {
         type="MONEY"
         status="ongoing"
         title="트럼프, 그가 하고 있는 일"
-        isSeries={true}
       />
       <HistoryCard
-        type="MONEY"
+        type="ISSUES"
         status="ongoing"
         title="트럼프, 그가 하고 있는 일"
-        isSeries={true}
       />
       <HistoryCard
-        type="MONEY"
-        status="ongoing"
+        type="TECH"
+        status="done"
         title="트럼프, 그가 하고 있는 일"
-        isSeries={true}
       />
       <HistoryCard
-        type="MONEY"
-        status="ongoing"
+        type="RULES"
+        status="done"
         title="트럼프, 그가 하고 있는 일"
-        isSeries={true}
       />
     </div>
   );

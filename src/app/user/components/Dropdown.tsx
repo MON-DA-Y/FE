@@ -48,16 +48,16 @@ export default function Dropdown({ type }: DropdownProps) {
   return (
     <div
       ref={dropdownRef}
-      className="relative flex justify-start items-center pl-7 pr-10 h-11 bg-white rounded-lg"
+      className="relative flex justify-start items-center pl-5 pr-10 h-11 bg-white rounded-lg"
       style={{
         boxShadow: SHADOW.interactive,
-        minWidth: "110px",
+        minWidth: "90px",
       }}
     >
       <span
         style={{
-          fontSize: FONT_SIZE.subtitle2,
-          fontWeight: FONT_WEIGHT.subtitle2,
+          fontSize: FONT_SIZE.body1,
+          fontWeight: FONT_WEIGHT.body1,
           color: COLORS.sub.gray3,
         }}
       >

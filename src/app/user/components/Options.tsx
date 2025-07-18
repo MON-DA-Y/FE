@@ -51,10 +51,10 @@ export default function Options({ type, onSelect }: OptionsProps) {
       {options.map((option, index) => (
         <li
           key={index}
-          className="flex items-center justify-center w-full px-7 h-11 bg-white rounded-lg cursor-pointer whitespace-nowrap"
+          className="flex items-center justify-center w-full min-w-[90px] px-6 h-11 bg-white rounded-lg cursor-pointer whitespace-nowrap"
           style={{
-            fontSize: FONT_SIZE.subtitle2,
-            fontWeight: FONT_WEIGHT.subtitle2,
+            fontSize: FONT_SIZE.body2,
+            fontWeight: FONT_WEIGHT.body2,
             color: COLORS.sub.gray3,
           }}
           onClick={() => onSelect(option)}

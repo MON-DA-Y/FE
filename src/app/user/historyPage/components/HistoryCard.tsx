@@ -7,10 +7,9 @@ import Image from "next/image";
 interface HistoryCardProps {
   //뉴스 api 연결 시 정보들
   type: Category;
-  status: "ongoing" | "done";
+  status?: "ongoing" | "done";
   imgUrl?: string;
   title: string;
-  isSeries: boolean;
 }
 
 export default function HistoryCard({
@@ -18,7 +17,6 @@ export default function HistoryCard({
   status,
   imgUrl,
   title,
-  isSeries,
 }: HistoryCardProps) {
   const defaultImg = "/images/logo.svg";
 
@@ -32,7 +30,7 @@ export default function HistoryCard({
     >
       <div className="absolute flex -top-3.5 left-6 gap-4">
         <CategoryBtn type={type} />
-        {isSeries && <HistoryStatusBtn status={status} />}
+        {status && <HistoryStatusBtn status={status} />}
       </div>
       <div className="flex items-center justify-center w-44 h-44 rounded-[10px] border border-gray-300">
         <Image src={imgUrl ?? defaultImg} width={59} height={40} alt={title} />
