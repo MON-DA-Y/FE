@@ -22,16 +22,16 @@ export default function HistoryPage() {
   let ContentComponent;
   switch (type) {
     case "word":
-      ContentComponent = WordHistory;
+      ContentComponent = <WordHistory />;
       break;
     case "news":
-      ContentComponent = NewsHistory;
+      ContentComponent = <NewsHistory />;
       break;
     case "series":
-      ContentComponent = SeriesHistory;
+      ContentComponent = <SeriesHistory />;
       break;
     default:
-      ContentComponent = () => <div>잘못된 타입입니다.</div>;
+      ContentComponent = <div>잘못된 타입입니다.</div>;
   }
 
   return (
@@ -58,9 +58,7 @@ export default function HistoryPage() {
           )}
         </div>
       </div>
-      <main className="p-12">
-        <ContentComponent />
-      </main>
+      <main className="p-12">{ContentComponent}</main>
     </div>
   );
 }
