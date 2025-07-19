@@ -4,9 +4,11 @@ import { useState, useEffect, ReactNode } from "react";
 import { COLORS, FONT_SIZE, FONT_WEIGHT } from "@/styles/theme/tokens";
 import Image from "next/image";
 import styled from "styled-components";
+import { useRouter } from "next/navigation";
 
 export default function MonNews() {
   const [monNews, setMonNew] = useState<ReactNode>(null);
+  const router = useRouter();
 
   useEffect(() => {
     setMonNew(
@@ -18,8 +20,9 @@ export default function MonNews() {
   }, []);
   return (
     <div
-      className="w-95 p-6 rounded-[30px] shadow-[0px_0px_10px_0px_rgba(0,0,0,0.25)] flex flex-col justify-start gap-2.5"
+      className="w-95 p-6 rounded-[30px] shadow-[0px_0px_10px_0px_rgba(0,0,0,0.25)] flex flex-col justify-start gap-2.5 cursor-pointer"
       style={{ background: COLORS.primary.navy }}
+      onClick={() => router.push("/MonNews")}
     >
       <Image
         src="/icons/MonNews_white.svg"

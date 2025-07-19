@@ -1,8 +1,8 @@
 "use client";
 
-import { useState } from "react";
 import { COLORS, FONT_SIZE, FONT_WEIGHT } from "@/styles/theme/tokens";
 import WordBox from "@/components/ui/WordBox";
+import { useRouter } from "next/navigation";
 
 interface SeriesCardProps {
   onClick: () => void;
@@ -14,9 +14,14 @@ export default function SeriesCard({
   category,
   children,
 }: SeriesCardProps) {
+  const router = useRouter();
+
   return (
     <>
-      <div className="mt-4 relative">
+      <div
+        className="mt-4 relative cursor-pointer"
+        onClick={() => router.push("/MonSeries")}
+      >
         <div className="left-6 top-[-10] absolute">
           <WordBox
             p={"3px 10px"}

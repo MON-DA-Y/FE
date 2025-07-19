@@ -3,9 +3,11 @@
 import { COLORS } from "@/styles/theme/tokens";
 import Image from "next/image";
 import WordBox from "@components/ui/WordBox";
+import { useRouter } from "next/navigation";
 
 export default function MonWord() {
   const monWords = ["디플레이션", "시장", "코인", "인플레이션"];
+  const router = useRouter();
 
   return (
     <>
@@ -29,15 +31,20 @@ export default function MonWord() {
             }}
           >
             {monWords.map((word, index) => (
-              <WordBox
-                key={index}
-                p={"10px 20px"}
-                bg={"white"}
-                textColor={`${COLORS.primary.navy}`}
-                font={"body1"}
+              <div
+                className="cursor-pointer"
+                onClick={() => router.push("/MonWord")}
               >
-                {word}
-              </WordBox>
+                <WordBox
+                  key={index}
+                  p={"10px 20px"}
+                  bg={"white"}
+                  textColor={`${COLORS.primary.navy}`}
+                  font={"body1"}
+                >
+                  {word}
+                </WordBox>
+              </div>
             ))}
           </div>
         </div>
