@@ -1,5 +1,6 @@
 import { redirect } from "next/navigation";
 
 export default async function ParentRoot() {
-  redirect("./[studentId]/page.tsx");
+  const dummyStudentId = "1234";
+  redirect(`/user/parent/${dummyStudentId}`);
 }

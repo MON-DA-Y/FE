@@ -31,6 +31,7 @@ export default function StatusBtn({ label, status }: StatusBtnProps) {
   })();
 
   return (
+    //단어/뉴스/퀴즈 페이지로 이동하도록 router 수정
     <div
       className="w-30 h-9 px-7 py-1.5 rounded-[19px] flex items-center justify-center whitespace-nowrap cursor-pointer"
       style={{

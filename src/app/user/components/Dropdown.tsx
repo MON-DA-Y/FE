@@ -3,15 +3,13 @@
 import { COLORS, FONT_SIZE, FONT_WEIGHT, SHADOW } from "@/styles/theme/tokens";
 import Image from "next/image";
 import { useState, useRef, useEffect } from "react";
-import YearOptions from "./YearOptions";
-import MonthOptions from "./MonthOptions";
-import WeekOptions from "./WeekOptions";
+import Options from "./Options";
 
-interface DateDropdownProps {
-  type: "year" | "month" | "week";
+interface DropdownProps {
+  type: "year" | "month" | "week" | "day" | "category" | "result" | "status";
 }
 
-export default function DateDropdown({ type }: DateDropdownProps) {
+export default function Dropdown({ type }: DropdownProps) {
   const dropdownRef = useRef<HTMLDivElement>(null);
   const [isOpen, setIsOpen] = useState(false);
   const [selected, setSelected] = useState<string | number | null>(null);
@@ -37,37 +35,29 @@ export default function DateDropdown({ type }: DateDropdownProps) {
     setIsOpen(false);
   };
 
-  const renderOptions = () => {
-    switch (type) {
-      case "year":
-        return <YearOptions onSelect={handleSelect} selected={selected} />;
-      case "month":
-        return <MonthOptions onSelect={handleSelect} selected={selected} />;
-      case "week":
-        return <WeekOptions onSelect={handleSelect} selected={selected} />;
-      default:
-        return null;
-    }
-  };
-
   const defaultPlaceholder = {
     year: new Date().getFullYear() + "년",
     month: new Date().getMonth() + 1 + "월",
     week: "첫째주",
+    day: "요일",
+    category: "카테고리",
+    result: "전체",
+    status: "전체",
   }[type];
 
   return (
     <div
       ref={dropdownRef}
-      className="relative flex justify-start items-center pl-7 w-36 h-11 bg-white rounded-lg"
+      className="relative flex justify-start items-center pl-5 pr-10 h-11 bg-white rounded-lg"
       style={{
         boxShadow: SHADOW.interactive,
+        minWidth: "90px",
       }}
     >
       <span
         style={{
-          fontSize: FONT_SIZE.subtitle2,
-          fontWeight: FONT_WEIGHT.subtitle2,
+          fontSize: FONT_SIZE.body1,
+          fontWeight: FONT_WEIGHT.body1,
           color: COLORS.sub.gray3,
         }}
       >
@@ -90,7 +80,7 @@ export default function DateDropdown({ type }: DateDropdownProps) {
             overflowY: "auto",
           }}
         >
-          {renderOptions()}
+          <Options type={type} onSelect={handleSelect} selected={selected} />
         </div>
       )}
     </div>

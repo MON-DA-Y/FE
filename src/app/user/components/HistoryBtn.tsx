@@ -1,21 +1,21 @@
-import { FONT_SIZE, FONT_WEIGHT, COLORS, SHADOW } from "@/styles/theme/tokens";
+import { COLORS, SHADOW } from "@/styles/theme/tokens";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 
 interface HistoryBtnProps {
-  type: "wordHistory" | "newsHistory" | "seriesHistory";
+  type: "word" | "news" | "series";
 }
 
 export default function HistoryBtn({ type }: HistoryBtnProps) {
   const label = (type: string) => {
-    if (type === "wordHistory") return "단어";
-    if (type === "newsHistory") return "뉴스";
-    if (type === "seriesHistory") return "시리즈";
+    if (type === "word") return "단어";
+    if (type === "news") return "뉴스";
+    if (type === "series") return "시리즈";
   };
   const router = useRouter();
 
   const handleClick = () => {
-    router.push(`/src/app/user/student/${type}`);
+    router.push(`/user/historyPage?type=${type}`);
   };
 
   return (

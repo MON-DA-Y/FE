@@ -38,7 +38,7 @@ export default function ParentMyPage() {
           alt="home"
           width={40}
           height={40}
-          onClick={() => router.push("../page.tsx")}
+          onClick={() => router.push("/user/parent")}
           className="cursor-pointer"
         />
         <div className="flex flex-col -space-y-2">
