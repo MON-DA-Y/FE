@@ -25,7 +25,7 @@ export default function MonNews() {
       onClick={() => router.push("/MonNews")}
     >
       <Image
-        src="/icons/MonNews_white.svg"
+        src="/icons/MonNews.svg"
         alt="MonNews"
         width={181}
         height={61}
