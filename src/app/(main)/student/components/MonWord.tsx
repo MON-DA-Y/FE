@@ -30,6 +30,7 @@ export default function MonWord() {
           >
             {monWords.map((word, index) => (
               <WordBox
+                key={index}
                 p={"10px 20px"}
                 bg={"white"}
                 textColor={`${COLORS.primary.navy}`}
