@@ -20,7 +20,7 @@ export default function CommonBtn({
     <>
       {type === "understand" && (
         <div
-          className="px-2.5 py-1.5 rounded-[30px] shadow-[0px_0px_10px_0px_rgba(0,0,0,0.25)] inline-flex justify-center items-center text-center text-white whitespace-nowrap cursor-pointer"
+          className="px-2.5 py-1.5 rounded-[30px] text-center text-white whitespace-nowrap cursor-pointer"
           style={{ background: COLORS.primary.mint }}
           onClick={() => onClick}
         >
@@ -60,7 +60,7 @@ export default function CommonBtn({
       )}
       {type === "series" && (
         <div
-          className="px-2.5 py-1.5 rounded-[30px] shadow-[0px_0px_10px_0px_rgba(0,0,0,0.25)] inline-flex justify-center items-center cursor-pointer"
+          className="px-2.5 py-1.5 rounded-[30px] inline-flex justify-center items-center cursor-pointer"
           style={{ background: COLORS.primary.navy }}
           onClick={() => onClick}
         >
