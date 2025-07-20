@@ -1,4 +1,4 @@
-"use Client";
+"use client";
 
 import { useState, useEffect } from "react";
 import { COLORS, FONT_SIZE, FONT_WEIGHT } from "@/styles/theme/tokens";
