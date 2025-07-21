@@ -4,7 +4,7 @@ import { COLORS, FONT_SIZE, FONT_WEIGHT } from "@/styles/theme/tokens";
 import Image from "next/image";
 
 interface CommonBtnProps {
-  type: "understand" | "finish" | "series"; // 패딩
+  type: "understand" | "finish" | "series" | "quiz_submit" | "monday_complete"; // 패딩
   subText?: string;
   seriesName?: string;
   onClick: () => void;
@@ -18,6 +18,7 @@ export default function CommonBtn({
 }: CommonBtnProps) {
   return (
     <>
+      {/* 이해했어요 버튼 */}
       {type === "understand" && (
         <div
           className="px-2.5 py-1.5 rounded-[30px] text-center text-white whitespace-nowrap cursor-pointer"
@@ -34,6 +35,7 @@ export default function CommonBtn({
           </div>
         </div>
       )}
+      {/* 학습 완료 버튼 */}
       {type === "finish" && (
         <div className="relative flex flex-col justify-center items-center">
           <div
@@ -58,6 +60,7 @@ export default function CommonBtn({
           </div>
         </div>
       )}
+      {/* 시리즈 더 보기 버튼 */}
       {type === "series" && (
         <div
           className="px-2.5 py-1.5 rounded-[30px] inline-flex justify-center items-center cursor-pointer"
@@ -74,6 +77,56 @@ export default function CommonBtn({
             {seriesName}
           </div>
           <Image src="/icons/next.svg" alt=">" width={15} height={15} />
+        </div>
+      )}
+      {/* 퀴즈 제출 버튼 */}
+      {type === "quiz_submit" && (
+        <div className="relative flex flex-col justify-center items-center">
+          <div
+            style={{
+              color: COLORS.primary.navy,
+              fontSize: FONT_SIZE.caption2,
+              fontWeight: FONT_WEIGHT.caption2,
+            }}
+          >
+            오늘의 MOM퀴즈를
+          </div>
+          <div
+            className="px-5 py-3.5 rounded-[30px] text-white text-center cursor-pointer"
+            style={{
+              backgroundColor: COLORS.primary.navy,
+              fontSize: FONT_SIZE.subtitle2,
+              fontWeight: FONT_WEIGHT.subtitle2,
+            }}
+            onClick={() => onClick}
+          >
+            ✍🏻 다 풀었어요 !
+          </div>
+        </div>
+      )}
+      {/* MONDAY 완료 버튼 */}
+      {type === "monday_complete" && (
+        <div className="relative flex flex-col justify-center items-center">
+          <div
+            style={{
+              color: COLORS.primary.mint,
+              fontSize: FONT_SIZE.caption2,
+              fontWeight: FONT_WEIGHT.caption2,
+            }}
+          >
+            MON퀴즈까지 완료했어요!
+          </div>
+          <div
+            className="px-5 py-3.5 rounded-[30px] text-white text-center cursor-pointer"
+            style={{
+              backgroundColor: COLORS.primary.mint,
+              fontSize: FONT_SIZE.subtitle2,
+              fontWeight: FONT_WEIGHT.subtitle2,
+            }}
+            onClick={() => onClick}
+          >
+            오늘의 MON+DAY 완료
+          </div>
         </div>
       )}
     </>
