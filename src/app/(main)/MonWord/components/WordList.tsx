@@ -53,7 +53,7 @@ export default function WordList() {
           <CommonBtn
             type="finish"
             subText="오늘의 MON단어를 다 이해했어요!"
-            onClick={() => handleFinishClick}
+            onClick={handleFinishClick}
           />
         </div>
       </div>

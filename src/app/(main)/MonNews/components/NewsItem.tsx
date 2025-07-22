@@ -85,7 +85,7 @@ export default function NewsItem() {
         <CommonBtn
           type="finish"
           subText="오늘의 MON뉴스를 다 읽었어요!"
-          onClick={() => handleFinishClick}
+          onClick={handleFinishClick}
         />
       </div>
     </div>
