@@ -23,7 +23,7 @@ export default function CommonBtn({
         <div
           className="px-2.5 py-1.5 rounded-[30px] text-center text-white whitespace-nowrap cursor-pointer"
           style={{ background: COLORS.primary.mint }}
-          onClick={() => onClick}
+          onClick={onClick}
         >
           <div
             style={{
@@ -54,7 +54,7 @@ export default function CommonBtn({
               fontSize: FONT_SIZE.subtitle2,
               fontWeight: FONT_WEIGHT.subtitle2,
             }}
-            onClick={() => onClick}
+            onClick={onClick}
           >
             💡 학습 완료했어요
           </div>
@@ -65,7 +65,7 @@ export default function CommonBtn({
         <div
           className="px-2.5 py-1.5 rounded-[30px] inline-flex justify-center items-center cursor-pointer"
           style={{ background: COLORS.primary.navy }}
-          onClick={() => onClick}
+          onClick={onClick}
         >
           <div
             className="text-center justify-start text-white"
@@ -98,7 +98,7 @@ export default function CommonBtn({
               fontSize: FONT_SIZE.subtitle2,
               fontWeight: FONT_WEIGHT.subtitle2,
             }}
-            onClick={() => onClick}
+            onClick={onClick}
           >
             ✍🏻 다 풀었어요 !
           </div>
@@ -123,7 +123,7 @@ export default function CommonBtn({
               fontSize: FONT_SIZE.subtitle2,
               fontWeight: FONT_WEIGHT.subtitle2,
             }}
-            onClick={() => onClick}
+            onClick={onClick}
           >
             오늘의 MON+DAY 완료
           </div>
