@@ -15,6 +15,7 @@ export const COLORS = {
     yellow1: "#FFF7D9",
     yellow2: "#FDE68A",
     yellow3: "#92400D",
+    blue1: "EFF6FF",
     blue2: "#C5DFFE",
     blue3: "#1D40B0",
     deepGreen: "#166434",
