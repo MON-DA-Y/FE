@@ -68,10 +68,7 @@ export default function PartItem({
     <>
       {/* 학습할 파트 */}
       <div
-        className="inline-flex justify-start items-center gap-[10px] cursor-pointer p-2.5 rounded-2xl outline-1 outline-offset-[-1px] bg-slate-50"
-        style={{
-          outlineColor: "#DBE9FE",
-        }}
+        className="inline-flex justify-start items-center gap-[10px] cursor-pointer p-2.5 rounded-2xl outline-1 outline-offset-[-1px] bg-green-300/10 outline-green-300/50"
         onClick={handleClick}
       >
         <Image
