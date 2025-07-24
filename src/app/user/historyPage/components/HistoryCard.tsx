@@ -1,7 +1,7 @@
 import { COLORS, FONT_SIZE, FONT_WEIGHT, SHADOW } from "@/styles/theme/tokens";
 import CategoryBtn from "./CategoryBtn";
 import HistoryStatusBtn from "./HistoryStatusBtn";
-import { Category } from "../../../../../types/category";
+import { Category } from "../../../../types/category";
 import Image from "next/image";
 
 interface HistoryCardProps {

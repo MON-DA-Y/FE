@@ -1,5 +1,5 @@
 import { FONT_SIZE, FONT_WEIGHT, COLORS } from "@/styles/theme/tokens";
-import { Category } from "../../../../types/category";
+import { Category } from "../../../types/category";
 import { Category_Label } from "../../../../constants/categoryLabel";
 import { Category_Color } from "../../../../constants/categoryColor";
 
