@@ -3,20 +3,10 @@
 import { useState, useEffect } from "react";
 import QuizMarkItem from "./QuizMarkItem";
 import CommonBtn from "@/components/shared/CommonBtn";
-
-interface QuizMarks {
-  id: number;
-  type: "word" | "news";
-  question: string;
-  choices: string[];
-  answer: string;
-  selectedAnswer: string;
-  isCorrect: boolean;
-  marking: string;
-}
+import { QuizMark } from "@/types/monQuiz";
 
 export default function QuizList() {
-  const [quizMarks, setQuizMarks] = useState<QuizMarks[]>([]);
+  const [quizMarks, setQuizMarks] = useState<QuizMark[]>([]);
   const [selectedChoices, setSelectedChoices] = useState<{
     [key: number]: string | null;
   }>({});

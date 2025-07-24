@@ -5,18 +5,7 @@ import NavyBox from "@/components/ui/NavyBox";
 import WordBox from "@/components/ui/WordBox";
 import Choice from "@/components/ui/Choice";
 import { COLORS, FONT_SIZE, FONT_WEIGHT } from "@/styles/theme/tokens";
-
-export interface QuizMarkItemProps {
-  id: number;
-  type: "word" | "news";
-  question: string;
-  choices: string[];
-  selectedAnswer: string;
-  answer: string;
-  marking: string;
-  isCorrect: boolean;
-  onClick: (choice: string) => void;
-}
+import { QuizMark } from "@/types/monQuiz";
 
 export default function QuizMarkItem({
   id,
@@ -28,7 +17,9 @@ export default function QuizMarkItem({
   marking,
   isCorrect,
   onClick,
-}: QuizMarkItemProps) {
+}: QuizMark) {
+  if (!onClick) return null;
+
   return (
     <div className="w-[680px] px-10 pt-10 pb-7 bg-white rounded-[30px] flex flex-col gap-3.5">
       {/* 퀴즈 타입 (단어 / 뉴스)*/}

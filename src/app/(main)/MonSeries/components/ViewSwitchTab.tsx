@@ -2,16 +2,9 @@
 
 import { COLORS, FONT_SIZE, FONT_WEIGHT } from "@/styles/theme/tokens";
 import { useState } from "react";
+import { ViewSwitch } from "@/types/monSeries";
 
-interface ViewSwitchTabProps {
-  viewMode: "series" | "keyword";
-  onChangeView: (view: "series" | "keyword") => void;
-}
-
-export default function ViewSwitchTab({
-  viewMode,
-  onChangeView,
-}: ViewSwitchTabProps) {
+export default function ViewSwitchTab({ viewMode, onChangeView }: ViewSwitch) {
   const [view, setView] = useState<"series" | "keyword">(viewMode);
 
   const handleViewSwitch = (view: "series" | "keyword") => {

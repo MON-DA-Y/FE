@@ -1,20 +1,11 @@
 "use client";
 
 import { COLORS, FONT_SIZE, FONT_WEIGHT } from "@/styles/theme/tokens";
-import PartItem, { PartProps } from "./PartItem";
+import PartItem from "./PartItem";
+import { Series } from "@/types/monSeries";
 
-export interface SeriesItemProps {
-  id: number;
-  title: string;
-  sub_title: string;
-  parts: PartProps[];
-}
-
-export default function SeriesItem({
-  title,
-  sub_title,
-  parts,
-}: SeriesItemProps) {
+export default function SeriesItem({ title, sub_title, parts }: Series) {
+  if (!parts) return null;
   return (
     <>
       <div className="w-[680px] px-10 pt-10 pb-7 bg-white rounded-[30px] flex flex-col gap-3.5">

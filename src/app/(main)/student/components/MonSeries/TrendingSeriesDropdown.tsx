@@ -4,12 +4,7 @@ import { useState, useEffect } from "react";
 import { COLORS, FONT_SIZE, FONT_WEIGHT } from "@/styles/theme/tokens";
 import Image from "next/image";
 import WordBox from "@/components/ui/WordBox";
-
-// api의 형식
-interface TrendingSeries {
-  id: number;
-  category_name: string;
-}
+import { TrendingSeries } from "@/types/studentMain";
 
 export default function TrendingSeriesDropdown() {
   const [seriesRank, setSeriesRank] = useState<TrendingSeries[]>([]);
@@ -19,9 +14,9 @@ export default function TrendingSeriesDropdown() {
   useEffect(() => {
     // Trending Series 더미데이터
     setSeriesRank([
-      { id: 1, category_name: "인플레이션" },
-      { id: 2, category_name: "이자" },
-      { id: 3, category_name: "저축" },
+      { id: 1, keyword: "인플레이션" },
+      { id: 2, keyword: "이자" },
+      { id: 3, keyword: "저축" },
     ]);
   }, []);
 
@@ -78,7 +73,7 @@ export default function TrendingSeriesDropdown() {
                 fontWeight: FONT_WEIGHT.caption1,
               }}
             >
-              {item.category_name}
+              {item.keyword}
             </span>
           </div>
           <Image src="/icons/Dropdown.svg" alt="v" width={7} height={3.5} />
@@ -113,7 +108,7 @@ export default function TrendingSeriesDropdown() {
                     fontWeight: FONT_WEIGHT.caption2,
                   }}
                 >
-                  {series.category_name}
+                  {series.keyword}
                 </span>
               </div>
             ))}

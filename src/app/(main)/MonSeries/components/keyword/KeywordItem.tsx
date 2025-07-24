@@ -3,27 +3,10 @@
 import { useState } from "react";
 import { COLORS, FONT_SIZE, FONT_WEIGHT } from "@/styles/theme/tokens";
 import { useRouter } from "next/navigation";
-import SeriesSelectModal from "./SeriesSelectModal";
+import KeywordModal from "./KeywordModal";
+import { Keyword } from "@/types/monSeries";
 
-export interface KeywordItemProps {
-  id: number;
-  keyword: string;
-  explain: string;
-  series: Series[];
-}
-
-export interface Series {
-  id: number;
-  title: string;
-  sub_title: string;
-}
-
-export default function KeywordItem({
-  id,
-  keyword,
-  explain,
-  series,
-}: KeywordItemProps) {
+export default function KeywordItem({ id, keyword, explain, series }: Keyword) {
   const router = useRouter();
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
@@ -36,7 +19,7 @@ export default function KeywordItem({
   return (
     <>
       {isModalOpen && (
-        <SeriesSelectModal
+        <KeywordModal
           id={id}
           isYellow={isYellow}
           keyword={keyword}

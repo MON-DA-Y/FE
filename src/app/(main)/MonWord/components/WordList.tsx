@@ -1,11 +1,12 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import WordItem, { WordItemProps } from "./WordItem";
+import WordItem from "./WordItem";
 import CommonBtn from "@/components/shared/CommonBtn";
+import { Word } from "@/types/monWord";
 
 export default function WordList() {
-  const [words, setWords] = useState<WordItemProps[]>([]);
+  const [words, setWords] = useState<Word[]>([]);
 
   useEffect(() => {
     // Mon단어 더미데이터

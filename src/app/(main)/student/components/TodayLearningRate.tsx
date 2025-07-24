@@ -3,18 +3,10 @@
 import { useState, useEffect } from "react";
 import styled from "styled-components";
 import { COLORS, FONT_SIZE, FONT_WEIGHT } from "@/styles/theme/tokens";
-
-interface TodayLearningRate {
-  learn_word: number;
-  today_word: number;
-  learn_news: number;
-  today_news: number;
-  learn_series: number;
-  today_series: number;
-}
+import { LearningRate } from "@/types/studentMain";
 
 export default function TodayLearningRate() {
-  const [todayLearn, setTodayLearn] = useState<TodayLearningRate | null>(null);
+  const [todayLearn, setTodayLearn] = useState<LearningRate | null>(null);
   const [wordBarWidth, setWordBarWidth] = useState(0);
   const [newsBarWidth, setNewsBarWidth] = useState(0);
 

@@ -2,10 +2,10 @@
 
 import { useState, useEffect } from "react";
 import SeriesItem from "./SeriesItem";
-import { SeriesItemProps } from "./SeriesItem";
+import { Series } from "@/types/monSeries";
 
 export default function SeriesList() {
-  const [series, setSeries] = useState<SeriesItemProps[]>();
+  const [series, setSeries] = useState<Series[]>();
 
   useEffect(() => {
     // series 내용 가져오기 api 로직

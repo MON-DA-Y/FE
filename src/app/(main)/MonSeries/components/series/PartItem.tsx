@@ -3,20 +3,14 @@
 import { COLORS, FONT_SIZE, FONT_WEIGHT } from "@/styles/theme/tokens";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-
-export interface PartProps {
-  id: number;
-  isLearned: boolean;
-  part_title: string;
-  part_sub_title: string;
-}
+import { Part } from "@/types/monSeries";
 
 export default function PartItem({
   id,
   isLearned,
   part_title,
   part_sub_title,
-}: PartProps) {
+}: Part) {
   const router = useRouter();
 
   const handleClick = () => {

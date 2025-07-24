@@ -1,10 +1,11 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import KeywordItem, { KeywordItemProps } from "./KeywordItem";
+import KeywordItem from "./KeywordItem";
+import { Keyword } from "@/types/monSeries";
 
 export default function KeywordList() {
-  const [keywords, setKeywords] = useState<KeywordItemProps[]>();
+  const [keywords, setKeywords] = useState<Keyword[]>();
 
   useEffect(() => {
     setKeywords([

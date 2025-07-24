@@ -3,13 +3,7 @@
 import { useState, useEffect } from "react";
 import QuizItem from "./QuizItem";
 import CommonBtn from "@/components/shared/CommonBtn";
-
-interface Quizzes {
-  id: number;
-  type: "word" | "news";
-  question: string;
-  choices: string[];
-}
+import { Quizzes } from "@/types/monQuiz";
 
 export default function QuizList() {
   const [quizzes, setQuizzes] = useState<Quizzes[]>([]);
