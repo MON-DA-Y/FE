@@ -14,12 +14,19 @@ export default function MonSeries() {
   // 더미데이터
   useEffect(() => {
     setTodaySeries([
-      { id: 12, keyword: "이자", title: "트럼프와 경제 정책", sub_title: "" },
+      {
+        id: 12,
+        keyword: "이자",
+        title: "트럼프와 경제 정책",
+        sub_title: "",
+        parts: [],
+      },
       {
         id: 13,
         keyword: "인플레이션",
         title: "2만원 떡볶이 시대",
         sub_title: "",
+        parts: [],
       },
     ]);
   }, []);

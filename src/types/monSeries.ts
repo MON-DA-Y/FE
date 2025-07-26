@@ -13,16 +13,16 @@ export interface Part {
   isLearned: boolean;
   part_title: string;
   part_sub_title: string;
-  part_study?: PartStudy;
+  part_study: PartStudy;
 }
 
 // 시리즈 - 기본 type
 export interface Series {
   id: number;
-  keyword?: string;
+  keyword: string;
   title: string;
   sub_title: string;
-  parts?: Part[];
+  parts: Part[];
 }
 
 // 시리즈 - 시리즈 페이지 헤더 type
