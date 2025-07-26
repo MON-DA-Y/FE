@@ -64,3 +64,9 @@ export interface ViewSwitch {
   viewMode: "series" | "keyword";
   onChangeView: (view: "series" | "keyword") => void;
 }
+
+// 시리즈 study - 실생활 예시 / 알아두면 좋을 용어
+export interface TextBox {
+  type: "lifeExample" | "term";
+  text: string;
+}
