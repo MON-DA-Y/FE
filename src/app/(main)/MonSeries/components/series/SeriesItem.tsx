@@ -4,8 +4,17 @@ import { COLORS, FONT_SIZE, FONT_WEIGHT } from "@/styles/theme/tokens";
 import PartItem from "./PartItem";
 import { Series } from "@/types/monSeries";
 
-export default function SeriesItem({ title, sub_title, parts }: Series) {
+export default function SeriesItem({
+  id,
+  keyword,
+  title,
+  sub_title,
+  parts,
+}: Series) {
+  const series = { id, keyword, title, sub_title, parts };
+
   if (!parts) return null;
+
   return (
     <>
       <div className="w-[680px] px-10 pt-10 pb-7 bg-white rounded-[30px] flex flex-col gap-3.5">
@@ -36,6 +45,8 @@ export default function SeriesItem({ title, sub_title, parts }: Series) {
             isLearned={item.isLearned}
             part_title={item.part_title}
             part_sub_title={item.part_sub_title}
+            series={series}
+            part_study={item.part_study}
           />
         ))}
       </div>
