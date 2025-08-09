@@ -11,7 +11,7 @@ export default function StudentMyPage() {
   const router = useRouter();
 
   return (
-    <div className="relative w-full h-screen overflow-auto px-13 py-5">
+    <div className="relative w-full px-13 py-5">
       <Image
         src="/icons/Home.svg"
         alt="home"

@@ -1,7 +1,15 @@
 import { FONT_SIZE, FONT_WEIGHT, COLORS } from "@/styles/theme/tokens";
 
 interface OptionsProps {
-  type: "year" | "month" | "week" | "day" | "category" | "result" | "status";
+  type:
+    | "year"
+    | "month"
+    | "week"
+    | "day"
+    | "category"
+    | "keyword"
+    | "result"
+    | "status";
   onSelect: (value: string | number) => void;
   selected: string | number | null;
 }
@@ -28,6 +36,15 @@ export default function Options({ type, onSelect }: OptionsProps) {
           "일요일",
         ];
       case "category":
+        return [
+          "전체",
+          "정책/규제",
+          "거시경제",
+          "특집이슈",
+          "글로벌경제",
+          "금융/시장",
+        ];
+      case "keyword":
         return [
           "전체",
           "정책/규제",

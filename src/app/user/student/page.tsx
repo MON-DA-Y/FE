@@ -37,7 +37,7 @@ export default function StudentMyPage() {
 
   return (
     //학생 메인 페이지로 이동하도록 router 수정
-    <div className="relative w-full h-screen overflow-auto px-13 py-5">
+    <div className="relative w-full px-13 py-5">
       <header className="flex justify-between">
         <Image
           src="/icons/Home.svg"

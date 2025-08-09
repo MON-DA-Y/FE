@@ -31,7 +31,7 @@ export default function ParentMyPage() {
   });
 
   return (
-    <div className="relative w-full h-screen overflow-auto px-13 py-5">
+    <div className="relative w-full px-13 py-5">
       <div className="flex mx-[-50px] justify-between">
         <Image
           src="/icons/Home.svg"
