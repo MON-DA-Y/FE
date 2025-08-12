@@ -10,7 +10,7 @@ import { COLORS, FONT_SIZE, FONT_WEIGHT } from "@/styles/theme/tokens";
 
 export default function HistoryPage() {
   const searchParams = useSearchParams();
-  const type = searchParams.get("type") || "news";
+  const type = searchParams.get("type") || "series";
 
   const label =
     {
@@ -35,7 +35,7 @@ export default function HistoryPage() {
   }
 
   return (
-    <div className="relative w-full h-screen overflow-auto px-13 py-7">
+    <div className="relative w-full px-13 py-7">
       <HomeBtn />
       <div className="flex flex-col items-stretch w-[900px] pt-10 px-12">
         <div
@@ -48,13 +48,17 @@ export default function HistoryPage() {
           <span style={{ color: COLORS.primary.mint }}>🗂️MON</span>
           <span style={{ color: COLORS.primary.navy }}>{label} 히스토리</span>
         </div>
-        <div className="flex justify-end -mt-3 gap-4.5">
-          <Dropdown type="day" />
-          <Dropdown type="category" />
+        <div className="flex justify-end -mt-3">
           {type === "series" ? (
-            <Dropdown type="status" />
+            <div className="flex gap-4.5">
+              <Dropdown type="keyword" />
+              <Dropdown type="status" />
+            </div>
           ) : (
-            <Dropdown type="result" />
+            <div className="flex gap-4.5">
+              <Dropdown type="category" />
+              <Dropdown type="result" />
+            </div>
           )}
         </div>
       </div>

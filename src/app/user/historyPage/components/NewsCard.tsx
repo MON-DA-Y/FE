@@ -4,7 +4,7 @@ import HistoryStatusBtn from "./HistoryStatusBtn";
 import { Category } from "../../../../../types/category";
 import Image from "next/image";
 
-interface HistoryCardProps {
+interface NewsCardProps {
   //뉴스 api 연결 시 정보들
   type: Category;
   status?: "ongoing" | "done";
@@ -12,12 +12,12 @@ interface HistoryCardProps {
   title: string;
 }
 
-export default function HistoryCard({
+export default function NewsCard({
   type,
   status,
   imgUrl,
   title,
-}: HistoryCardProps) {
+}: NewsCardProps) {
   const defaultImg = "/images/logo.svg";
 
   return (

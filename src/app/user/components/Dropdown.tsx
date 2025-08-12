@@ -6,7 +6,14 @@ import { useState, useRef, useEffect } from "react";
 import Options from "./Options";
 
 interface DropdownProps {
-  type: "year" | "month" | "week" | "day" | "category" | "result" | "status";
+  type:
+    | "year"
+    | "month"
+    | "week"
+    | "category"
+    | "keyword"
+    | "result"
+    | "status";
 }
 
 export default function Dropdown({ type }: DropdownProps) {
@@ -39,8 +46,8 @@ export default function Dropdown({ type }: DropdownProps) {
     year: new Date().getFullYear() + "년",
     month: new Date().getMonth() + 1 + "월",
     week: "첫째주",
-    day: "요일",
     category: "카테고리",
+    keyword: "키워드",
     result: "전체",
     status: "전체",
   }[type];

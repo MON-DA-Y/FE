@@ -26,7 +26,7 @@ export default function ParentPage() {
   };
 
   return (
-    <div className="relative w-full h-screen overflow-auto overflow-x-hidden px-13 py-7">
+    <div className="relative w-full overflow-x-hidden px-13 py-7">
       {/*학부모 프로필*/}
       <div className="ml-190">
         <ParentProfile />
