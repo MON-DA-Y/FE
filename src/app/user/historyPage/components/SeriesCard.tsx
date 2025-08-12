@@ -1,12 +1,8 @@
 import { COLORS, FONT_SIZE, FONT_WEIGHT, SHADOW } from "@/styles/theme/tokens";
-import CategoryBtn from "./CategoryBtn";
 import HistoryStatusBtn from "./HistoryStatusBtn";
-import { Category } from "../../../../../types/category";
 import Image from "next/image";
 
 interface SeriesCardProps {
-  //category에서 keyword로 수정
-  type: Category;
   keyword: string;
   status?: "ongoing" | "done";
   imgUrl?: string;
@@ -15,7 +11,6 @@ interface SeriesCardProps {
 }
 
 export default function SeriesCard({
-  type,
   keyword,
   status,
   imgUrl,
@@ -33,8 +28,7 @@ export default function SeriesCard({
       }}
       onClick={onClick}
     >
-      <div className="absolute flex -top-3.5 left-6 gap-4">
-        <CategoryBtn type={type} />
+      <div className="absolute flex -top-3.5 right-7">
         {status && <HistoryStatusBtn status={status} />}
       </div>
       <div
@@ -56,15 +50,7 @@ export default function SeriesCard({
           color: COLORS.primary.navy,
         }}
       >
-        <div className="truncate">{title}</div>
-        <div
-          className="absolute flex items-center justify-center w-fit h-5 opacity-0 group-hover:opacity-100 bottom-full inset-0 left-0 z-50 rounded-[5px] px-1.5 whitespace-nowrap"
-          style={{
-            backgroundColor: COLORS.sub.gray1,
-            fontSize: FONT_SIZE.caption2,
-            fontWeight: FONT_WEIGHT.caption2,
-          }}
-        >
+        <div className="truncate" title={title}>
           {title}
         </div>
       </div>

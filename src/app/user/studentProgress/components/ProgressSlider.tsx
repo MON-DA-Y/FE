@@ -10,36 +10,19 @@ export default function ProgressSlider() {
         fontWeight: FONT_WEIGHT.subtitle2,
       }}
     >
-      <div className="flex flex-col gap-4">
+      <div
+        className="relative w-56 h-8 bg-white rounded-[30px] px-6"
+        style={{ boxShadow: SHADOW.interactive }}
+      >
+        현재 스트라이크
         <div
-          className="relative w-56 h-8 bg-white rounded-[30px] px-6"
-          style={{ boxShadow: SHADOW.interactive }}
+          className="absolute top-0 right-0 w-15 h-8 rounded-[30px] text-center pl-2"
+          style={{
+            backgroundColor: COLORS.primary.navy,
+            color: COLORS.sub.white,
+          }}
         >
-          최대 스트라이크
-          <div
-            className="absolute top-0 right-0 w-15 h-8 rounded-[30px] text-center"
-            style={{
-              backgroundColor: COLORS.primary.navy,
-              color: COLORS.sub.white,
-            }}
-          >
-            3🏁
-          </div>
-        </div>
-        <div
-          className="relative w-56 h-8 bg-white rounded-[30px] px-6"
-          style={{ boxShadow: SHADOW.interactive }}
-        >
-          현재 스트라이크
-          <div
-            className="absolute top-0 right-0 w-15 h-8 rounded-[30px] text-center"
-            style={{
-              backgroundColor: COLORS.primary.mint,
-              color: COLORS.sub.white,
-            }}
-          >
-            0🔥
-          </div>
+          0🔥
         </div>
       </div>
 

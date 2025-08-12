@@ -48,8 +48,7 @@ export default function HistoryPage() {
           <span style={{ color: COLORS.primary.mint }}>🗂️MON</span>
           <span style={{ color: COLORS.primary.navy }}>{label} 히스토리</span>
         </div>
-        <div className="flex justify-end -mt-3 gap-4.5">
-          <Dropdown type="day" />
+        <div className="flex justify-end -mt-3">
           {type === "series" ? (
             <div className="flex gap-4.5">
               <Dropdown type="keyword" />

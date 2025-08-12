@@ -5,7 +5,6 @@ interface OptionsProps {
     | "year"
     | "month"
     | "week"
-    | "day"
     | "category"
     | "keyword"
     | "result"
@@ -24,17 +23,6 @@ export default function Options({ type, onSelect }: OptionsProps) {
         return Array.from({ length: 12 }, (_, i) => `${i + 1}월`);
       case "week":
         return ["전체", "첫째주", "둘째주", "셋째주", "넷째주", "다섯째주"];
-      case "day":
-        return [
-          "전체",
-          "월요일",
-          "화요일",
-          "수요일",
-          "목요일",
-          "금요일",
-          "토요일",
-          "일요일",
-        ];
       case "category":
         return [
           "전체",

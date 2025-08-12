@@ -10,7 +10,6 @@ interface DropdownProps {
     | "year"
     | "month"
     | "week"
-    | "day"
     | "category"
     | "keyword"
     | "result"
@@ -47,7 +46,6 @@ export default function Dropdown({ type }: DropdownProps) {
     year: new Date().getFullYear() + "년",
     month: new Date().getMonth() + 1 + "월",
     week: "첫째주",
-    day: "요일",
     category: "카테고리",
     keyword: "키워드",
     result: "전체",
