@@ -3,7 +3,8 @@
 import { FONT_SIZE, FONT_WEIGHT, SHADOW, COLORS } from "@/styles/theme/tokens";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { getAttendance, AttendanceResponse } from "@/apis/attendance";
 import StudentLevel from "../components/StudentLevel";
 import Dropdown from "../components/Dropdown";
 import ProgressBtn from "../components/ProgressBtn";
@@ -24,6 +25,23 @@ export default function StudentMyPage() {
   const handleTabChange = (value: { selectedTab: "series" | "keyword" }) => {
     setSelectedTab(value.selectedTab);
   };
+
+  //출석률 조회
+  const [attendanceData, setAttendanceData] = useState<boolean[]>([]);
+  const [dates, setDates] = useState<number[]>([]);
+
+  useEffect(() => {
+    console.log("getAttendance 호출됨");
+    getAttendance(1, 3)
+      .then((data: AttendanceResponse) => {
+        console.log("Attendance data:", data);
+        setAttendanceData(data.days.map((d) => d.isAttended));
+        setDates(data.days.map((d) => new Date(d.day).getDate()));
+      })
+      .catch((err) => {
+        console.error("API 호출 실패:", err);
+      });
+  }, []);
 
   {
     /*나중에 회원정보 불러오기*/
@@ -230,7 +248,12 @@ export default function StudentMyPage() {
                   </div>
                   <ProgressBtn />
                 </div>
-                <AttendBtn days_gap={80} attend_gap={9} />
+                <AttendBtn
+                  days_gap={80}
+                  attend_gap={9}
+                  attendance={attendanceData}
+                  dates={dates}
+                />
               </div>
             </div>
           </div>

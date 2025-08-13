@@ -1,6 +1,7 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { getAttendance, AttendanceResponse } from "@/apis/attendance";
 import StudentProfile from "@/app/user/components/StudentProfile";
 import ParentProfile from "../components/ParentProfile";
 import StudentLevel from "@/app/user/components/StudentLevel";
@@ -17,6 +18,22 @@ import InputBox from "../../components/InputBox";
 import QuizBox from "../components/QuizBtn";
 
 export default function ParentPage() {
+  //출석률 조회
+  const [attendanceData, setAttendanceData] = useState<boolean[]>([]);
+  const [dates, setDates] = useState<number[]>([]);
+
+  useEffect(() => {
+    getAttendance(1, 3)
+      .then((data: AttendanceResponse) => {
+        console.log("Attendance data:", data);
+        setAttendanceData(data.days.map((d) => d.isAttended));
+        setDates(data.days.map((d) => new Date(d.day).getDate()));
+      })
+      .catch((err) => {
+        console.error("API 호출 실패:", err);
+      });
+  }, []);
+
   const [selectedTab, setSelectedTab] = useState<"series" | "keyword">(
     "series"
   );
@@ -107,7 +124,12 @@ export default function ParentPage() {
           <ProgressBtn />
         </div>
         <div className="pt-4">
-          <AttendBtn days_gap={54} attend_gap={2.5} />
+          <AttendBtn
+            days_gap={54}
+            attend_gap={2.5}
+            attendance={attendanceData}
+            dates={dates}
+          />
         </div>
 
         {/*약점 분석*/}
