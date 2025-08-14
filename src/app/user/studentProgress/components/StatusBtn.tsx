@@ -1,3 +1,4 @@
+// task 상태 버튼
 import { FONT_SIZE, FONT_WEIGHT, SHADOW, COLORS } from "@/styles/theme/tokens";
 import { useRouter } from "next/navigation";
 
@@ -5,6 +6,13 @@ interface StatusBtnProps {
   label: string;
   status: "done" | "ongoing" | "pending";
 }
+
+const labelMap: Record<StatusBtnProps["label"], string> = {
+  word: "단어",
+  news: "뉴스",
+  series: "시리즈",
+  quiz: "퀴즈",
+};
 
 export default function StatusBtn({ label, status }: StatusBtnProps) {
   const router = useRouter();
@@ -42,7 +50,7 @@ export default function StatusBtn({ label, status }: StatusBtnProps) {
       }}
       onClick={() => router.push("/")}
     >
-      MON{label}
+      MON{labelMap[label]}
     </div>
   );
 }
