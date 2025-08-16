@@ -1,6 +1,15 @@
+// 주간 진도 slider
 import { COLORS, FONT_SIZE, FONT_WEIGHT, SHADOW } from "@/styles/theme/tokens";
 
-export default function ProgressSlider() {
+interface ProgressSliderProps {
+  weekCompletionRate: number;
+  strikeDay: number;
+}
+
+export default function ProgressSlider({
+  weekCompletionRate,
+  strikeDay,
+}: ProgressSliderProps) {
   return (
     <div
       className="flex flex-col w-full px-9 py-7 rounded-[19px] gap-10"
@@ -22,28 +31,33 @@ export default function ProgressSlider() {
             color: COLORS.sub.white,
           }}
         >
-          0🔥
+          {strikeDay}🔥
         </div>
       </div>
 
       <div
-        className="relative w-[85%] h-7 rounded-[10px] ml-16"
-        style={{ backgroundColor: COLORS.sub.gray1 }}
+        className="relative h-7 rounded-[10px] ml-16"
+        style={{
+          width: `(${weekCompletionRate})%`,
+          backgroundColor: COLORS.sub.gray1,
+        }}
       >
         <div
-          className="absolute top-0 left-0 w-[65%] h-7 rounded-[10px]"
+          className="absolute top-0 left-0 h-7 rounded-[10px]"
           style={{
+            width: `${weekCompletionRate}%`,
             background: `linear-gradient(to right, #d4d4d8, ${COLORS.primary.navy})`,
           }}
         >
           <div
-            className="absolute top-1/2 -translate-y-1/2 mx-20 left-[65%] w-20 h-14 rounded-3xl flex items-center justify-center"
+            className="absolute top-1/2 -translate-y-1/2 mx-20 w-20 h-14 rounded-3xl flex items-center justify-center"
             style={{
+              left: `${weekCompletionRate - 10}%`,
               backgroundColor: COLORS.primary.navy,
               color: COLORS.sub.white,
             }}
           >
-            65%
+            {weekCompletionRate}%
           </div>
         </div>
       </div>
