@@ -3,9 +3,16 @@ import { Category } from "../../../../types/category";
 import { Category_Label } from "../../../../constants/categoryLabel";
 import { Category_Color } from "../../../../constants/categoryColor";
 
-export default function Slider({ type }: { type: Category }) {
-  const label = Category_Label[type]?.label;
-  const color = Category_Color[type];
+interface SliderProps {
+  category: Category;
+  total: number;
+  correct: number;
+}
+
+export default function Slider({ category, total, correct }: SliderProps) {
+  const label = Category_Label[category]?.label;
+  const color = Category_Color[category];
+  const score = total > 0 ? correct / total : 0;
 
   return (
     <div
@@ -14,7 +21,7 @@ export default function Slider({ type }: { type: Category }) {
     >
       <div className="flex w-96 justify-between">
         <div>{label}</div>
-        <div className="">2/5</div>
+        <div className="">{`${correct}/${total}`}</div>
       </div>
       <div
         className="relative w-96 h-3 rounded"
@@ -22,7 +29,7 @@ export default function Slider({ type }: { type: Category }) {
       >
         <div
           className="absolute top-0 left-0 w-50 h-3 rounded"
-          style={{ width: "40%", backgroundColor: color }}
+          style={{ width: `${score * 100}%`, backgroundColor: color }}
         />
       </div>
     </div>
