@@ -253,7 +253,7 @@ export default function ParentPage() {
       </div>
 
       {/*바라는 한마디*/}
-      <div className="relative top-[-1125px] left-[530px]">
+      <div className="absolute top-85 left-145">
         <div
           className="whitespace-nowrap"
           style={{
@@ -267,7 +267,7 @@ export default function ParentPage() {
       </div>
 
       {/*이번 주 퀴즈*/}
-      <div className="relative top-[-1070px] left-[530px]">
+      <div className="absolute top-140 left-145">
         <div
           className="whitespace-nowrap"
           style={{
@@ -285,7 +285,7 @@ export default function ParentPage() {
       </div>
 
       {/*경제 TalkTalk*/}
-      <div className="relative top-[-1000px] left-[530px]">
+      <div className="absolute top-223 left-145">
         <div
           className="whitespace-nowrap"
           style={{
