@@ -90,7 +90,7 @@ function TextAreaInput({ onChange, value }: InputBoxProps) {
       </div>
       <button
         type="submit"
-        className="absolute top-38 left-68"
+        className="absolute top-38 left-68 cursor-pointer"
         style={{
           width: "86px",
           height: "28px",

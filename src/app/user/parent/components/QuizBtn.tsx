@@ -1,10 +1,16 @@
+import { QuizItemProps } from "@/app/(main)/MonQuiz/components/QuizItem";
 import { COLORS, FONT_SIZE, FONT_WEIGHT, SHADOW } from "@/styles/theme/tokens";
 import Image from "next/image";
 
-export default function QuizBox() {
-  const today = new Date();
-  const month = today.getMonth() + 1;
-  const day = today.getDate();
+interface QuizBtnProps {
+  day: string;
+  score: number;
+}
+
+export default function QuizBtn({ day, score }: QuizBtnProps) {
+  const date = new Date(day);
+  const month = date.getMonth() + 1;
+  const d = date.getDate();
 
   return (
     <div className="flex whitespace-nowrap">
@@ -16,9 +22,9 @@ export default function QuizBox() {
           fontWeight: FONT_WEIGHT.body1,
         }}
       >
-        {`${month}월 ${day}일`}
+        {`${month}월 ${d}일`}
         <div
-          className="flex justify-center items-center w-26 h-6 ml-20 rounded-[30px]"
+          className="flex absolute justify-center items-center w-26 h-6 left-48 rounded-[30px]"
           style={{
             backgroundColor: COLORS.primary.mint,
             fontSize: FONT_SIZE.body2,
@@ -26,9 +32,9 @@ export default function QuizBox() {
             color: COLORS.sub.white,
           }}
         >
-          점수 : 80점
+          점수 : {score}점
         </div>
-        <div className="pl-6">
+        <div className="pl-6 absolute left-73 cursor-pointer">
           <Image
             src="/icons/Arrow_right.svg"
             alt="arrow"

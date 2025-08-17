@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { useParams } from "next/navigation";
 import { getAttendance, AttendanceResponse } from "@/apis/attendance";
 import { CategoryScore, getWeakness, WeaknessResponse } from "@/apis/weakness";
+import { Result, getQuizResult, QuizResultResponse } from "@/apis/quizResult";
 import StudentProfile from "@/app/user/components/StudentProfile";
 import ParentProfile from "../components/ParentProfile";
 import StudentLevel from "@/app/user/components/StudentLevel";
@@ -17,17 +18,28 @@ import TabBar from "../../components/TabBar";
 import Slider from "../../components/Slider";
 import HistoryBtn from "../../components/HistoryBtn";
 import InputBox from "../../components/InputBox";
-import QuizBox from "../components/QuizBtn";
+import QuizBtn from "../components/QuizBtn";
 
 export default function ParentPage() {
   const params = useParams();
   const studentId = Number(params.studentId);
   const week = 3;
 
-  //출석률 조회
   const [attendanceData, setAttendanceData] = useState<boolean[]>([]);
   const [dates, setDates] = useState<number[]>([]);
+  const [weaknessData, setWeaknessData] = useState<WeaknessResponse | null>(
+    null
+  );
+  const currentCategories = weaknessData?.weakWord?.categories ?? [];
+  const currentSummary = weaknessData?.weakWord?.summary ?? "";
 
+  const [selectedTab, setSelectedTab] = useState<"word" | "news">("word");
+  const handleTabChange = (value: { selectedTab: "word" | "news" }) => {
+    setSelectedTab(value.selectedTab);
+  };
+  const [quizResults, setQuizResults] = useState<Result[]>([]);
+
+  //출석률 조회
   useEffect(() => {
     getAttendance(studentId, week)
       .then((data: AttendanceResponse) => {
@@ -38,17 +50,9 @@ export default function ParentPage() {
       .catch((err) => {
         console.error("API 호출 실패:", err);
       });
-  }, []);
+  }, [studentId, week]);
 
   // 약점 분석 조회
-  const [weaknessData, setWeaknessData] = useState<WeaknessResponse | null>(
-    null
-  );
-  const [selectedTab, setSelectedTab] = useState<"word" | "news">("word");
-  const handleTabChange = (value: { selectedTab: "word" | "news" }) => {
-    setSelectedTab(value.selectedTab);
-  };
-
   useEffect(() => {
     getWeakness(studentId, week)
       .then((data) => {
@@ -58,10 +62,15 @@ export default function ParentPage() {
       .catch((err) => console.error(err));
   }, [studentId, week]);
 
-  if (!weaknessData) return <div>Loading...</div>;
-
-  const currentData =
-    selectedTab === "word" ? weaknessData.weakWord : weaknessData.weakNews;
+  // 퀴즈 성적 조회
+  useEffect(() => {
+    getQuizResult(studentId, week)
+      .then((data) => {
+        console.log("퀴즈 성적:", data);
+        setQuizResults(data.results);
+      })
+      .catch((err) => console.error(err));
+  }, [studentId, week]);
 
   return (
     <div className="relative w-full overflow-x-hidden px-13 py-7">
@@ -193,23 +202,14 @@ export default function ParentPage() {
             <TabBar onChange={handleTabChange} selectedTab={selectedTab} />
           </div>
           <div className="flex flex-col px-5 pt-6 gap-6">
-            {selectedTab === "word"
-              ? weaknessData?.weakWord.categories.map((c: CategoryScore) => (
-                  <Slider
-                    key={c.category}
-                    category={c.category}
-                    total={c.total}
-                    correct={c.correct}
-                  />
-                ))
-              : weaknessData?.weakNews.categories.map((c: CategoryScore) => (
-                  <Slider
-                    key={c.category}
-                    category={c.category}
-                    total={c.total}
-                    correct={c.correct}
-                  />
-                ))}
+            {currentCategories.map((c: CategoryScore) => (
+              <Slider
+                key={c.category}
+                category={c.category}
+                total={c.total}
+                correct={c.correct}
+              />
+            ))}
           </div>
           <div
             className="pt-8 max-w-110"
@@ -225,11 +225,8 @@ export default function ParentPage() {
               ⋇ 이번 주 체크 포인트 :
             </div>
             {/* summary는 약점 개수가 4개일때만 표시 */}
-            {selectedTab === "word"
-              ? weaknessData?.weakWord.summary ??
-                "약점 분석 데이터가 충분하지 않아요. 이번 주 남은 단어 학습을 마치면 더 정확한 피드백을 받을 수 있어요."
-              : weaknessData?.weakNews.summary ??
-                "약점 분석 데이터가 충분하지 않아요. 이번 주 남은 뉴스 학습을 마치면 더 정확한 피드백을 받을 수 있어요."}
+            {currentSummary ||
+              "약점 분석 데이터가 충분하지 않아요. 이번 주 남은 학습을 마치면 더 정확한 피드백을 받을 수 있어요."}
           </div>
         </div>
 
@@ -267,9 +264,9 @@ export default function ParentPage() {
           이번 주 퀴즈
         </div>
         <div className="flex flex-col pt-5 gap-2.5">
-          <QuizBox />
-          <QuizBox />
-          <QuizBox />
+          {quizResults.map((quiz) => (
+            <QuizBtn key={quiz.quizId} day={quiz.day} score={quiz.score} />
+          ))}
         </div>
       </div>
 
