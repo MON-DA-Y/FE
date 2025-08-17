@@ -14,7 +14,7 @@ export default function ProgressBtn() {
   return (
     <div onClick={handleClick}>
       <div
-        className="flex items-center w-36 h-8 pl-3 whitespace-nowrap cursor-pointer"
+        className="flex items-center w-36 h-8 pl-3 whitespace-nowrap"
         style={{
           fontSize: FONT_SIZE.body1,
           fontWeight: FONT_WEIGHT.body1,

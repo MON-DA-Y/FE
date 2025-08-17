@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { useParams } from "next/navigation";
 import { getAttendance, AttendanceResponse } from "@/apis/attendance";
 import { CategoryScore, getWeakness, WeaknessResponse } from "@/apis/weakness";
-import { Result, getQuizResult, QuizResultResponse } from "@/apis/quizResult";
+import { Result, getQuizResult } from "@/apis/quizResult";
 import StudentProfile from "@/app/user/components/StudentProfile";
 import ParentProfile from "../components/ParentProfile";
 import StudentLevel from "@/app/user/components/StudentLevel";
@@ -25,25 +25,27 @@ export default function ParentPage() {
   const studentId = Number(params.studentId);
   const week = 3;
 
+  // 출석률
   const [attendanceData, setAttendanceData] = useState<boolean[]>([]);
   const [dates, setDates] = useState<number[]>([]);
+
+  // 약점
   const [weaknessData, setWeaknessData] = useState<WeaknessResponse | null>(
     null
   );
-  const currentCategories = weaknessData?.weakWord?.categories ?? [];
-  const currentSummary = weaknessData?.weakWord?.summary ?? "";
-
   const [selectedTab, setSelectedTab] = useState<"word" | "news">("word");
   const handleTabChange = (value: { selectedTab: "word" | "news" }) => {
     setSelectedTab(value.selectedTab);
   };
+
+  // 퀴즈 성적
   const [quizResults, setQuizResults] = useState<Result[]>([]);
 
   //출석률 조회
   useEffect(() => {
     getAttendance(studentId, week)
       .then((data: AttendanceResponse) => {
-        console.log("Attendance data:", data);
+        console.log("출석률 데이터:", data);
         setAttendanceData(data.days.map((d) => d.isAttended));
         setDates(data.days.map((d) => new Date(d.day).getDate()));
       })
@@ -202,14 +204,23 @@ export default function ParentPage() {
             <TabBar onChange={handleTabChange} selectedTab={selectedTab} />
           </div>
           <div className="flex flex-col px-5 pt-6 gap-6">
-            {currentCategories.map((c: CategoryScore) => (
-              <Slider
-                key={c.category}
-                category={c.category}
-                total={c.total}
-                correct={c.correct}
-              />
-            ))}
+            {selectedTab === "word"
+              ? weaknessData?.weakWord?.categories.map((c: CategoryScore) => (
+                  <Slider
+                    key={c.category}
+                    category={c.category}
+                    total={c.total}
+                    correct={c.correct}
+                  />
+                ))
+              : weaknessData?.weakNews?.categories.map((c: CategoryScore) => (
+                  <Slider
+                    key={c.category}
+                    category={c.category}
+                    total={c.total}
+                    correct={c.correct}
+                  />
+                ))}
           </div>
           <div
             className="pt-8 max-w-110"
@@ -225,8 +236,11 @@ export default function ParentPage() {
               ⋇ 이번 주 체크 포인트 :
             </div>
             {/* summary는 약점 개수가 4개일때만 표시 */}
-            {currentSummary ||
-              "약점 분석 데이터가 충분하지 않아요. 이번 주 남은 학습을 마치면 더 정확한 피드백을 받을 수 있어요."}
+            {selectedTab === "word"
+              ? weaknessData?.weakWord?.summary ||
+                "약점 분석 데이터가 충분하지 않아요. 이번 주 남은 단어 학습을 마치면 더 정확한 피드백을 받을 수 있어요."
+              : weaknessData?.weakNews?.summary ||
+                "약점 분석 데이터가 충분하지 않아요. 이번 주 남은 뉴스 학습을 마치면 더 정확한 피드백을 받을 수 있어요."}
           </div>
         </div>
 
