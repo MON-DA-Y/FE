@@ -5,103 +5,40 @@ import Image from "next/image";
 import SeriesCard from "./SeriesCard";
 import { COLORS, FONT_SIZE, FONT_WEIGHT } from "@/styles/theme/tokens";
 import { useRouter } from "next/navigation";
-
-interface Part {
-  id: number;
-  isLearned: boolean;
-  part_title: string;
-  part_sub_title: string;
-}
-
-interface Series {
-  id: number;
-  keyword: string;
-  title: string;
-  sub_title: string;
-  parts: Part[];
-}
+import { Series, getSeriesHistory } from "@/apis/seriesHistory";
 
 export default function SeriesHistory() {
-  const [seriesList, setSeriesList] = useState<Series[]>([]);
   const [isOpen, setIsOpen] = useState(false);
+  const [seriesList, setSeriesList] = useState<Series[]>([]);
   const [selectedSeries, setSelectedSeries] = useState<Series | null>(null);
 
   const router = useRouter();
+  const studentId = 1;
+  const week = 3;
 
   useEffect(() => {
-    // TODO: API 호출 로직으로 변경 가능
-    setSeriesList([
-      {
-        id: 1,
-        keyword: "트럼프",
-        title: "트럼프와 경제 정책과 그 이후의 미래에 대해서",
-        sub_title: "트럼프의 경제 정책이 세계 경제에 미친 영향",
-        parts: [
-          {
-            id: 1,
-            isLearned: true,
-            part_title: "2016년: 대선 승리",
-            part_sub_title: "트럼프의 경제 공약과 당선 배경",
-          },
-          {
-            id: 2,
-            isLearned: false,
-            part_title: "2018년: 관세 인상",
-            part_sub_title: "중국 제품에 대한 관세 인상과 무역 전쟁의 시작",
-          },
-          {
-            id: 3,
-            isLearned: false,
-            part_title: "2020년: 코로나19와 경제 대응",
-            part_sub_title: "팬데믹 상황에서의 경제 정책과 영향",
-          },
-        ],
-      },
-      {
-        id: 2,
-        keyword: "금리",
-        title: "금리와 세계 경제",
-        sub_title: "금리 변화가 글로벌 경제에 끼친 영향",
-        parts: [
-          {
-            id: 1,
-            isLearned: true,
-            part_title: "2008년: 글로벌 금융위기와 제로금리",
-            part_sub_title: "미국 연준의 기준금리 인하와 세계 시장의 반응",
-          },
-          {
-            id: 2,
-            isLearned: true,
-            part_title: "2022년: 인플레이션과 금리 인상",
-            part_sub_title: "급격한 금리 인상이 소비와 투자에 미친 영향",
-          },
-        ],
-      },
-    ]);
-  }, []);
-
-  if (!seriesList.length) return null;
+    getSeriesHistory(studentId, week)
+      .then((data) => setSeriesList(data.seriesList))
+      .catch((err) => console.error("단어 히스토리 API 실패:", err));
+  }, [studentId, week]);
 
   return (
     <div className="grid grid-cols-3 gap-y-15">
-      {seriesList.map((series) => {
-        const status = series.parts.every((p) => p.isLearned)
-          ? "done"
-          : "ongoing";
-
-        return (
-          <SeriesCard
-            key={series.id}
-            keyword={series.keyword}
-            status={status}
-            title={series.title}
-            onClick={() => {
-              setSelectedSeries(series);
-              setIsOpen(true);
-            }}
-          />
-        );
-      })}
+      {seriesList.map((series) => (
+        <SeriesCard
+          key={series.seriesId}
+          keyword={series.keyword}
+          status={series.status}
+          totalCount={series.totalCount}
+          learnedCount={series.learnedCount}
+          imgUrl={series.imgUrl}
+          title={series.title}
+          onClick={() => {
+            setSelectedSeries(series);
+            setIsOpen(true);
+          }}
+        />
+      ))}
 
       {/*모달*/}
       {isOpen && selectedSeries && (
@@ -131,11 +68,11 @@ export default function SeriesHistory() {
             </div>
             {selectedSeries?.parts.map((part) => (
               <div
-                key={part.id}
+                key={part.partId}
                 className="cursor-pointer"
                 onClick={() =>
                   router.push(
-                    `/MonSeries/${selectedSeries?.id}/part/${part.id}`
+                    `/MonSeries/${selectedSeries?.seriesId}/part/${part.partId}`
                   )
                 }
               >

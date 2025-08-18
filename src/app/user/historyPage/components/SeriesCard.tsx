@@ -4,8 +4,10 @@ import Image from "next/image";
 
 interface SeriesCardProps {
   keyword: string;
-  status?: "ongoing" | "done";
-  imgUrl?: string;
+  status: "ongoing" | "done";
+  totalCount: number;
+  learnedCount: number;
+  imgUrl: string;
   title: string;
   onClick?: () => void;
 }
@@ -13,6 +15,8 @@ interface SeriesCardProps {
 export default function SeriesCard({
   keyword,
   status,
+  totalCount,
+  learnedCount,
   imgUrl,
   title,
   onClick,
@@ -29,7 +33,13 @@ export default function SeriesCard({
       onClick={onClick}
     >
       <div className="absolute flex -top-3.5 right-7">
-        {status && <HistoryStatusBtn status={status} />}
+        {status && (
+          <HistoryStatusBtn
+            status={status}
+            totalCount={totalCount}
+            learnedCount={learnedCount}
+          />
+        )}
       </div>
       <div
         style={{
@@ -40,7 +50,20 @@ export default function SeriesCard({
         {keyword}
       </div>
       <div className="flex items-center justify-center w-44 h-44 rounded-[10px] border border-gray-300 mt-4">
-        <Image src={imgUrl ?? defaultImg} width={59} height={40} alt={title} />
+        {imgUrl ? (
+          <div className="relative w-44 h-44 rounded-[10px] overflow-hidden">
+            <Image src={imgUrl} alt={title} fill className="object-cover" />
+          </div>
+        ) : (
+          <div className="relative w-20 h-20 mx-auto my-auto">
+            <Image
+              src={defaultImg}
+              alt={title}
+              fill
+              className="object-contain"
+            />
+          </div>
+        )}
       </div>
       <div
         className="relative group pt-4"

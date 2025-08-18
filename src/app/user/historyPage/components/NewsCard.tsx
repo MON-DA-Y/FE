@@ -48,15 +48,7 @@ export default function NewsCard({ category, imgUrl, title }: NewsCardProps) {
           color: COLORS.primary.navy,
         }}
       >
-        <div className="truncate">{title}</div>
-        <div
-          className="absolute flex items-center justify-center w-fit h-5 opacity-0 group-hover:opacity-100 bottom-full inset-0 left-0 z-50 rounded-[5px] px-1.5 whitespace-nowrap"
-          style={{
-            backgroundColor: COLORS.sub.gray1,
-            fontSize: FONT_SIZE.caption2,
-            fontWeight: FONT_WEIGHT.caption2,
-          }}
-        >
+        <div className="truncate" title={title}>
           {title}
         </div>
       </div>
