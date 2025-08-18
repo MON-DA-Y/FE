@@ -28,7 +28,7 @@ export default function Options({ type, onSelect }: OptionsProps) {
           "전체",
           "정책/규제",
           "거시경제",
-          "특집이슈",
+          "특집/이슈",
           "글로벌경제",
           "금융/시장",
         ];
@@ -37,7 +37,7 @@ export default function Options({ type, onSelect }: OptionsProps) {
           "전체",
           "정책/규제",
           "거시경제",
-          "특집이슈",
+          "특집/이슈",
           "글로벌경제",
           "금융/시장",
         ];

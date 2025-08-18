@@ -14,9 +14,10 @@ interface DropdownProps {
     | "keyword"
     | "result"
     | "status";
+  onChange?: (value: string | number) => void;
 }
 
-export default function Dropdown({ type }: DropdownProps) {
+export default function Dropdown({ type, onChange }: DropdownProps) {
   const dropdownRef = useRef<HTMLDivElement>(null);
   const [isOpen, setIsOpen] = useState(false);
   const [selected, setSelected] = useState<string | number | null>(null);
@@ -40,6 +41,9 @@ export default function Dropdown({ type }: DropdownProps) {
   const handleSelect = (value: string | number) => {
     setSelected(value);
     setIsOpen(false);
+    if (onChange) {
+      onChange(value);
+    }
   };
 
   const defaultPlaceholder = {
@@ -55,7 +59,8 @@ export default function Dropdown({ type }: DropdownProps) {
   return (
     <div
       ref={dropdownRef}
-      className="relative flex justify-start items-center pl-5 pr-10 h-11 bg-white rounded-lg"
+      className="relative flex justify-start items-center pl-5 pr-10 h-11 bg-white rounded-lg cursor-pointer"
+      onClick={() => setIsOpen(!isOpen)}
       style={{
         boxShadow: SHADOW.interactive,
         minWidth: "90px",
@@ -75,8 +80,7 @@ export default function Dropdown({ type }: DropdownProps) {
         alt="dropdown"
         width={24}
         height={24}
-        onClick={() => setIsOpen(!isOpen)}
-        className="absolute right-[10.5px] cursor-pointer"
+        className="absolute right-[10.5px]"
       />
       {isOpen && (
         <div

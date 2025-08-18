@@ -26,7 +26,7 @@ export default function WordItem({
             style={{ backgroundColor: color }}
           ></div>
           <div
-            className="w-30 whitespace-nowrap"
+            className="w-43 whitespace-nowrap truncate"
             style={{
               fontSize: FONT_SIZE.subtitle1,
               fontWeight: FONT_WEIGHT.subtitle1,

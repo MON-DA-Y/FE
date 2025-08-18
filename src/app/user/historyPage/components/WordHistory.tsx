@@ -1,7 +1,42 @@
+"use client";
+
+import { useState, useEffect } from "react";
+import { Word, getWordHistory } from "@/apis/wordHistory";
 import { COLORS, SHADOW } from "@/styles/theme/tokens";
 import WordItem from "./WordItem";
+import { Category } from "../../../../../types/category";
 
-export default function WordHistory() {
+interface WordHistoryProps {
+  categoryFilter: Category | "all";
+  resultFilter: "all" | "correct" | "incorrect";
+}
+
+export default function WordHistory({
+  categoryFilter,
+  resultFilter,
+}: WordHistoryProps) {
+  const [words, setWords] = useState<Word[]>([]);
+  const studentId = 1;
+  const week = 3;
+
+  const filteredWords = words.filter((word) => {
+    // 카테고리 필터
+    if (categoryFilter !== "all" && word.category !== categoryFilter)
+      return false;
+
+    // 정답/오답 필터
+    if (resultFilter === "correct" && !word.isCorrect) return false;
+    if (resultFilter === "incorrect" && word.isCorrect) return false;
+
+    return true;
+  });
+
+  useEffect(() => {
+    getWordHistory(studentId, week)
+      .then((data) => setWords(data.words))
+      .catch((err) => console.error("단어 히스토리 API 실패:", err));
+  }, [studentId, week]);
+
   return (
     <div
       className="w-full h-full flex flex-col justify-center rounded-[20px] px-6 pt-5 gap-2"
@@ -10,18 +45,15 @@ export default function WordHistory() {
         boxShadow: SHADOW.interactive,
       }}
     >
-      <WordItem
-        type="MONEY"
-        word="전세"
-        wordDescription="일정 기간 집을 빌리는 대가로 목돈을 맡기고, 계약 종료 시 전액을 돌려받는 제도"
-        wordUse="최근 전세 가격이 크게 올라 세입자들의 부담이 커지고 있다."
-      />
-      <WordItem
-        type="BIGPICTURE"
-        word="무역전쟁"
-        wordDescription="국가 간 관세 인상이나 수출입 제한을 통한 경제적 갈등"
-        wordUse="미중 무역전쟁이 세계 경제에 부정적인 영향을 주고 있다."
-      />
+      {filteredWords.map((word) => (
+        <WordItem
+          key={word.wordId}
+          type={word.category}
+          word={word.word}
+          wordDescription={word.explain}
+          wordUse={word.use}
+        />
+      ))}
     </div>
   );
 }
