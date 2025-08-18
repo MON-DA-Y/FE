@@ -19,6 +19,12 @@ export default function WordHistory({
   const studentId = 1;
   const week = 3;
 
+  useEffect(() => {
+    getWordHistory(studentId, week)
+      .then((data) => setWords(data.words))
+      .catch((err) => console.error("단어 히스토리 API 실패:", err));
+  }, [studentId, week]);
+
   const filteredWords = words.filter((word) => {
     // 카테고리 필터
     if (categoryFilter !== "all" && word.category !== categoryFilter)
@@ -31,12 +37,6 @@ export default function WordHistory({
     return true;
   });
 
-  useEffect(() => {
-    getWordHistory(studentId, week)
-      .then((data) => setWords(data.words))
-      .catch((err) => console.error("단어 히스토리 API 실패:", err));
-  }, [studentId, week]);
-
   return (
     <div
       className="w-full h-full flex flex-col justify-center rounded-[20px] px-6 pt-5 gap-2"
@@ -48,10 +48,10 @@ export default function WordHistory({
       {filteredWords.map((word) => (
         <WordItem
           key={word.wordId}
-          type={word.category}
+          category={word.category}
           word={word.word}
-          wordDescription={word.explain}
-          wordUse={word.use}
+          explain={word.explain}
+          use={word.use}
         />
       ))}
     </div>

@@ -40,7 +40,12 @@ export default function HistoryPage() {
       );
       break;
     case "news":
-      ContentComponent = <NewsHistory />;
+      ContentComponent = (
+        <NewsHistory
+          categoryFilter={categoryFilter}
+          resultFilter={resultFilter}
+        />
+      );
       break;
     case "series":
       ContentComponent = <SeriesHistory />;
@@ -102,7 +107,7 @@ export default function HistoryPage() {
           )}
         </div>
       </div>
-      <main className="p-12">{ContentComponent}</main>
+      <main className="p-15">{ContentComponent}</main>
     </div>
   );
 }

@@ -1,23 +1,16 @@
 import { COLORS, FONT_SIZE, FONT_WEIGHT, SHADOW } from "@/styles/theme/tokens";
 import CategoryBtn from "./CategoryBtn";
-import HistoryStatusBtn from "./HistoryStatusBtn";
 import { Category } from "../../../../../types/category";
 import Image from "next/image";
 
 interface NewsCardProps {
-  //뉴스 api 연결 시 정보들
-  type: Category;
-  status?: "ongoing" | "done";
+  category: Category;
   imgUrl?: string;
   title: string;
+  isCorrect: boolean;
 }
 
-export default function NewsCard({
-  type,
-  status,
-  imgUrl,
-  title,
-}: NewsCardProps) {
+export default function NewsCard({ category, imgUrl, title }: NewsCardProps) {
   const defaultImg = "/images/logo.svg";
 
   return (
@@ -29,11 +22,23 @@ export default function NewsCard({
       }}
     >
       <div className="absolute flex -top-3.5 left-6 gap-4">
-        <CategoryBtn type={type} />
-        {status && <HistoryStatusBtn status={status} />}
+        <CategoryBtn type={category} />
       </div>
-      <div className="flex items-center justify-center w-44 h-44 rounded-[10px] border border-gray-300">
-        <Image src={imgUrl ?? defaultImg} width={59} height={40} alt={title} />
+      <div className="relative flex items-center justify-center w-44 h-44 rounded-[10px] border border-gray-300">
+        {imgUrl ? (
+          <div className="relative w-44 h-44 rounded-[10px] overflow-hidden">
+            <Image src={imgUrl} alt={title} fill className="object-cover" />
+          </div>
+        ) : (
+          <div className="relative w-20 h-20 mx-auto my-auto">
+            <Image
+              src={defaultImg}
+              alt={title}
+              fill
+              className="object-contain"
+            />
+          </div>
+        )}
       </div>
       <div
         className="relative group pt-4"

@@ -3,19 +3,19 @@ import { Category_Color } from "../../../../../constants/categoryColor";
 import { Category } from "../../../../../types/category";
 
 interface WordItemProps {
-  type: Category;
+  category: Category;
   word: string;
-  wordDescription: string;
-  wordUse: string;
+  explain: string;
+  use: string;
 }
 
 export default function WordItem({
-  type,
+  category,
   word,
-  wordDescription,
-  wordUse,
+  explain,
+  use,
 }: WordItemProps) {
-  const color = Category_Color[type];
+  const color = Category_Color[category];
 
   return (
     <div className="pb-3">
@@ -42,7 +42,7 @@ export default function WordItem({
             fontWeight: FONT_WEIGHT.subtitle2,
           }}
         >
-          <div className="max-w-[46ch]">{wordDescription}</div>
+          <div className="max-w-[46ch]">{explain}</div>
           <div className="flex items-center gap-3">
             <div
               className="rounded-[20px] w-20 h-8 flex justify-center items-center"
@@ -53,7 +53,7 @@ export default function WordItem({
             >
               써먹기
             </div>
-            <div style={{ color: COLORS.sub.gray4 }}>{wordUse}</div>
+            <div style={{ color: COLORS.sub.gray4 }}>{use}</div>
           </div>
         </div>
       </div>

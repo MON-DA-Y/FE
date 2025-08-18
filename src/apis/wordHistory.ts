@@ -20,7 +20,7 @@ export async function getWordHistory(
   week: number
 ): Promise<WordHistoryResponse> {
   const res = await API.get<WordHistoryResponse>(
-    `/users/${studentId}/word-history?week=${week}`
+    `/users/${studentId}/history/word?week=${week}`
   );
   console.log("API response:", res.data);
   return res.data;
