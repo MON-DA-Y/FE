@@ -11,9 +11,10 @@ interface OptionsProps {
     | "status";
   onSelect: (value: string | number) => void;
   selected: string | number | null;
+  keywords?: string[];
 }
 
-export default function Options({ type, onSelect }: OptionsProps) {
+export default function Options({ type, onSelect, keywords }: OptionsProps) {
   const currentYear = new Date().getFullYear();
   const getOptions = (type: string) => {
     switch (type) {
@@ -33,14 +34,7 @@ export default function Options({ type, onSelect }: OptionsProps) {
           "금융/시장",
         ];
       case "keyword":
-        return [
-          "전체",
-          "정책/규제",
-          "거시경제",
-          "특집/이슈",
-          "글로벌경제",
-          "금융/시장",
-        ];
+        return ["전체", ...(keywords ?? [])];
       case "result":
         return ["전체", "오답", "정답"];
       case "status":

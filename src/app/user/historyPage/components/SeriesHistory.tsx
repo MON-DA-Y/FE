@@ -7,7 +7,15 @@ import { COLORS, FONT_SIZE, FONT_WEIGHT } from "@/styles/theme/tokens";
 import { useRouter } from "next/navigation";
 import { Series, getSeriesHistory } from "@/apis/seriesHistory";
 
-export default function SeriesHistory() {
+interface SeriesHistoryProps {
+  keywordFilter: string | "all";
+  statusFilter: "all" | "done" | "ongoing";
+}
+
+export default function SeriesHistory({
+  keywordFilter,
+  statusFilter,
+}: SeriesHistoryProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [seriesList, setSeriesList] = useState<Series[]>([]);
   const [selectedSeries, setSelectedSeries] = useState<Series | null>(null);
@@ -19,12 +27,22 @@ export default function SeriesHistory() {
   useEffect(() => {
     getSeriesHistory(studentId, week)
       .then((data) => setSeriesList(data.seriesList))
-      .catch((err) => console.error("단어 히스토리 API 실패:", err));
+      .catch((err) => console.error("시리즈 히스토리 API 실패:", err));
   }, [studentId, week]);
+
+  const filteredSeries = seriesList.filter((series) => {
+    // 키워드 필터
+    if (keywordFilter !== "all" && series.keyword !== keywordFilter)
+      return false;
+
+    // 학습 현황 필터
+    if (statusFilter !== "all" && series.status !== statusFilter) return false;
+    return true;
+  });
 
   return (
     <div className="grid grid-cols-3 gap-y-15">
-      {seriesList.map((series) => (
+      {filteredSeries.map((series) => (
         <SeriesCard
           key={series.seriesId}
           keyword={series.keyword}

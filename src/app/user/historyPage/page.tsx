@@ -11,13 +11,15 @@ import { COLORS, FONT_SIZE, FONT_WEIGHT } from "@/styles/theme/tokens";
 import { Category } from "../../../../types/category";
 import { Category_Label } from "../../../../constants/categoryLabel";
 
-type CategoryWithAll = Category | "all";
-
 export default function HistoryPage() {
   const searchParams = useSearchParams();
   const type = searchParams.get("type") || "series";
 
-  const [categoryFilter, setCategoryFilter] = useState<CategoryWithAll>("all");
+  const [keywordFilter, setKeywordFilter] = useState<"all" | string>("all");
+  const [statusFilter, setStatusFilter] = useState<"all" | "done" | "ongoing">(
+    "all"
+  );
+  const [categoryFilter, setCategoryFilter] = useState<"all" | Category>("all");
   const [resultFilter, setResultFilter] = useState<
     "all" | "correct" | "incorrect"
   >("all");
@@ -48,7 +50,12 @@ export default function HistoryPage() {
       );
       break;
     case "series":
-      ContentComponent = <SeriesHistory />;
+      ContentComponent = (
+        <SeriesHistory
+          keywordFilter={keywordFilter}
+          statusFilter={statusFilter}
+        />
+      );
       break;
     default:
       ContentComponent = <div>잘못된 타입입니다.</div>;
@@ -71,8 +78,28 @@ export default function HistoryPage() {
         <div className="absolute top-35 left-190">
           {type === "series" ? (
             <div className="flex gap-4.5">
-              <Dropdown type="keyword" />
-              <Dropdown type="status" />
+              <Dropdown
+                type="keyword"
+                onChange={(value) => {
+                  if (value === "전체") {
+                    setKeywordFilter("all");
+                  } else {
+                    setKeywordFilter(value as string);
+                  }
+                }}
+              />
+              <Dropdown
+                type="status"
+                onChange={(value) => {
+                  setStatusFilter(
+                    value === "학습중"
+                      ? "ongoing"
+                      : value === "완료"
+                      ? "done"
+                      : "all"
+                  );
+                }}
+              />
             </div>
           ) : (
             <div className="flex gap-4.5">
@@ -87,7 +114,7 @@ export default function HistoryPage() {
                       (item) => item.label === label
                     );
                     if (categoryEntry)
-                      setCategoryFilter(categoryEntry.value as CategoryWithAll);
+                      setCategoryFilter(categoryEntry.value as Category);
                   }
                 }}
               />

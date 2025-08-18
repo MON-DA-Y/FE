@@ -4,6 +4,7 @@ import { COLORS, FONT_SIZE, FONT_WEIGHT, SHADOW } from "@/styles/theme/tokens";
 import Image from "next/image";
 import { useState, useRef, useEffect } from "react";
 import Options from "./Options";
+import { getSeriesHistory, Series } from "@/apis/seriesHistory";
 
 interface DropdownProps {
   type:
@@ -18,9 +19,21 @@ interface DropdownProps {
 }
 
 export default function Dropdown({ type, onChange }: DropdownProps) {
+  const studentId = 1;
+  const week = 3;
+
   const dropdownRef = useRef<HTMLDivElement>(null);
   const [isOpen, setIsOpen] = useState(false);
   const [selected, setSelected] = useState<string | number | null>(null);
+
+  const [seriesList, setSeriesList] = useState<Series[]>([]);
+  const keywords = Array.from(new Set(seriesList.map((s) => s.keyword))); // keyword 중복 제거
+
+  useEffect(() => {
+    getSeriesHistory(studentId, week)
+      .then((data) => setSeriesList(data.seriesList))
+      .catch((err) => console.error("시리즈 히스토리 API 실패:", err));
+  }, [studentId, week]);
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -91,7 +104,12 @@ export default function Dropdown({ type, onChange }: DropdownProps) {
             overflowY: "auto",
           }}
         >
-          <Options type={type} onSelect={handleSelect} selected={selected} />
+          <Options
+            type={type}
+            onSelect={handleSelect}
+            selected={selected}
+            keywords={keywords}
+          />
         </div>
       )}
     </div>
