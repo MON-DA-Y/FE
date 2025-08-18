@@ -5,6 +5,7 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
 import { getAttendance, AttendanceResponse } from "@/apis/attendance";
+import { CategoryScore, getWeakness, WeaknessResponse } from "@/apis/weakness";
 import StudentLevel from "../components/StudentLevel";
 import Dropdown from "../components/Dropdown";
 import ProgressBtn from "../components/ProgressBtn";
@@ -15,33 +16,42 @@ import HistoryBtn from "../components/HistoryBtn";
 import StudentEdit from "./components/StudentEdit";
 
 export default function StudentMyPage() {
+  // 이후에 token 사용해서 studentId 적용
+  const studentId = 1;
+  const week = 3;
+
   const router = useRouter();
-  const [selectedTab, setSelectedTab] = useState<"series" | "keyword">(
-    "series"
-  );
   const [isEditOpen, setIsEditOpen] = useState(false);
   const [profileImg, setProfileImg] = useState<string>("/images/student.png");
 
-  const handleTabChange = (value: { selectedTab: "series" | "keyword" }) => {
-    setSelectedTab(value.selectedTab);
-  };
-
-  //출석률 조회
+  // 출석률 조회
   const [attendanceData, setAttendanceData] = useState<boolean[]>([]);
   const [dates, setDates] = useState<number[]>([]);
 
+  // 약점 분석 조회
+  const [weaknessData, setWeaknessData] = useState<WeaknessResponse | null>(
+    null
+  );
+  const [selectedTab, setSelectedTab] = useState<"word" | "news">("word");
+  const handleTabChange = (value: { selectedTab: "word" | "news" }) => {
+    setSelectedTab(value.selectedTab);
+  };
+
+  // API 연결
   useEffect(() => {
-    console.log("getAttendance 호출됨");
-    getAttendance(1, 3)
+    if (studentId === null) return;
+
+    getAttendance(studentId, week)
       .then((data: AttendanceResponse) => {
-        console.log("Attendance data:", data);
         setAttendanceData(data.days.map((d) => d.isAttended));
         setDates(data.days.map((d) => new Date(d.day).getDate()));
       })
-      .catch((err) => {
-        console.error("API 호출 실패:", err);
-      });
-  }, []);
+      .catch((err) => console.error("출석 API 실패:", err));
+
+    getWeakness(studentId, week)
+      .then((data) => setWeaknessData(data))
+      .catch((err) => console.error("약점 API 실패:", err));
+  }, [studentId, week]);
 
   {
     /*나중에 회원정보 불러오기*/
@@ -222,7 +232,7 @@ export default function StudentMyPage() {
           </div>
 
           {/*날짜 드롭다운*/}
-          <div className="flex pt-9 gap-4.5 pl-100">
+          <div className="flex pt-9 gap-4.5 pl-110">
             <Dropdown type="year" />
             <Dropdown type="month" />
             <Dropdown type="week" />
@@ -257,7 +267,7 @@ export default function StudentMyPage() {
               </div>
             </div>
           </div>
-          <div className="flex items-center pt-13 -ml-2">
+          <div className="flex items-center pt-13">
             {/*약점 분석*/}
             <div className="flex flex-col">
               <div
@@ -275,7 +285,7 @@ export default function StudentMyPage() {
                     fontWeight: FONT_WEIGHT.body2,
                   }}
                 >
-                  2025 4월 첫째주
+                  2025 8월 첫째주
                 </div>
                 <div
                   className="flex items-center"
@@ -294,14 +304,31 @@ export default function StudentMyPage() {
                   저번 주보다 4% 성장했어요
                 </div>
               </div>
-              <div className="pt-3.5 px-45">
+              <div className="pt-3.5 px-55">
                 <TabBar onChange={handleTabChange} selectedTab={selectedTab} />
               </div>
               <div className="flex flex-col pt-5 gap-6 -ml-4">
-                <Slider type="RULES" />
-                <Slider type="TECH" />
-                <Slider type="BIGPICTURE" />
-                <Slider type="MONEY" />
+                {selectedTab === "word"
+                  ? weaknessData?.weakWord?.categories.map(
+                      (c: CategoryScore) => (
+                        <Slider
+                          key={c.category}
+                          category={c.category}
+                          total={c.total}
+                          correct={c.correct}
+                        />
+                      )
+                    )
+                  : weaknessData?.weakNews?.categories.map(
+                      (c: CategoryScore) => (
+                        <Slider
+                          key={c.category}
+                          category={c.category}
+                          total={c.total}
+                          correct={c.correct}
+                        />
+                      )
+                    )}
               </div>
               <div
                 className="pt-6 max-w-[44ch] -ml-2"
@@ -310,14 +337,26 @@ export default function StudentMyPage() {
                   fontWeight: FONT_WEIGHT.body2,
                 }}
               >
-                경제 흐름을 파악하는 부분은 강하지만, 정책/규제에 대한 설명은
-                조금 약해요. 관련 제도나 법이 어떤 영향을 주는지 배우면 좋을 것
-                같아요.
+                <div
+                  style={{
+                    fontSize: FONT_SIZE.body1,
+                    fontWeight: FONT_WEIGHT.headline,
+                    color: COLORS.category.money,
+                  }}
+                >
+                  ⋇ 이번 주 체크 포인트 :
+                </div>
+                {/* summary는 약점 개수가 4개일때만 표시 */}
+                {selectedTab === "word"
+                  ? weaknessData?.weakWord?.summary ||
+                    "약점 분석 데이터가 충분하지 않아요. 이번 주 남은 단어 학습을 마치면 더 정확한 피드백을 받을 수 있어요."
+                  : weaknessData?.weakNews?.summary ||
+                    "약점 분석 데이터가 충분하지 않아요. 이번 주 남은 뉴스 학습을 마치면 더 정확한 피드백을 받을 수 있어요."}
               </div>
             </div>
 
             {/*히스토리 버튼*/}
-            <div className="flex flex-col gap-5 mx-[-125px]">
+            <div className="flex absolute flex-col gap-5 top-180 left-125">
               <HistoryBtn type="word" />
               <HistoryBtn type="news" />
               <HistoryBtn type="series" />

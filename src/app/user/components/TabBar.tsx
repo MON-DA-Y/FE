@@ -19,7 +19,7 @@ export default function TabBar({ onChange, selectedTab }: TabBarProps) {
     >
       <button
         type="button"
-        className="rounded-xl px-1 py-1 transition all"
+        className="rounded-xl px-1 py-1 transition all cursor-pointer"
         style={{
           fontSize: FONT_SIZE.body2,
           fontWeight: FONT_WEIGHT.body2,
@@ -33,7 +33,7 @@ export default function TabBar({ onChange, selectedTab }: TabBarProps) {
       </button>
       <button
         type="button"
-        className="rounded-xl px-1 py-1 transition all"
+        className="rounded-xl px-1 py-1 transition all cursor-pointer"
         style={{
           fontSize: FONT_SIZE.body2,
           fontWeight: FONT_WEIGHT.body2,
