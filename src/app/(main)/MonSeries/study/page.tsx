@@ -1,27 +1,24 @@
 "use client";
 
 import Header from "./components/Header";
-import { useSeriesStore } from "@/store/useSeriesStore";
+import { COLORS } from "@/styles/theme/tokens";
+import Study from "./components/Study";
 
 export default function page() {
-  const series = useSeriesStore((state) => state.currentSeries);
-  const part = useSeriesStore((state) => state.currentPart);
-
-  if (!series || !part) {
-    return <p>잘못된 접근입니다.</p>;
-  }
-
-  console.log(series);
-
   return (
     <>
       <div className="relative flex justify-center gap-5">
-        <Header
-          keyword={series.keyword ? series.keyword : ""}
-          series_id={series.id}
-          series_title={series.title}
-          part_id={part.id}
-        />
+        <Header />
+        <div
+          className="mt-[30px] w-[722px] h-[455px] rounded-[30px] overflow-scroll"
+          style={{
+            background: COLORS.sub.gray1,
+            scrollbarWidth: "none",
+            msOverflowStyle: "none",
+          }}
+        >
+          <Study />
+        </div>
       </div>
     </>
   );

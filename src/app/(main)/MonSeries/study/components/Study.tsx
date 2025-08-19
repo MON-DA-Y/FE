@@ -3,14 +3,24 @@
 import { COLORS, FONT_SIZE, FONT_WEIGHT } from "@/styles/theme/tokens";
 import WordBox from "@/components/ui/WordBox";
 import TextBox from "./TextBox";
+import CommonBtn from "@/components/shared/CommonBtn";
 import { useSeriesStore } from "@/store/useSeriesStore";
+import { useRouter } from "next/navigation";
 
 export default function Study() {
   const part = useSeriesStore((state) => state.currentPart);
+  const router = useRouter();
+
+  const handleSeriesStudyClick = () => {
+    // 학습 완료 api 요청 보내기
+    console.log("오늘의 MonSeries 학습 완료");
+    router.push(`/`);
+  };
 
   if (!part) {
     return <p>잘못된 접근입니다.</p>;
   }
+
   return (
     <>
       <div className="px-5 py-7 flex flex-col justify-center items-center gap-5">
@@ -79,6 +89,9 @@ export default function Study() {
             type="term"
             text="무역 적자: 한 국가가 수출하는 것보다 수입하는 것이 더 많을 때 발생하는 상황"
           />
+        </div>
+        <div className="">
+          <CommonBtn type="series_study" onClick={handleSeriesStudyClick} />
         </div>
       </div>
     </>
