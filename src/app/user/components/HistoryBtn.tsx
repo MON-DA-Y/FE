@@ -20,7 +20,7 @@ export default function HistoryBtn({ type }: HistoryBtnProps) {
 
   return (
     <div
-      className="flex items-center w-[420px] h-[106px] pl-5 rounded-[30px] whitespace-nowrap"
+      className="flex items-center w-[420px] h-[106px] pl-5 rounded-[30px] whitespace-nowrap cursor-pointer"
       style={{ boxShadow: SHADOW.interactive }}
       onClick={handleClick}
     >
