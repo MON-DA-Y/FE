@@ -1,6 +1,10 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useParams } from "next/navigation";
+import { getAttendance, AttendanceResponse } from "@/apis/attendance";
+import { CategoryScore, getWeakness, WeaknessResponse } from "@/apis/weakness";
+import { Result, getQuizResult } from "@/apis/quizResult";
 import StudentProfile from "@/app/user/components/StudentProfile";
 import ParentProfile from "../components/ParentProfile";
 import StudentLevel from "@/app/user/components/StudentLevel";
@@ -14,19 +18,64 @@ import TabBar from "../../components/TabBar";
 import Slider from "../../components/Slider";
 import HistoryBtn from "../../components/HistoryBtn";
 import InputBox from "../../components/InputBox";
-import QuizBox from "../components/QuizBtn";
+import QuizBtn from "../components/QuizBtn";
 
 export default function ParentPage() {
-  const [selectedTab, setSelectedTab] = useState<"series" | "keyword">(
-    "series"
-  );
+  const params = useParams();
+  const studentId = Number(params.studentId);
+  const week = 3;
 
-  const handleTabChange = (value: { selectedTab: "series" | "keyword" }) => {
+  // 출석률
+  const [attendanceData, setAttendanceData] = useState<boolean[]>([]);
+  const [dates, setDates] = useState<number[]>([]);
+
+  // 약점
+  const [weaknessData, setWeaknessData] = useState<WeaknessResponse | null>(
+    null
+  );
+  const [selectedTab, setSelectedTab] = useState<"word" | "news">("word");
+  const handleTabChange = (value: { selectedTab: "word" | "news" }) => {
     setSelectedTab(value.selectedTab);
   };
 
+  // 퀴즈 성적
+  const [quizResults, setQuizResults] = useState<Result[]>([]);
+
+  //출석률 조회
+  useEffect(() => {
+    getAttendance(studentId, week)
+      .then((data: AttendanceResponse) => {
+        console.log("출석률 데이터:", data);
+        setAttendanceData(data.days.map((d) => d.isAttended));
+        setDates(data.days.map((d) => new Date(d.day).getDate()));
+      })
+      .catch((err) => {
+        console.error("API 호출 실패:", err);
+      });
+  }, [studentId, week]);
+
+  // 약점 분석 조회
+  useEffect(() => {
+    getWeakness(studentId, week)
+      .then((data) => {
+        console.log("약점 데이터:", data);
+        setWeaknessData(data);
+      })
+      .catch((err) => console.error(err));
+  }, [studentId, week]);
+
+  // 퀴즈 성적 조회
+  useEffect(() => {
+    getQuizResult(studentId, week)
+      .then((data) => {
+        console.log("퀴즈 성적:", data);
+        setQuizResults(data.results);
+      })
+      .catch((err) => console.error(err));
+  }, [studentId, week]);
+
   return (
-    <div className="relative w-full h-screen overflow-auto overflow-x-hidden px-13 py-7">
+    <div className="relative w-full overflow-x-hidden px-13 py-7">
       {/*학부모 프로필*/}
       <div className="ml-190">
         <ParentProfile />
@@ -107,7 +156,12 @@ export default function ParentPage() {
           <ProgressBtn />
         </div>
         <div className="pt-4">
-          <AttendBtn days_gap={54} attend_gap={2.5} />
+          <AttendBtn
+            days_gap={54}
+            attend_gap={2.5}
+            attendance={attendanceData}
+            dates={dates}
+          />
         </div>
 
         {/*약점 분석*/}
@@ -127,7 +181,7 @@ export default function ParentPage() {
                 fontWeight: FONT_WEIGHT.body2,
               }}
             >
-              2025 4월 첫째주
+              2025 8월 첫째주
             </div>
             <div
               className="flex items-center gap-1"
@@ -146,22 +200,47 @@ export default function ParentPage() {
               저번 주보다 4% 성장했어요
             </div>
           </div>
-          <div className="pt-3.5 px-63">
+          <div className="pt-3.5 px-74">
             <TabBar onChange={handleTabChange} selectedTab={selectedTab} />
           </div>
-          <div className="flex flex-col px-5 pt-5 gap-6">
-            <Slider type="RULES" />
-            <Slider type="TECH" />
-            <Slider type="BIGPICTURE" />
-            <Slider type="MONEY" />
+          <div className="flex flex-col px-5 pt-6 gap-6">
+            {selectedTab === "word"
+              ? weaknessData?.weakWord?.categories.map((c: CategoryScore) => (
+                  <Slider
+                    key={c.category}
+                    category={c.category}
+                    total={c.total}
+                    correct={c.correct}
+                  />
+                ))
+              : weaknessData?.weakNews?.categories.map((c: CategoryScore) => (
+                  <Slider
+                    key={c.category}
+                    category={c.category}
+                    total={c.total}
+                    correct={c.correct}
+                  />
+                ))}
           </div>
           <div
-            className="pt-6"
+            className="pt-8 max-w-110"
             style={{ fontSize: FONT_SIZE.body2, fontWeight: FONT_WEIGHT.body2 }}
           >
-            경제 흐름을 파악하는 부분은 강하지만, 정책/규제에 대한 설명은 조금
-            약해요. <br /> 관련 제도나 법이 어떤 영향을 주는지 배우면 좋을 것
-            같아요.
+            <div
+              style={{
+                fontSize: FONT_SIZE.body1,
+                fontWeight: FONT_WEIGHT.headline,
+                color: COLORS.category.money,
+              }}
+            >
+              ⋇ 이번 주 체크 포인트 :
+            </div>
+            {/* summary는 약점 개수가 4개일때만 표시 */}
+            {selectedTab === "word"
+              ? weaknessData?.weakWord?.summary ||
+                "약점 분석 데이터가 충분하지 않아요. 이번 주 남은 단어 학습을 마치면 더 정확한 피드백을 받을 수 있어요."
+              : weaknessData?.weakNews?.summary ||
+                "약점 분석 데이터가 충분하지 않아요. 이번 주 남은 뉴스 학습을 마치면 더 정확한 피드백을 받을 수 있어요."}
           </div>
         </div>
 
@@ -174,7 +253,7 @@ export default function ParentPage() {
       </div>
 
       {/*바라는 한마디*/}
-      <div className="relative top-[-1125px] left-[530px]">
+      <div className="absolute top-85 left-145">
         <div
           className="whitespace-nowrap"
           style={{
@@ -188,7 +267,7 @@ export default function ParentPage() {
       </div>
 
       {/*이번 주 퀴즈*/}
-      <div className="relative top-[-1070px] left-[530px]">
+      <div className="absolute top-140 left-145">
         <div
           className="whitespace-nowrap"
           style={{
@@ -199,14 +278,14 @@ export default function ParentPage() {
           이번 주 퀴즈
         </div>
         <div className="flex flex-col pt-5 gap-2.5">
-          <QuizBox />
-          <QuizBox />
-          <QuizBox />
+          {quizResults.map((quiz) => (
+            <QuizBtn key={quiz.quizId} day={quiz.day} score={quiz.score} />
+          ))}
         </div>
       </div>
 
       {/*경제 TalkTalk*/}
-      <div className="relative top-[-1000px] left-[530px]">
+      <div className="absolute top-223 left-145">
         <div
           className="whitespace-nowrap"
           style={{

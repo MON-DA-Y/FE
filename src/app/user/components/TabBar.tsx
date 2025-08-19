@@ -1,12 +1,12 @@
 import { COLORS, FONT_SIZE, FONT_WEIGHT } from "@/styles/theme/tokens";
 
 interface TabBarProps {
-  onChange: (value: { selectedTab: "series" | "keyword" }) => void;
-  selectedTab: "series" | "keyword";
+  onChange: (value: { selectedTab: "word" | "news" }) => void;
+  selectedTab: "word" | "news";
 }
 
 export default function TabBar({ onChange, selectedTab }: TabBarProps) {
-  const handleTabChange = (tab: "series" | "keyword") => {
+  const handleTabChange = (tab: "word" | "news") => {
     onChange({
       selectedTab: tab,
     });
@@ -14,37 +14,36 @@ export default function TabBar({ onChange, selectedTab }: TabBarProps) {
 
   return (
     <div
-      className="flex w-[195px] justify-between rounded-2xl px-1.5 py-1 whitespace-nowrap"
+      className="flex w-[150px] justify-between rounded-2xl px-1.5 py-1 whitespace-nowrap"
       style={{ backgroundColor: COLORS.sub.gray2 }}
     >
       <button
         type="button"
-        className="rounded-2xl px-1 py-1 transition all"
+        className="rounded-xl px-1 py-1 transition all cursor-pointer"
         style={{
           fontSize: FONT_SIZE.body2,
           fontWeight: FONT_WEIGHT.body2,
           backgroundColor:
-            selectedTab === "series" ? COLORS.sub.white : COLORS.sub.gray2,
-          color: selectedTab === "series" ? COLORS.sub.black : COLORS.sub.gray3,
+            selectedTab === "word" ? COLORS.sub.white : COLORS.sub.gray2,
+          color: selectedTab === "word" ? COLORS.sub.black : COLORS.sub.gray3,
         }}
-        onClick={() => handleTabChange("series")}
+        onClick={() => handleTabChange("word")}
       >
-        시리즈로 보기
+        MON단어
       </button>
       <button
         type="button"
-        className="rounded-2xl px-1 py-1 transition all"
+        className="rounded-xl px-1 py-1 transition all cursor-pointer"
         style={{
           fontSize: FONT_SIZE.body2,
           fontWeight: FONT_WEIGHT.body2,
           backgroundColor:
-            selectedTab === "keyword" ? COLORS.sub.white : COLORS.sub.gray2,
-          color:
-            selectedTab === "keyword" ? COLORS.sub.black : COLORS.sub.gray3,
+            selectedTab === "news" ? COLORS.sub.white : COLORS.sub.gray2,
+          color: selectedTab === "news" ? COLORS.sub.black : COLORS.sub.gray3,
         }}
-        onClick={() => handleTabChange("keyword")}
+        onClick={() => handleTabChange("news")}
       >
-        키워드로 보기
+        MON뉴스
       </button>
     </div>
   );

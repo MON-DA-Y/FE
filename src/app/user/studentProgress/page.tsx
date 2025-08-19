@@ -1,17 +1,26 @@
 "use client";
 
-import { FONT_SIZE, FONT_WEIGHT, SHADOW, COLORS } from "@/styles/theme/tokens";
-import Image from "next/image";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
+import { FONT_SIZE, FONT_WEIGHT, COLORS } from "@/styles/theme/tokens";
+import Image from "next/image";
 import Dropdown from "../components/Dropdown";
 import ProgressSlider from "./components/ProgressSlider";
 import ProgressItem from "./components/ProgressItem";
+import { getProgress, ProgressResponse } from "@/apis/progress";
 
 export default function StudentMyPage() {
   const router = useRouter();
+  const [progress, setProgress] = useState<ProgressResponse | null>(null);
+
+  useEffect(() => {
+    getProgress(1, 3).then(setProgress);
+  }, []);
+
+  if (!progress) return <div>Loading...</div>;
 
   return (
-    <div className="relative w-full h-screen overflow-auto px-13 py-5">
+    <div className="relative w-full px-13 py-5">
       <Image
         src="/icons/Home.svg"
         alt="home"
@@ -37,7 +46,10 @@ export default function StudentMyPage() {
         </div>
         {/*Slider*/}
         <div className="pt-10">
-          <ProgressSlider />
+          <ProgressSlider
+            weekCompletionRate={progress.weekCompletionRate}
+            strikeDay={progress.strikeDay}
+          />
         </div>
         {/*진도 현황*/}
         <div className="flex items-center pt-13">
@@ -82,9 +94,9 @@ export default function StudentMyPage() {
         </div>
         <div className="w-full mt-3 h-[1px] bg-black"></div>
 
-        {/*api연결 후 ProgressList component 따로 생성*/}
-        <ProgressItem />
-        <ProgressItem />
+        {progress.days.map((dayData) => (
+          <ProgressItem key={dayData.day} days={dayData} />
+        ))}
       </div>
     </div>
   );

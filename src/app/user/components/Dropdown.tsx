@@ -4,15 +4,36 @@ import { COLORS, FONT_SIZE, FONT_WEIGHT, SHADOW } from "@/styles/theme/tokens";
 import Image from "next/image";
 import { useState, useRef, useEffect } from "react";
 import Options from "./Options";
+import { getSeriesHistory, Series } from "@/apis/seriesHistory";
 
 interface DropdownProps {
-  type: "year" | "month" | "week" | "day" | "category" | "result" | "status";
+  type:
+    | "year"
+    | "month"
+    | "week"
+    | "category"
+    | "keyword"
+    | "result"
+    | "status";
+  onChange?: (value: string | number) => void;
 }
 
-export default function Dropdown({ type }: DropdownProps) {
+export default function Dropdown({ type, onChange }: DropdownProps) {
+  const studentId = 1;
+  const week = 3;
+
   const dropdownRef = useRef<HTMLDivElement>(null);
   const [isOpen, setIsOpen] = useState(false);
   const [selected, setSelected] = useState<string | number | null>(null);
+
+  const [seriesList, setSeriesList] = useState<Series[]>([]);
+  const keywords = Array.from(new Set(seriesList.map((s) => s.keyword))); // keyword 중복 제거
+
+  useEffect(() => {
+    getSeriesHistory(studentId, week)
+      .then((data) => setSeriesList(data.seriesList))
+      .catch((err) => console.error("시리즈 히스토리 API 실패:", err));
+  }, [studentId, week]);
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -33,14 +54,17 @@ export default function Dropdown({ type }: DropdownProps) {
   const handleSelect = (value: string | number) => {
     setSelected(value);
     setIsOpen(false);
+    if (onChange) {
+      onChange(value);
+    }
   };
 
   const defaultPlaceholder = {
     year: new Date().getFullYear() + "년",
     month: new Date().getMonth() + 1 + "월",
     week: "첫째주",
-    day: "요일",
     category: "카테고리",
+    keyword: "키워드",
     result: "전체",
     status: "전체",
   }[type];
@@ -48,7 +72,8 @@ export default function Dropdown({ type }: DropdownProps) {
   return (
     <div
       ref={dropdownRef}
-      className="relative flex justify-start items-center pl-5 pr-10 h-11 bg-white rounded-lg"
+      className="relative flex justify-start items-center pl-5 pr-10 h-11 bg-white rounded-lg cursor-pointer"
+      onClick={() => setIsOpen(!isOpen)}
       style={{
         boxShadow: SHADOW.interactive,
         minWidth: "90px",
@@ -68,8 +93,7 @@ export default function Dropdown({ type }: DropdownProps) {
         alt="dropdown"
         width={24}
         height={24}
-        onClick={() => setIsOpen(!isOpen)}
-        className="absolute right-[10.5px] cursor-pointer"
+        className="absolute right-[10.5px]"
       />
       {isOpen && (
         <div
@@ -80,7 +104,12 @@ export default function Dropdown({ type }: DropdownProps) {
             overflowY: "auto",
           }}
         >
-          <Options type={type} onSelect={handleSelect} selected={selected} />
+          <Options
+            type={type}
+            onSelect={handleSelect}
+            selected={selected}
+            keywords={keywords}
+          />
         </div>
       )}
     </div>
