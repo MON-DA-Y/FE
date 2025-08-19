@@ -4,7 +4,13 @@ import { COLORS, FONT_SIZE, FONT_WEIGHT } from "@/styles/theme/tokens";
 import Image from "next/image";
 
 interface CommonBtnProps {
-  type: "understand" | "finish" | "series" | "quiz_submit" | "monday_complete"; // 패딩
+  type:
+    | "understand"
+    | "finish"
+    | "series"
+    | "series_study"
+    | "quiz_submit"
+    | "monday_complete"; // 패딩
   subText?: string;
   seriesName?: string;
   onClick: () => void;
@@ -77,6 +83,31 @@ export default function CommonBtn({
             {seriesName}
           </div>
           <Image src="/icons/next.svg" alt=">" width={15} height={15} />
+        </div>
+      )}
+      {/* 시리즈 학습 완료 버튼 */}
+      {type === "series_study" && (
+        <div className="relative flex flex-col justify-center items-center">
+          <div
+            style={{
+              color: COLORS.primary.navy,
+              fontSize: FONT_SIZE.caption2,
+              fontWeight: FONT_WEIGHT.caption2,
+            }}
+          >
+            오늘의 MON시리즈를 다 읽었어요!
+          </div>
+          <div
+            className="px-5 py-3.5 rounded-[30px] text-white text-center cursor-pointer"
+            style={{
+              backgroundColor: COLORS.primary.navy,
+              fontSize: FONT_SIZE.subtitle2,
+              fontWeight: FONT_WEIGHT.subtitle2,
+            }}
+            onClick={onClick}
+          >
+            💡 학습 완료했어요
+          </div>
         </div>
       )}
       {/* 퀴즈 제출 버튼 */}
