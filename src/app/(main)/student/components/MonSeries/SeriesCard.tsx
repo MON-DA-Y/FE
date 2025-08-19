@@ -3,17 +3,13 @@
 import { COLORS, FONT_SIZE, FONT_WEIGHT } from "@/styles/theme/tokens";
 import WordBox from "@/components/ui/WordBox";
 import { useRouter } from "next/navigation";
+import { SeriesCardType } from "@/types/studentMain";
 
-interface SeriesCardProps {
-  onClick: () => void;
-  category: string;
-  children: React.ReactNode;
-}
 export default function SeriesCard({
   onClick,
-  category,
+  keyword,
   children,
-}: SeriesCardProps) {
+}: SeriesCardType) {
   const router = useRouter();
 
   return (
@@ -29,7 +25,7 @@ export default function SeriesCard({
             textColor={`${COLORS.series.deepGreen}`}
             font={"caption1"}
           >
-            {category}
+            {keyword}
           </WordBox>
         </div>
         <div

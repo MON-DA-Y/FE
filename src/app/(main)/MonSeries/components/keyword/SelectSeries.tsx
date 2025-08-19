@@ -3,20 +3,14 @@
 import { COLORS, FONT_SIZE, FONT_WEIGHT } from "@/styles/theme/tokens";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-
-interface PinSeriesProps {
-  id: number;
-  isYellow: boolean;
-  series_title: string;
-  series_sub_title: string;
-}
+import { KeywordModalSelectSeries } from "@/types/monSeries";
 
 export default function SelectSeries({
   id,
   isYellow,
   series_title,
   series_sub_title,
-}: PinSeriesProps) {
+}: KeywordModalSelectSeries) {
   const router = useRouter();
 
   const handleClick = () => {

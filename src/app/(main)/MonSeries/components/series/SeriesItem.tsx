@@ -1,20 +1,20 @@
 "use client";
 
 import { COLORS, FONT_SIZE, FONT_WEIGHT } from "@/styles/theme/tokens";
-import PartItem, { PartProps } from "./PartItem";
-
-export interface SeriesItemProps {
-  id: number;
-  title: string;
-  sub_title: string;
-  parts: PartProps[];
-}
+import PartItem from "./PartItem";
+import { Series } from "@/types/monSeries";
 
 export default function SeriesItem({
+  id,
+  keyword,
   title,
   sub_title,
   parts,
-}: SeriesItemProps) {
+}: Series) {
+  const series = { id, keyword, title, sub_title, parts };
+
+  if (!parts) return null;
+
   return (
     <>
       <div className="w-[680px] px-10 pt-10 pb-7 bg-white rounded-[30px] flex flex-col gap-3.5">
@@ -45,6 +45,8 @@ export default function SeriesItem({
             isLearned={item.isLearned}
             part_title={item.part_title}
             part_sub_title={item.part_sub_title}
+            series={series}
+            part_study={item.part_study}
           />
         ))}
       </div>

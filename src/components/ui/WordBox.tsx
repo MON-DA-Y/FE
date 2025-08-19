@@ -12,7 +12,7 @@ interface WordBoxProps {
 const WordBox = ({ p, bg, textColor, font, children }: WordBoxProps) => {
   return (
     <div
-      className="relative flex justify-start items-center gap-2.5 rounded-[20px]"
+      className="w-fit rounded-[20px]"
       style={{ backgroundColor: bg, padding: p }}
     >
       <div

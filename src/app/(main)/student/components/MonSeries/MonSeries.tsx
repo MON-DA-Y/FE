@@ -5,22 +5,29 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import TrendingSeriesDropdown from "./TrendingSeriesDropdown";
 import SeriesCard from "./SeriesCard";
-
-export interface MonSeries {
-  id: number;
-  category: string;
-  series_name: string;
-}
+import { Series } from "@/types/monSeries";
 
 export default function MonSeries() {
-  const [todaySeries, setTodaySeries] = useState<MonSeries[]>([]);
+  const [todaySeries, setTodaySeries] = useState<Series[]>([]);
   const router = useRouter();
 
   // 더미데이터
   useEffect(() => {
     setTodaySeries([
-      { id: 12, category: "이자", series_name: "트럼프와 경제 정책" },
-      { id: 13, category: "인플레이션", series_name: "2만원 떡볶이 시대" },
+      {
+        id: 12,
+        keyword: "이자",
+        title: "트럼프와 경제 정책",
+        sub_title: "",
+        parts: [],
+      },
+      {
+        id: 13,
+        keyword: "인플레이션",
+        title: "2만원 떡볶이 시대",
+        sub_title: "",
+        parts: [],
+      },
     ]);
   }, []);
 
@@ -56,9 +63,9 @@ export default function MonSeries() {
               <SeriesCard
                 key={series.id}
                 onClick={() => handleSeriesCardClick(series.id)}
-                category={series.category}
+                keyword={series.keyword ? series.keyword : ""}
               >
-                {series.series_name}
+                {series.title}
               </SeriesCard>
             ))}
           </div>

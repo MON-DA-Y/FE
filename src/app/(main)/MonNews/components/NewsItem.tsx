@@ -4,16 +4,10 @@ import { useState, useEffect } from "react";
 import NavyBox from "@/components/ui/NavyBox";
 import CommonBtn from "@/components/shared/CommonBtn";
 import { COLORS, FONT_SIZE, FONT_WEIGHT } from "@/styles/theme/tokens";
-
-interface NewsItem {
-  id: number;
-  title: string;
-  body: React.ReactNode;
-  summary: string;
-}
+import { News } from "@/types/monNews";
 
 export default function NewsItem() {
-  const [news, setNews] = useState<NewsItem>();
+  const [news, setNews] = useState<News>();
 
   useEffect(() => {
     setNews({

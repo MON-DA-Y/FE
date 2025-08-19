@@ -2,24 +2,16 @@
 
 import SelectSeries from "./SelectSeries";
 import { COLORS, FONT_SIZE, FONT_WEIGHT } from "@/styles/theme/tokens";
-import { Series } from "./KeywordItem";
+import { KeywordModalType } from "@/types/monSeries";
 
-interface SeriesSelectModalProps {
-  id: number;
-  isYellow: boolean;
-  keyword: string;
-  explain: string;
-  series: Series[];
-  onClose: () => void;
-}
-export default function SeriesSelectModal({
+export default function KeywordModal({
   id,
   isYellow,
   keyword,
   explain,
   series,
   onClose,
-}: SeriesSelectModalProps) {
+}: KeywordModalType) {
   return (
     <>
       <div

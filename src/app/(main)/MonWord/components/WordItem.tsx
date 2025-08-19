@@ -3,15 +3,9 @@
 import NavyBox from "@/components/ui/NavyBox";
 import CommonBtn from "@/components/shared/CommonBtn";
 import { COLORS, FONT_SIZE, FONT_WEIGHT } from "@/styles/theme/tokens";
+import { Word } from "@/types/monWord";
 
-export interface WordItemProps {
-  id: number;
-  word: string;
-  explain: React.ReactNode;
-  use: string;
-}
-
-export default function WordItem({ id, word, explain, use }: WordItemProps) {
+export default function WordItem({ id, word, explain, use }: Word) {
   const handleUnderstandClick = (id: number) => {
     console.log(`${id}에 해당하는 단어 이해했어요`);
   };

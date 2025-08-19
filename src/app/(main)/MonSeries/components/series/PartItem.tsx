@@ -3,12 +3,11 @@
 import { COLORS, FONT_SIZE, FONT_WEIGHT } from "@/styles/theme/tokens";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+import { Part, Series } from "@/types/monSeries";
+import { useSeriesStore } from "@/store/useSeriesStore";
 
-export interface PartProps {
-  id: number;
-  isLearned: boolean;
-  part_title: string;
-  part_sub_title: string;
+interface PartItem_Props extends Part {
+  series: Series;
 }
 
 export default function PartItem({
@@ -16,11 +15,23 @@ export default function PartItem({
   isLearned,
   part_title,
   part_sub_title,
-}: PartProps) {
+  series,
+  part_study,
+}: PartItem_Props) {
   const router = useRouter();
+  const setCurrentSeries = useSeriesStore((state) => state.setCurrentSeries);
+  const setCurrentPart = useSeriesStore((state) => state.setCurrentPart);
 
   const handleClick = () => {
-    router.push(`/MonSeries/${id}`);
+    setCurrentSeries(series);
+    setCurrentPart({
+      id,
+      isLearned,
+      part_title,
+      part_sub_title,
+      part_study,
+    });
+    router.push("/MonSeries/study");
   };
 
   return isLearned ? (
