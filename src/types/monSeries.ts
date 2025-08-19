@@ -1,6 +1,6 @@
 // 파트 - 학습용 type
 export interface PartStudy {
-  part_hashtag: string[];
+  part_category: string[];
   summary: string;
   life_example: string;
   useful_terms: string;

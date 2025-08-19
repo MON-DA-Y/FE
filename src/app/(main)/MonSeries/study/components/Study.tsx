@@ -48,7 +48,7 @@ export default function Study() {
           </div>
           {/* 파트 해시태그 */}
           <div className="flex gap-[10px]">
-            {part.part_study.part_hashtag.map((item) => (
+            {part.part_study.part_category.map((item) => (
               <WordBox
                 p={"5px 10px"}
                 bg={`${COLORS.primary.mint}`}
