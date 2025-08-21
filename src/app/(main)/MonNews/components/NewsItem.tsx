@@ -96,7 +96,11 @@ export default function NewsItem() {
             {news.title}
           </div>
           <div
-            style={{ fontSize: FONT_SIZE.body2, fontWeight: FONT_WEIGHT.body2 }}
+            style={{
+              fontSize: FONT_SIZE.body2,
+              fontWeight: FONT_WEIGHT.body2,
+              whiteSpace: "pre-line",
+            }}
           >
             {news.body}
           </div>
