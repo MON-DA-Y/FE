@@ -23,7 +23,7 @@ export default function Options({ type, onSelect, keywords }: OptionsProps) {
       case "month":
         return Array.from({ length: 12 }, (_, i) => `${i + 1}월`);
       case "week":
-        return ["전체", "첫째주", "둘째주", "셋째주", "넷째주", "다섯째주"];
+        return ["이번주", "저번주"];
       case "category":
         return [
           "전체",

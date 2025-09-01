@@ -8,7 +8,7 @@ import { Result, getQuizResult } from "@/apis/quizResult";
 import StudentProfile from "@/app/user/components/StudentProfile";
 import ParentProfile from "../components/ParentProfile";
 import StudentLevel from "@/app/user/components/StudentLevel";
-import { COLORS, FONT_SIZE, FONT_WEIGHT } from "@/styles/theme/tokens";
+import { COLORS, FONT_SIZE, FONT_WEIGHT, SHADOW } from "@/styles/theme/tokens";
 import Image from "next/image";
 import StudentSchool from "../components/StudentSchool";
 import Dropdown from "../../components/Dropdown";
@@ -23,11 +23,15 @@ import QuizBtn from "../components/QuizBtn";
 export default function ParentPage() {
   const params = useParams();
   const studentId = Number(params.studentId);
-  const week = 3;
 
   // 출석률
   const [attendanceData, setAttendanceData] = useState<boolean[]>([]);
   const [dates, setDates] = useState<number[]>([]);
+  const [week, setWeek] = useState<"이번주" | "저번주">("이번주");
+
+  useEffect(() => {
+    handleApply(); // 첫 렌더 시 현재 주차 데이터 자동 조회
+  }, []);
 
   // 약점
   const [weaknessData, setWeaknessData] = useState<WeaknessResponse | null>(
@@ -41,38 +45,25 @@ export default function ParentPage() {
   // 퀴즈 성적
   const [quizResults, setQuizResults] = useState<Result[]>([]);
 
-  //출석률 조회
-  useEffect(() => {
-    getAttendance(studentId, week)
-      .then((data: AttendanceResponse) => {
-        console.log("출석률 데이터:", data);
-        setAttendanceData(data.days.map((d) => d.isAttended));
-        setDates(data.days.map((d) => new Date(d.day).getDate()));
-      })
-      .catch((err) => {
-        console.error("API 호출 실패:", err);
-      });
-  }, [studentId, week]);
+  // 적용 버튼 누르면 실행되는 함수
+  const handleApply = async () => {
+    try {
+      // 출석 조회
+      const attendance = await getAttendance(studentId, week);
+      setAttendanceData(attendance.days.map((d) => d.isAttended));
+      setDates(attendance.days.map((d) => new Date(d.day).getDate()));
 
-  // 약점 분석 조회
-  useEffect(() => {
-    getWeakness(studentId, week)
-      .then((data) => {
-        console.log("약점 데이터:", data);
-        setWeaknessData(data);
-      })
-      .catch((err) => console.error(err));
-  }, [studentId, week]);
+      // 약점 조회
+      //const weakness = await getWeakness(studentId, { year, month, week });
+      //setWeaknessData(weakness);
 
-  // 퀴즈 성적 조회
-  useEffect(() => {
-    getQuizResult(studentId, week)
-      .then((data) => {
-        console.log("퀴즈 성적:", data);
-        setQuizResults(data.results);
-      })
-      .catch((err) => console.error(err));
-  }, [studentId, week]);
+      // 퀴즈 성적 조회
+      // const quiz = await getQuizResult(studentId, { year, month, week });
+      // setWeaknessData(weakness);
+    } catch (err) {
+      console.error("데이터 조회 실패:", err);
+    }
+  };
 
   return (
     <div className="relative w-full overflow-x-hidden px-13 py-7">
@@ -138,9 +129,23 @@ export default function ParentPage() {
 
         {/*날짜 드롭다운*/}
         <div className="flex pt-10 gap-4.5">
-          <Dropdown type="year" />
-          <Dropdown type="month" />
-          <Dropdown type="week" />
+          <Dropdown
+            type="week"
+            value={week}
+            onChange={(newWeek) => setWeek(newWeek as "이번주" | "저번주")}
+          />
+          <button
+            onClick={handleApply}
+            className="px-4 py-2.5 rounded-lg cursor-pointer"
+            style={{
+              fontSize: FONT_SIZE.body2,
+              fontWeight: FONT_WEIGHT.body2,
+              backgroundColor: COLORS.series.yellow1,
+              boxShadow: SHADOW.interactive,
+            }}
+          >
+            적용
+          </button>
         </div>
 
         {/*출석 현황*/}

@@ -12,7 +12,7 @@ export interface AttendanceResponse {
 
 export async function getAttendance(
   studentId: number,
-  week: number
+  week: "이번주" | "저번주"
 ): Promise<AttendanceResponse> {
   const res = await API.get<AttendanceResponse>(
     `/users/${studentId}/attendance?week=${week}`
