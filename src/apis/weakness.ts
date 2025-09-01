@@ -1,4 +1,4 @@
-import { Category } from "../../types/category";
+import { Category } from "@/types/category";
 import { API } from "./config";
 
 export interface CategoryScore {
@@ -8,19 +8,19 @@ export interface CategoryScore {
 }
 
 export interface Weakness {
+  date: Date;
   categories: CategoryScore[];
   summary: string | null;
 }
 
 export interface WeaknessResponse {
-  week: number;
   weakWord: Weakness;
   weakNews: Weakness;
 }
 
 export async function getWeakness(
   studentId: number,
-  week: number
+  week: "이번주" | "저번주"
 ): Promise<WeaknessResponse> {
   const res = await API.get<WeaknessResponse>(
     `/users/${studentId}/weakness?week=${week}`

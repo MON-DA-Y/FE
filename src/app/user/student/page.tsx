@@ -4,7 +4,7 @@ import { FONT_SIZE, FONT_WEIGHT, SHADOW, COLORS } from "@/styles/theme/tokens";
 import Image from "next/image";
 import { useRouter, useParams } from "next/navigation";
 import { useState, useEffect } from "react";
-import { getAttendance, AttendanceResponse } from "@/apis/attendance";
+import { getAttendance } from "@/apis/attendance";
 import { CategoryScore, getWeakness, WeaknessResponse } from "@/apis/weakness";
 import StudentLevel from "../components/StudentLevel";
 import Dropdown from "../components/Dropdown";
@@ -23,23 +23,25 @@ export default function StudentMyPage() {
   const [isEditOpen, setIsEditOpen] = useState(false);
   const [profileImg, setProfileImg] = useState<string>("/images/student.png");
 
-  // 출석률 조회
-  const [attendanceData, setAttendanceData] = useState<boolean[]>([]);
   const [dates, setDates] = useState<number[]>([]);
   const [week, setWeek] = useState<"이번주" | "저번주">("이번주");
 
-  useEffect(() => {
-    handleApply(); // 첫 렌더 시 현재 주차 데이터 자동 조회
-  }, []);
+  // 출석률 조회
+  const [attendanceData, setAttendanceData] = useState<boolean[]>([]);
 
   // 약점 분석 조회
   const [weaknessData, setWeaknessData] = useState<WeaknessResponse | null>(
     null
   );
+
   const [selectedTab, setSelectedTab] = useState<"word" | "news">("word");
   const handleTabChange = (value: { selectedTab: "word" | "news" }) => {
     setSelectedTab(value.selectedTab);
   };
+
+  useEffect(() => {
+    handleApply(); // 첫 렌더 시 현재 주차 데이터 자동 조회
+  }, []);
 
   // 적용 버튼 누르면 실행되는 함수
   const handleApply = async () => {
@@ -50,8 +52,8 @@ export default function StudentMyPage() {
       setDates(attendance.days.map((d) => new Date(d.day).getDate()));
 
       // 약점 조회
-      //const weakness = await getWeakness(studentId, { year, month, week });
-      //setWeaknessData(weakness);
+      const weakness = await getWeakness(studentId, week);
+      setWeaknessData(weakness);
 
       // 퀴즈 성적 조회
       // const quiz = await getQuizResult(studentId, { year, month, week });
