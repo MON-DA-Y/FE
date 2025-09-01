@@ -22,7 +22,7 @@ import QuizBtn from "../components/QuizBtn";
 
 export default function ParentPage() {
   const params = useParams();
-  const studentId = Number(params.studentId);
+  const studentId = Number(params.studentId) || 123;
 
   // 출석률
   const [attendanceData, setAttendanceData] = useState<boolean[]>([]);
