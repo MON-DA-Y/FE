@@ -7,13 +7,12 @@ export interface Result {
 }
 
 export interface QuizResultResponse {
-  week: number;
   results: Result[];
 }
 
 export async function getQuizResult(
   studentId: number,
-  week: number
+  week: "이번주" | "저번주"
 ): Promise<QuizResultResponse> {
   const res = await API.get<QuizResultResponse>(
     `/users/${studentId}/quiz-result?week=${week}`

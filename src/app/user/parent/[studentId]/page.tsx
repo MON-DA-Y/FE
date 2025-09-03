@@ -60,8 +60,8 @@ export default function ParentPage() {
       setWeaknessData(weakness);
 
       // 퀴즈 성적 조회
-      // const quiz = await getQuizResult(studentId, { year, month, week });
-      // setWeaknessData(weakness);
+      const quiz = await getQuizResult(studentId, week);
+      setQuizResults(quiz.results);
     } catch (err) {
       console.error("데이터 조회 실패:", err);
     }
@@ -286,7 +286,7 @@ export default function ParentPage() {
         </div>
         <div className="flex flex-col pt-5 gap-2.5">
           {quizResults.map((quiz) => (
-            <QuizBtn key={quiz.quizId} day={quiz.day} score={quiz.score} />
+            <QuizBtn key={quiz.day} day={quiz.day} score={quiz.score} />
           ))}
         </div>
       </div>
