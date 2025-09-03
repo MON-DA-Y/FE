@@ -54,10 +54,6 @@ export default function StudentMyPage() {
       // 약점 조회
       const weakness = await getWeakness(studentId, week);
       setWeaknessData(weakness);
-
-      // 퀴즈 성적 조회
-      // const quiz = await getQuizResult(studentId, { year, month, week });
-      // setWeaknessData(weakness);
     } catch (err) {
       console.error("데이터 조회 실패:", err);
     }
