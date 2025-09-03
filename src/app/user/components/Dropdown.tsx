@@ -15,16 +15,16 @@ interface DropdownProps {
     | "keyword"
     | "result"
     | "status";
+  value?: string | number | null;
   onChange?: (value: string | number) => void;
 }
 
-export default function Dropdown({ type, onChange }: DropdownProps) {
+export default function Dropdown({ type, value, onChange }: DropdownProps) {
   const studentId = 1;
   const week = 3;
 
   const dropdownRef = useRef<HTMLDivElement>(null);
   const [isOpen, setIsOpen] = useState(false);
-  const [selected, setSelected] = useState<string | number | null>(null);
 
   const [seriesList, setSeriesList] = useState<Series[]>([]);
   const keywords = Array.from(new Set(seriesList.map((s) => s.keyword))); // keyword 중복 제거
@@ -51,18 +51,15 @@ export default function Dropdown({ type, onChange }: DropdownProps) {
     };
   }, []);
 
-  const handleSelect = (value: string | number) => {
-    setSelected(value);
+  const handleSelect = (selectedValue: string | number) => {
     setIsOpen(false);
-    if (onChange) {
-      onChange(value);
-    }
+    onChange?.(selectedValue);
   };
 
   const defaultPlaceholder = {
     year: new Date().getFullYear() + "년",
     month: new Date().getMonth() + 1 + "월",
-    week: "첫째주",
+    week: "이번주",
     category: "카테고리",
     keyword: "키워드",
     result: "전체",
@@ -86,7 +83,7 @@ export default function Dropdown({ type, onChange }: DropdownProps) {
           color: COLORS.sub.gray3,
         }}
       >
-        {selected || defaultPlaceholder}
+        {value || defaultPlaceholder}
       </span>
       <Image
         src="/icons/Arrow_Down.png"
@@ -107,7 +104,7 @@ export default function Dropdown({ type, onChange }: DropdownProps) {
           <Options
             type={type}
             onSelect={handleSelect}
-            selected={selected}
+            selected={value ?? defaultPlaceholder}
             keywords={keywords}
           />
         </div>

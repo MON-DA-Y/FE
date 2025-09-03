@@ -2,9 +2,9 @@
 
 import { FONT_SIZE, FONT_WEIGHT, SHADOW, COLORS } from "@/styles/theme/tokens";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
+import { useRouter, useParams } from "next/navigation";
 import { useState, useEffect } from "react";
-import { getAttendance, AttendanceResponse } from "@/apis/attendance";
+import { getAttendance } from "@/apis/attendance";
 import { CategoryScore, getWeakness, WeaknessResponse } from "@/apis/weakness";
 import StudentLevel from "../components/StudentLevel";
 import Dropdown from "../components/Dropdown";
@@ -16,42 +16,48 @@ import HistoryBtn from "../components/HistoryBtn";
 import StudentEdit from "./components/StudentEdit";
 
 export default function StudentMyPage() {
-  // 이후에 token 사용해서 studentId 적용
-  const studentId = 1;
-  const week = 3;
+  const params = useParams();
+  const studentId = params.studentId ? Number(params.studentId) : 123;
 
   const router = useRouter();
   const [isEditOpen, setIsEditOpen] = useState(false);
   const [profileImg, setProfileImg] = useState<string>("/images/student.png");
 
+  const [dates, setDates] = useState<number[]>([]);
+  const [week, setWeek] = useState<"이번주" | "저번주">("이번주");
+
   // 출석률 조회
   const [attendanceData, setAttendanceData] = useState<boolean[]>([]);
-  const [dates, setDates] = useState<number[]>([]);
 
   // 약점 분석 조회
   const [weaknessData, setWeaknessData] = useState<WeaknessResponse | null>(
     null
   );
+
   const [selectedTab, setSelectedTab] = useState<"word" | "news">("word");
   const handleTabChange = (value: { selectedTab: "word" | "news" }) => {
     setSelectedTab(value.selectedTab);
   };
 
-  // API 연결
   useEffect(() => {
-    if (studentId === null) return;
+    handleApply(); // 첫 렌더 시 현재 주차 데이터 자동 조회
+  }, []);
 
-    getAttendance(studentId, week)
-      .then((data: AttendanceResponse) => {
-        setAttendanceData(data.days.map((d) => d.isAttended));
-        setDates(data.days.map((d) => new Date(d.day).getDate()));
-      })
-      .catch((err) => console.error("출석 API 실패:", err));
+  // 적용 버튼 누르면 실행되는 함수
+  const handleApply = async () => {
+    try {
+      // 출석 조회
+      const attendance = await getAttendance(studentId, week);
+      setAttendanceData(attendance.days.map((d) => d.isAttended));
+      setDates(attendance.days.map((d) => new Date(d.day).getDate()));
 
-    getWeakness(studentId, week)
-      .then((data) => setWeaknessData(data))
-      .catch((err) => console.error("약점 API 실패:", err));
-  }, [studentId, week]);
+      // 약점 조회
+      const weakness = await getWeakness(studentId, week);
+      setWeaknessData(weakness);
+    } catch (err) {
+      console.error("데이터 조회 실패:", err);
+    }
+  };
 
   {
     /*나중에 회원정보 불러오기*/
@@ -232,10 +238,24 @@ export default function StudentMyPage() {
           </div>
 
           {/*날짜 드롭다운*/}
-          <div className="flex pt-9 gap-4.5 pl-110">
-            <Dropdown type="year" />
-            <Dropdown type="month" />
-            <Dropdown type="week" />
+          <div className="flex justify-end pt-10 gap-4.5">
+            <Dropdown
+              type="week"
+              value={week}
+              onChange={(newWeek) => setWeek(newWeek as "이번주" | "저번주")}
+            />
+            <button
+              onClick={handleApply}
+              className="px-4 py-2.5 rounded-lg cursor-pointer"
+              style={{
+                fontSize: FONT_SIZE.body2,
+                fontWeight: FONT_WEIGHT.body2,
+                backgroundColor: COLORS.series.yellow1,
+                boxShadow: SHADOW.interactive,
+              }}
+            >
+              적용
+            </button>
           </div>
 
           {/*출석 현황*/}
