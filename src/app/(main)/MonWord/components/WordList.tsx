@@ -28,9 +28,21 @@ export default function WordList() {
     fetchTodayMonWord();
   }, []);
 
+  // mon단어 학습 완료 post
+  const postTodayMonWordDone = async () => {
+    try {
+      setIsLoading(true);
+      const data = await monWordApi.getMonWord();
+      console.log(data);
+      console.log("오늘 Mon 단어 학습 완료");
+    } catch (error) {
+      console.error("오늘의 monWord 학습 완료 post 실패", error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
   const handleFinishClick = () => {
-    // Mon 단어 학습 완료 api 로직 구현
-    console.log("오늘 Mon 단어 학습 완료");
+    postTodayMonWordDone();
   };
 
   return (
