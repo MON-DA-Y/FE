@@ -4,33 +4,28 @@ import { useState, useEffect } from "react";
 import WordItem from "./WordItem";
 import CommonBtn from "@/components/shared/CommonBtn";
 import { Word } from "@/types/monWord";
+import { monWordApi } from "@/apis/monWord";
 
 export default function WordList() {
   const [words, setWords] = useState<Word[]>([]);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   useEffect(() => {
-    // Mon단어 더미데이터
-    setWords([
-      {
-        id: 1,
-        word: "인플레이션",
-        explain: (
-          <>
-            인플레이션은 물건 값(물가)이 전반적으로 오르는 현상이에요. 같은
-            돈으로 살 수 있는 게 점점 줄어드는 것과 같아요.
-          </>
-        ),
-        use: "아니 작년에 500원이던 과자가 이제 800원이라고? 이거 완전 인플레이션이네!",
-      },
-      {
-        id: 2,
-        word: "디플레이션",
-        explain: (
-          <>인플레이션과 반대로 물건 값이 전반적으로 내려가는 현상이에요.</>
-        ),
-        use: "요즘 게임기 가격이 계속 떨어지던데? 이거 디플레이션 때문인가?",
-      },
-    ]);
+    // monWord 조회 API
+    const fetchTodayMonWord = async () => {
+      try {
+        setIsLoading(true);
+        const data = await monWordApi.getMonWord();
+        console.log(data);
+        setWords(data);
+      } catch (error) {
+        console.error("오늘의 monWord 조회 실패", error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchTodayMonWord();
   }, []);
 
   const handleFinishClick = () => {
