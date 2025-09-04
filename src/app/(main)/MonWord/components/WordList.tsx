@@ -5,8 +5,10 @@ import WordItem from "./WordItem";
 import CommonBtn from "@/components/shared/CommonBtn";
 import { Word } from "@/types/monWord";
 import { monWordApi } from "@/apis/monWord";
+import { useRouter } from "next/navigation";
 
 export default function WordList() {
+  const router = useRouter();
   const [words, setWords] = useState<Word[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
@@ -32,12 +34,15 @@ export default function WordList() {
   const postTodayMonWordDone = async () => {
     try {
       setIsLoading(true);
-      const data = await monWordApi.getMonWord();
+      const data = await monWordApi.postMonWordDone();
       // console.log(data);
     } catch (error) {
+      alert(error);
       console.error("오늘의 monWord 학습 완료 post 실패", error);
     } finally {
       setIsLoading(false);
+      alert("오늘의 MonWord를 완료했어요!");
+      router.push("/");
     }
   };
   const handleFinishClick = () => {
