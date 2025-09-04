@@ -36,12 +36,14 @@ export const monWordApi = {
   },
 
   // monWord item 이해했어요
-  postWordItemUnderstand: async () => {
+  postWordItemUnderstand: async (wordId: number) => {
     try {
       const headers = getAuthHeader();
-      const response = await axios.get(`${baseURL}/monWord/understand`, {
-        headers,
-      });
+      const response = await axios.post(
+        `${baseURL}/monWord/understand`,
+        { id: wordId },
+        { headers }
+      );
       console.log("monWord 이해했어요:", response.data);
       return response.data.result;
     } catch (error) {
