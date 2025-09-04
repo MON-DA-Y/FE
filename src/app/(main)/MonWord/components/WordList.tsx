@@ -36,15 +36,20 @@ export default function WordList() {
       setIsLoading(true);
       const data = await monWordApi.postMonWordDone();
       // console.log(data);
-    } catch (error) {
-      alert(error);
+      alert("오늘의 MonWord를 완료했어요!");
+      router.push("/");
+    } catch (error: any) {
+      if (error.response) {
+        alert(error.response.data.message);
+      } else {
+        alert("알 수 없는 오류가 발생했습니다.");
+      }
       console.error("오늘의 monWord 학습 완료 post 실패", error);
     } finally {
       setIsLoading(false);
-      alert("오늘의 MonWord를 완료했어요!");
-      router.push("/");
     }
   };
+
   const handleFinishClick = () => {
     postTodayMonWordDone();
   };
