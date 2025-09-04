@@ -53,10 +53,10 @@ export const monWordApi = {
   },
 
   // monWord 학습 완료
-  postMonWordDone: async (wordId: number) => {
+  postMonWordDone: async () => {
     try {
       const headers = getAuthHeader();
-      const response = await axios.post(`${baseURL}/monWord/done`, wordId, {
+      const response = await axios.post(`${baseURL}/monWord/done`, {
         headers,
       });
       return response.data.result;
