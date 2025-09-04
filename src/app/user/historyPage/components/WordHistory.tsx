@@ -1,10 +1,11 @@
 "use client";
 
+import { useSearchParams, useParams } from "next/navigation";
 import { useState, useEffect } from "react";
 import { Word, getWordHistory } from "@/apis/wordHistory";
 import { COLORS, SHADOW } from "@/styles/theme/tokens";
 import WordItem from "./WordItem";
-import { Category } from "../../../../../types/category";
+import { Category } from "@/types/category";
 
 interface WordHistoryProps {
   categoryFilter: Category | "all";
@@ -15,9 +16,12 @@ export default function WordHistory({
   categoryFilter,
   resultFilter,
 }: WordHistoryProps) {
+  const searchParams = useSearchParams();
+  const params = useParams();
+  const studentId = Number(params.studentId) || 123;
+  const week = searchParams.get("week") === "이번주" ? "이번주" : "저번주";
+
   const [words, setWords] = useState<Word[]>([]);
-  const studentId = 1;
-  const week = 3;
 
   useEffect(() => {
     getWordHistory(studentId, week)

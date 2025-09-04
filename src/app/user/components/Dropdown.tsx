@@ -21,7 +21,7 @@ interface DropdownProps {
 
 export default function Dropdown({ type, value, onChange }: DropdownProps) {
   const studentId = 1;
-  const week = 3;
+  const [week, setWeek] = useState<"이번주" | "저번주">("이번주");
 
   const dropdownRef = useRef<HTMLDivElement>(null);
   const [isOpen, setIsOpen] = useState(false);
@@ -29,11 +29,11 @@ export default function Dropdown({ type, value, onChange }: DropdownProps) {
   const [seriesList, setSeriesList] = useState<Series[]>([]);
   const keywords = Array.from(new Set(seriesList.map((s) => s.keyword))); // keyword 중복 제거
 
-  useEffect(() => {
-    getSeriesHistory(studentId, week)
-      .then((data) => setSeriesList(data.seriesList))
-      .catch((err) => console.error("시리즈 히스토리 API 실패:", err));
-  }, [studentId, week]);
+  // useEffect(() => {
+  //   getSeriesHistory(studentId, week)
+  //     .then((data) => setSeriesList(data.seriesList))
+  //     .catch((err) => console.error("시리즈 히스토리 API 실패:", err));
+  // }, [studentId, week]);
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {

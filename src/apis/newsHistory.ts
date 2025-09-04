@@ -10,13 +10,12 @@ export interface News {
 }
 
 export interface NewsHistoryResponse {
-  week: number;
   newsList: News[];
 }
 
 export async function getNewsHistory(
   studentId: number,
-  week: number
+  week: "이번주" | "저번주"
 ): Promise<NewsHistoryResponse> {
   const res = await API.get<NewsHistoryResponse>(
     `/users/${studentId}/history/news?week=${week}`

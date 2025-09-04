@@ -253,9 +253,9 @@ export default function ParentPage() {
 
         {/*히스토리 버튼*/}
         <div className="flex flex-col pt-15 gap-5">
-          <HistoryBtn type="word" />
-          <HistoryBtn type="news" />
-          <HistoryBtn type="series" />
+          <HistoryBtn type="word" week={week} />
+          <HistoryBtn type="news" week={week} />
+          <HistoryBtn type="series" week={week} />
         </div>
       </div>
 

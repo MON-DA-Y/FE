@@ -4,9 +4,10 @@ import { useRouter } from "next/navigation";
 
 interface HistoryBtnProps {
   type: "word" | "news" | "series";
+  week: "이번주" | "저번주";
 }
 
-export default function HistoryBtn({ type }: HistoryBtnProps) {
+export default function HistoryBtn({ type, week }: HistoryBtnProps) {
   const label = (type: string) => {
     if (type === "word") return "단어";
     if (type === "news") return "뉴스";
@@ -15,7 +16,7 @@ export default function HistoryBtn({ type }: HistoryBtnProps) {
   const router = useRouter();
 
   const handleClick = () => {
-    router.push(`/user/historyPage?type=${type}`);
+    router.push(`/user/historyPage?type=${type}&week=${week}`);
   };
 
   return (
