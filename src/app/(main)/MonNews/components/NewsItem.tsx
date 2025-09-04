@@ -34,12 +34,17 @@ export default function NewsItem() {
     try {
       setIsLoading(true);
       const data = await monNewsApi.postMonNews();
-    } catch (error) {
+      alert("오늘의 MonNews를 완료했어요!");
+      router.push("/");
+    } catch (error: any) {
+      if (error.response) {
+        alert(error.response.data.message);
+      } else {
+        alert("알 수 없는 오류가 발생했습니다.");
+      }
       console.error("오늘의 monNews 완료 post 실패:", error);
     } finally {
       setIsLoading(false);
-      alert("오늘의 MonNews를 완료했어요!");
-      router.push("/");
     }
   };
 

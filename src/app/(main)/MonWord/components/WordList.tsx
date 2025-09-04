@@ -4,38 +4,70 @@ import { useState, useEffect } from "react";
 import WordItem from "./WordItem";
 import CommonBtn from "@/components/shared/CommonBtn";
 import { Word } from "@/types/monWord";
+import { monWordApi } from "@/apis/monWord";
+import { useRouter } from "next/navigation";
 
 export default function WordList() {
+  const router = useRouter();
   const [words, setWords] = useState<Word[]>([]);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   useEffect(() => {
-    // Mon단어 더미데이터
-    setWords([
-      {
-        id: 1,
-        word: "인플레이션",
-        explain: (
-          <>
-            인플레이션은 물건 값(물가)이 전반적으로 오르는 현상이에요. 같은
-            돈으로 살 수 있는 게 점점 줄어드는 것과 같아요.
-          </>
-        ),
-        use: "아니 작년에 500원이던 과자가 이제 800원이라고? 이거 완전 인플레이션이네!",
-      },
-      {
-        id: 2,
-        word: "디플레이션",
-        explain: (
-          <>인플레이션과 반대로 물건 값이 전반적으로 내려가는 현상이에요.</>
-        ),
-        use: "요즘 게임기 가격이 계속 떨어지던데? 이거 디플레이션 때문인가?",
-      },
-    ]);
+    // monWord 조회 API
+    const fetchTodayMonWord = async () => {
+      try {
+        setIsLoading(true);
+        const data = await monWordApi.getMonWord();
+        // console.log(data);
+        setWords(data);
+      } catch (error) {
+        console.error("오늘의 monWord 조회 실패", error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchTodayMonWord();
   }, []);
 
+  // mon단어 학습 완료 post
+  const postTodayMonWordDone = async () => {
+    try {
+      setIsLoading(true);
+      const data = await monWordApi.postMonWordDone();
+      // console.log(data);
+      alert("오늘의 MonWord를 완료했어요!");
+      router.push("/");
+    } catch (error: any) {
+      if (error.response) {
+        alert(error.response.data.message);
+      } else {
+        alert("알 수 없는 오류가 발생했습니다.");
+      }
+      console.error("오늘의 monWord 학습 완료 post 실패", error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  // mon단어 item 이해했어요 post
+  const postTodayMonWordItemUnderstand = async (wordId: number) => {
+    try {
+      setIsLoading(true);
+      const data = await monWordApi.postWordItemUnderstand(wordId);
+      console.log(data);
+    } catch (error: any) {
+      if (error.response) {
+        alert(error.response.data.message);
+      } else {
+        alert("알 수 없는 오류가 발생했습니다.");
+      }
+      console.error("오늘의 monWord 학습 완료 post 실패", error);
+    }
+  };
+
   const handleFinishClick = () => {
-    // Mon 단어 학습 완료 api 로직 구현
-    console.log("오늘 Mon 단어 학습 완료");
+    postTodayMonWordDone();
   };
 
   return (
@@ -48,6 +80,7 @@ export default function WordList() {
             word={item.word}
             explain={item.explain}
             use={item.use}
+            understandFunc={() => postTodayMonWordItemUnderstand(item.id)}
           />
         ))}
         <div className="">

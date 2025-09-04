@@ -5,11 +5,13 @@ import CommonBtn from "@/components/shared/CommonBtn";
 import { COLORS, FONT_SIZE, FONT_WEIGHT } from "@/styles/theme/tokens";
 import { Word } from "@/types/monWord";
 
-export default function WordItem({ id, word, explain, use }: Word) {
-  const handleUnderstandClick = (id: number) => {
-    console.log(`${id}에 해당하는 단어 이해했어요`);
-  };
-
+export default function WordItem({
+  id,
+  word,
+  explain,
+  use,
+  understandFunc,
+}: Word) {
   return (
     <div className="w-[680px] px-10 pt-10 pb-7 bg-white rounded-[30px] flex flex-col gap-5">
       {/* 단어 및 설명 */}
@@ -34,10 +36,7 @@ export default function WordItem({ id, word, explain, use }: Word) {
 
       {/* 버튼 */}
       <div className="flex justify-end">
-        <CommonBtn
-          type="understand"
-          onClick={() => handleUnderstandClick(id)}
-        />
+        <CommonBtn type="understand" onClick={understandFunc} />
       </div>
     </div>
   );
