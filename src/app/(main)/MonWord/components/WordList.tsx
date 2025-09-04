@@ -50,6 +50,22 @@ export default function WordList() {
     }
   };
 
+  // mon단어 item 이해했어요 post
+  const postTodayMonWordItemUnderstand = async (wordId: number) => {
+    try {
+      setIsLoading(true);
+      const data = await monWordApi.postWordItemUnderstand(wordId);
+      console.log(data);
+    } catch (error: any) {
+      if (error.response) {
+        alert(error.response.data.message);
+      } else {
+        alert("알 수 없는 오류가 발생했습니다.");
+      }
+      console.error("오늘의 monWord 학습 완료 post 실패", error);
+    }
+  };
+
   const handleFinishClick = () => {
     postTodayMonWordDone();
   };
@@ -64,6 +80,7 @@ export default function WordList() {
             word={item.word}
             explain={item.explain}
             use={item.use}
+            understandFunc={() => postTodayMonWordItemUnderstand(item.id)}
           />
         ))}
         <div className="">
