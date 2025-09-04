@@ -16,7 +16,7 @@ export default function WordList() {
       try {
         setIsLoading(true);
         const data = await monWordApi.getMonWord();
-        console.log(data);
+        // console.log(data);
         setWords(data);
       } catch (error) {
         console.error("오늘의 monWord 조회 실패", error);
@@ -33,8 +33,7 @@ export default function WordList() {
     try {
       setIsLoading(true);
       const data = await monWordApi.getMonWord();
-      console.log(data);
-      console.log("오늘 Mon 단어 학습 완료");
+      // console.log(data);
     } catch (error) {
       console.error("오늘의 monWord 학습 완료 post 실패", error);
     } finally {
