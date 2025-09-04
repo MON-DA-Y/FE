@@ -27,7 +27,7 @@ export const monWordApi = {
       const response = await axios.get(`${baseURL}/monWord`, {
         headers,
       });
-      console.log("monWord 조회 결과:", response.data);
+      // console.log("monWord 조회 결과:", response.data);
       return response.data.result;
     } catch (error) {
       console.error("monWord get 실패:", error);
@@ -44,8 +44,8 @@ export const monWordApi = {
         { id: wordId },
         { headers }
       );
-      console.log("monWord 이해했어요:", response.data);
-      return response.data.result;
+      // console.log("monWord 이해했어요:", response.data);
+      return response.data.message;
     } catch (error) {
       console.error("monWord item 이해했어요 post 실패:", error);
       throw error;
