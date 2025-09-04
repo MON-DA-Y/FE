@@ -49,4 +49,18 @@ export const monWordApi = {
       throw error;
     }
   },
+
+  // monWord 학습 완료
+  postMonWordDone: async (wordId: number) => {
+    try {
+      const headers = getAuthHeader();
+      const response = await axios.post(`${baseURL}/monWord/done`, wordId, {
+        headers,
+      });
+      return response.data.result;
+    } catch (error) {
+      console.error("momWord 학습 완료 post 실패:", error);
+      throw error;
+    }
+  },
 };
