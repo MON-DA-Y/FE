@@ -31,8 +31,8 @@ export default function ParentMyPage() {
   });
 
   return (
-    <div className="relative w-full px-13 py-5">
-      <div className="flex mx-[-50px] justify-between">
+    <div className="relative w-full px-30 py-5">
+      <div className="flex justify-between">
         <Image
           src="/icons/Home.svg"
           alt="home"
@@ -51,7 +51,7 @@ export default function ParentMyPage() {
         </div>
       </div>
       <div
-        className="mx-20 pt-3"
+        className="mx-40 pt-3"
         style={{
           fontSize: FONT_SIZE.headline,
           fontWeight: FONT_WEIGHT.headline,
@@ -60,7 +60,7 @@ export default function ParentMyPage() {
         마이페이지
       </div>
 
-      <div className="flex mt-5 px-10">
+      <div className="flex mt-5 justify-center">
         <div
           className="w-[657px] rounded-[30px] p-3 px-10"
           style={{ boxShadow: SHADOW.interactive }}
@@ -75,7 +75,7 @@ export default function ParentMyPage() {
               개인정보 관리
             </div>
             <div
-              className="flex items-center justify-center w-7 h-7 border rounded-full"
+              className="flex items-center justify-center w-7 h-7 border rounded-full cursor-pointer"
               style={{
                 boxShadow: SHADOW.interactive,
                 borderColor: COLORS.sub.gray1,

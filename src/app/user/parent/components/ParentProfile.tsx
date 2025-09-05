@@ -9,7 +9,7 @@ export default function ParentProfile() {
         이00님
       </div>
       <div>
-        <Link href="../mypage" className="cursor-pointer">
+        <Link href="../parent/mypage" className="cursor-pointer">
           <Image
             src="/images/parent.png"
             alt="parent"
