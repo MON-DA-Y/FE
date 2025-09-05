@@ -22,7 +22,7 @@ import QuizBtn from "../components/QuizBtn";
 
 export default function ParentPage() {
   const params = useParams();
-  const studentId = Number(params.studentId) || 123;
+  const studentId = Number(params.studentId) || 1;
 
   const [dates, setDates] = useState<number[]>([]);
   const [week, setWeek] = useState<"이번주" | "저번주">("이번주");

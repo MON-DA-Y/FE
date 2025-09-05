@@ -17,7 +17,7 @@ export default function NewsHistory({
 }: NewsHistoryProps) {
   const searchParams = useSearchParams();
   const params = useParams();
-  const studentId = Number(params.studentId) || 123;
+  const studentId = Number(params.studentId) || 1;
   const week = searchParams.get("week") === "이번주" ? "이번주" : "저번주";
 
   const [news, setNews] = useState<News[]>([]);

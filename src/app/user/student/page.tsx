@@ -17,7 +17,7 @@ import StudentEdit from "./components/StudentEdit";
 
 export default function StudentMyPage() {
   const params = useParams();
-  const studentId = params.studentId ? Number(params.studentId) : 123;
+  const studentId = params.studentId ? Number(params.studentId) : 1;
 
   const router = useRouter();
   const [isEditOpen, setIsEditOpen] = useState(false);

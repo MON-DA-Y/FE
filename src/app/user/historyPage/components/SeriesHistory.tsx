@@ -19,7 +19,7 @@ export default function SeriesHistory({
 }: SeriesHistoryProps) {
   const searchParams = useSearchParams();
   const params = useParams();
-  const studentId = Number(params.studentId) || 123;
+  const studentId = Number(params.studentId) || 1;
 
   const [isOpen, setIsOpen] = useState(false);
   const [seriesList, setSeriesList] = useState<Series[]>([]);
