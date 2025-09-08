@@ -4,12 +4,11 @@ import { useState, useEffect } from "react";
 import QuizItem from "./QuizItem";
 import CommonBtn from "@/components/shared/CommonBtn";
 import { Quizzes } from "@/types/monQuiz";
+import { selectedChoices } from "@/types/monQuiz";
 
 export default function QuizList() {
   const [quizzes, setQuizzes] = useState<Quizzes[]>([]);
-  const [selectedChoices, setSelectedChoices] = useState<{
-    [key: number]: string | null;
-  }>({});
+  const [selectedChoices, setSelectedChoices] = useState<selectedChoices>({});
 
   useEffect(() => {
     // MonQuiz 가져오기 api 로직 구현
