@@ -35,4 +35,22 @@ export const monQuizApi = {
       throw error;
     }
   },
+
+  // monQuiz 제출
+  postMonQuizSubmit: async (selectedChoices: selectedChoices) => {
+    try {
+      const headers = getAuthHeader();
+      const response = await axios.post(
+        `${baseURL}/monWord/done`,
+        { selectedChoices },
+        {
+          headers,
+        }
+      );
+      return response.data.result;
+    } catch (error) {
+      console.error("monQuiz 제출 post 실패:", error);
+      throw error;
+    }
+  },
 };
