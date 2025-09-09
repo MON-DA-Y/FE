@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { useParams } from "next/navigation";
-import { getAttendance, AttendanceResponse } from "@/apis/attendance";
+import { getAttendance } from "@/apis/attendance";
 import { CategoryScore, getWeakness, WeaknessResponse } from "@/apis/weakness";
 import { Result, getQuizResult } from "@/apis/quizResult";
 import StudentProfile from "@/app/user/components/StudentProfile";
