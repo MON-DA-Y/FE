@@ -1,5 +1,6 @@
 "use client";
 
+import { useSearchParams, useParams } from "next/navigation";
 import { useState, useEffect } from "react";
 import Image from "next/image";
 import SeriesCard from "./SeriesCard";
@@ -16,13 +17,17 @@ export default function SeriesHistory({
   keywordFilter,
   statusFilter,
 }: SeriesHistoryProps) {
+  const searchParams = useSearchParams();
+  const params = useParams();
+  const studentId = Number(params.studentId) || 1;
+
   const [isOpen, setIsOpen] = useState(false);
   const [seriesList, setSeriesList] = useState<Series[]>([]);
   const [selectedSeries, setSelectedSeries] = useState<Series | null>(null);
 
   const router = useRouter();
-  const studentId = 1;
-  const week = 3;
+
+  const week = searchParams.get("week") === "이번주" ? "이번주" : "저번주";
 
   useEffect(() => {
     getSeriesHistory(studentId, week)

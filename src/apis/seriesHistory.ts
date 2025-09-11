@@ -20,13 +20,12 @@ export interface Series {
 }
 
 export interface SeriesHistoryResponse {
-  week: number;
   seriesList: Series[];
 }
 
 export async function getSeriesHistory(
   studentId: number,
-  week: number
+  week: "이번주" | "저번주"
 ): Promise<SeriesHistoryResponse> {
   const res = await API.get<SeriesHistoryResponse>(
     `/users/${studentId}/history/series?week=${week}`

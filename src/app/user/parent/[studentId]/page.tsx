@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { useParams } from "next/navigation";
-import { getAttendance, AttendanceResponse } from "@/apis/attendance";
+import { getAttendance } from "@/apis/attendance";
 import { CategoryScore, getWeakness, WeaknessResponse } from "@/apis/weakness";
 import { Result, getQuizResult } from "@/apis/quizResult";
 import StudentProfile from "@/app/user/components/StudentProfile";
@@ -22,7 +22,10 @@ import QuizBtn from "../components/QuizBtn";
 
 export default function ParentPage() {
   const params = useParams();
-  const studentId = Number(params.studentId) || 123;
+  const studentId = Number(params.studentId) || 1;
+
+  const [isHover, setIsHover] = useState(false);
+  const [isActive, setIsActive] = useState(false);
 
   const [dates, setDates] = useState<number[]>([]);
   const [week, setWeek] = useState<"이번주" | "저번주">("이번주");
@@ -68,7 +71,7 @@ export default function ParentPage() {
   };
 
   return (
-    <div className="relative w-full overflow-x-hidden px-13 py-7">
+    <div className="relative w-full px-13 py-7">
       {/*학부모 프로필*/}
       <div className="ml-190">
         <ParentProfile />
@@ -142,9 +145,20 @@ export default function ParentPage() {
             style={{
               fontSize: FONT_SIZE.body2,
               fontWeight: FONT_WEIGHT.body2,
-              backgroundColor: COLORS.series.yellow1,
+              backgroundColor: isActive
+                ? COLORS.series.yellow3
+                : isHover
+                ? COLORS.series.yellow2
+                : COLORS.series.yellow1,
               boxShadow: SHADOW.interactive,
             }}
+            onMouseEnter={() => setIsHover(true)}
+            onMouseLeave={() => {
+              setIsHover(false);
+              setIsActive(false);
+            }}
+            onMouseDown={() => setIsActive(true)}
+            onMouseUp={() => setIsActive(false)}
           >
             적용
           </button>
@@ -253,9 +267,9 @@ export default function ParentPage() {
 
         {/*히스토리 버튼*/}
         <div className="flex flex-col pt-15 gap-5">
-          <HistoryBtn type="word" />
-          <HistoryBtn type="news" />
-          <HistoryBtn type="series" />
+          <HistoryBtn type="word" week={week} />
+          <HistoryBtn type="news" week={week} />
+          <HistoryBtn type="series" week={week} />
         </div>
       </div>
 

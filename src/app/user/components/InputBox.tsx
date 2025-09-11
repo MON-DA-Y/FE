@@ -66,9 +66,11 @@ function TextInput({
 
 function TextAreaInput({ onChange, value }: InputBoxProps) {
   const [text, setText] = useState("");
+  const [isHover, setIsHover] = useState(false);
+  const [isActive, setIsActive] = useState(false);
   return (
     <div
-      className="pt-3.5"
+      className="pt-3.5 relative"
       style={{
         fontSize: FONT_SIZE.body2,
         fontWeight: FONT_WEIGHT.body2,
@@ -94,10 +96,21 @@ function TextAreaInput({ onChange, value }: InputBoxProps) {
         style={{
           width: "86px",
           height: "28px",
-          backgroundColor: COLORS.series.yellow1,
+          backgroundColor: isActive
+            ? COLORS.series.yellow3
+            : isHover
+            ? COLORS.series.yellow2
+            : COLORS.series.yellow1,
           borderRadius: "30px",
           boxShadow: SHADOW.interactive,
         }}
+        onMouseEnter={() => setIsHover(true)}
+        onMouseLeave={() => {
+          setIsHover(false);
+          setIsActive(false);
+        }}
+        onMouseDown={() => setIsActive(true)}
+        onMouseUp={() => setIsActive(false)}
       >
         제출
       </button>

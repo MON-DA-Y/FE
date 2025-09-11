@@ -1,4 +1,4 @@
-import { Category } from "../../types/category";
+import { Category } from "@/types/category";
 import { API } from "./config";
 
 export interface Word {
@@ -11,13 +11,12 @@ export interface Word {
 }
 
 export interface WordHistoryResponse {
-  week: number;
   words: Word[];
 }
 
 export async function getWordHistory(
   studentId: number,
-  week: number
+  week: "이번주" | "저번주"
 ): Promise<WordHistoryResponse> {
   const res = await API.get<WordHistoryResponse>(
     `/users/${studentId}/history/word?week=${week}`
