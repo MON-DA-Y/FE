@@ -1,12 +1,19 @@
+"use client";
+
+import { useState } from "react";
 import { COLORS, SHADOW } from "@/styles/theme/tokens";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 
 interface HistoryBtnProps {
   type: "word" | "news" | "series";
+  week: "이번주" | "저번주";
 }
 
-export default function HistoryBtn({ type }: HistoryBtnProps) {
+export default function HistoryBtn({ type, week }: HistoryBtnProps) {
+  const [isHover, setIsHover] = useState(false);
+  const [isActive, setIsActive] = useState(false);
+
   const label = (type: string) => {
     if (type === "word") return "단어";
     if (type === "news") return "뉴스";
@@ -15,13 +22,27 @@ export default function HistoryBtn({ type }: HistoryBtnProps) {
   const router = useRouter();
 
   const handleClick = () => {
-    router.push(`/user/historyPage?type=${type}`);
+    router.push(`/user/historyPage?type=${type}&week=${week}`);
   };
 
   return (
     <div
       className="flex items-center w-[420px] h-[106px] pl-5 rounded-[30px] whitespace-nowrap cursor-pointer"
-      style={{ boxShadow: SHADOW.interactive }}
+      style={{
+        boxShadow: SHADOW.interactive,
+        backgroundColor: isActive
+          ? COLORS.sub.gray2
+          : isHover
+          ? COLORS.sub.gray1
+          : COLORS.sub.white,
+      }}
+      onMouseEnter={() => setIsHover(true)}
+      onMouseLeave={() => {
+        setIsHover(false);
+        setIsActive(false);
+      }}
+      onMouseDown={() => setIsActive(true)}
+      onMouseUp={() => setIsActive(false)}
       onClick={handleClick}
     >
       <Image

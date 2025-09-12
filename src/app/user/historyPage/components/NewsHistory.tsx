@@ -1,9 +1,10 @@
 "use client";
 
+import { useSearchParams, useParams } from "next/navigation";
 import { useState, useEffect } from "react";
 import { News, getNewsHistory } from "@/apis/newsHistory";
 import NewsCard from "./NewsCard";
-import { Category } from "../../../../../types/category";
+import { Category } from "@/types/category";
 
 interface NewsHistoryProps {
   categoryFilter: Category | "all";
@@ -14,8 +15,11 @@ export default function NewsHistory({
   categoryFilter,
   resultFilter,
 }: NewsHistoryProps) {
-  const studentId = 1;
-  const week = 3;
+  const searchParams = useSearchParams();
+  const params = useParams();
+  const studentId = Number(params.studentId) || 1;
+  const week = searchParams.get("week") === "이번주" ? "이번주" : "저번주";
+
   const [news, setNews] = useState<News[]>([]);
 
   useEffect(() => {

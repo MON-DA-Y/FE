@@ -25,7 +25,7 @@ export default function EditModal({
     <div className="fixed inset-0 z-50 flex items-center justify-center">
       <div className="absolute inset-0 bg-black/50">
         <div
-          className="relative z-10 w-[515px] h-[410px] rounded-[30px] mx-65 my-50"
+          className="relative z-10 w-[515px] h-[410px] rounded-[30px] mx-176 my-55"
           style={{
             backgroundColor: COLORS.sub.gray1,
             boxShadow: SHADOW.interactive,

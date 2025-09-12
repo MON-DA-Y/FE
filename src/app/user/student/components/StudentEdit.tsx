@@ -38,7 +38,7 @@ export default function StudentEdit({
     <div className="fixed inset-0 z-50 flex items-center justify-center">
       <div className="absolute inset-0 bg-black/50">
         <div
-          className="relative z-10 w-[800px] h-[470px] rounded-[30px] mx-28 my-40"
+          className="relative z-10 w-[800px] h-[470px] rounded-[30px] mx-131 my-52"
           style={{
             backgroundColor: COLORS.sub.white,
             boxShadow: SHADOW.interactive,

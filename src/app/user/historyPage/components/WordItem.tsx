@@ -1,6 +1,6 @@
 import { COLORS, FONT_SIZE, FONT_WEIGHT } from "@/styles/theme/tokens";
 import { Category_Color } from "../../../../../constants/categoryColor";
-import { Category } from "../../../../types/category";
+import { Category } from "@/types/category";
 
 interface WordItemProps {
   category: Category;

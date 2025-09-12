@@ -17,11 +17,14 @@ import StudentEdit from "./components/StudentEdit";
 
 export default function StudentMyPage() {
   const params = useParams();
-  const studentId = params.studentId ? Number(params.studentId) : 123;
+  const studentId = params.studentId ? Number(params.studentId) : 1;
 
   const router = useRouter();
   const [isEditOpen, setIsEditOpen] = useState(false);
   const [profileImg, setProfileImg] = useState<string>("/images/student.png");
+
+  const [isHover, setIsHover] = useState(false);
+  const [isActive, setIsActive] = useState(false);
 
   const [dates, setDates] = useState<number[]>([]);
   const [week, setWeek] = useState<"이번주" | "저번주">("이번주");
@@ -71,7 +74,7 @@ export default function StudentMyPage() {
 
   return (
     //학생 메인 페이지로 이동하도록 router 수정
-    <div className="relative w-full px-13 py-5">
+    <div className="relative w-full px-20 py-5">
       <header className="flex justify-between">
         <Image
           src="/icons/Home.svg"
@@ -113,7 +116,7 @@ export default function StudentMyPage() {
             }}
           >
             <div
-              className="flex items-center justify-center w-7 h-7 border rounded-full mt-[-46px] mx-170 mb-2"
+              className="flex items-center justify-center w-7 h-7 border rounded-full mt-[-46px] mx-170 mb-2 cursor-pointer"
               style={{
                 boxShadow: SHADOW.interactive,
                 borderColor: COLORS.sub.gray1,
@@ -250,9 +253,20 @@ export default function StudentMyPage() {
               style={{
                 fontSize: FONT_SIZE.body2,
                 fontWeight: FONT_WEIGHT.body2,
-                backgroundColor: COLORS.series.yellow1,
+                backgroundColor: isActive
+                  ? COLORS.series.yellow3
+                  : isHover
+                  ? COLORS.series.yellow2
+                  : COLORS.series.yellow1,
                 boxShadow: SHADOW.interactive,
               }}
+              onMouseEnter={() => setIsHover(true)}
+              onMouseLeave={() => {
+                setIsHover(false);
+                setIsActive(false);
+              }}
+              onMouseDown={() => setIsActive(true)}
+              onMouseUp={() => setIsActive(false)}
             >
               적용
             </button>
@@ -376,10 +390,10 @@ export default function StudentMyPage() {
             </div>
 
             {/*히스토리 버튼*/}
-            <div className="flex absolute flex-col gap-5 top-180 left-125">
-              <HistoryBtn type="word" />
-              <HistoryBtn type="news" />
-              <HistoryBtn type="series" />
+            <div className="flex absolute flex-col gap-5 top-180 left-130">
+              <HistoryBtn type="word" week={week} />
+              <HistoryBtn type="news" week={week} />
+              <HistoryBtn type="series" week={week} />
             </div>
           </div>
         </div>

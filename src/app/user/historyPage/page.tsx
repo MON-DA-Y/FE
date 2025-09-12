@@ -8,7 +8,7 @@ import WordHistory from "./components/WordHistory";
 import NewsHistory from "./components/NewsHistory";
 import SeriesHistory from "./components/SeriesHistory";
 import { COLORS, FONT_SIZE, FONT_WEIGHT } from "@/styles/theme/tokens";
-import { Category } from "../../../../types/category";
+import { Category } from "@/types/category";
 import { Category_Label } from "../../../../constants/categoryLabel";
 
 export default function HistoryPage() {
