@@ -25,7 +25,7 @@ export const monQuizApi = {
   getMonQuiz: async () => {
     try {
       const headers = getAuthHeader();
-      const response = await axios.get(`${baseURL}/monWord`, {
+      const response = await axios.get(`${baseURL}/monQuiz`, {
         headers,
       });
       // console.log("monQuiz 조회 결과:", response.data);
@@ -41,7 +41,7 @@ export const monQuizApi = {
     try {
       const headers = getAuthHeader();
       const response = await axios.post(
-        `${baseURL}/monWord/done`,
+        `${baseURL}/monQuiz/done`,
         { selectedChoices },
         {
           headers,
