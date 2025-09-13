@@ -1,6 +1,6 @@
 "use client";
 
-import { useSearchParams, useParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import { useState, useEffect } from "react";
 import { Word, getWordHistory } from "@/apis/wordHistory";
 import { COLORS, SHADOW } from "@/styles/theme/tokens";
@@ -17,17 +17,15 @@ export default function WordHistory({
   resultFilter,
 }: WordHistoryProps) {
   const searchParams = useSearchParams();
-  const params = useParams();
-  const studentId = Number(params.studentId) || 1;
   const week = searchParams.get("week") === "이번주" ? "이번주" : "저번주";
 
   const [words, setWords] = useState<Word[]>([]);
 
   useEffect(() => {
-    getWordHistory(studentId, week)
+    getWordHistory(week)
       .then((data) => setWords(data.words))
       .catch((err) => console.error("단어 히스토리 API 실패:", err));
-  }, [studentId, week]);
+  }, [week]);
 
   const filteredWords = words.filter((word) => {
     // 카테고리 필터

@@ -2,9 +2,9 @@
 
 import { FONT_SIZE, FONT_WEIGHT, SHADOW, COLORS } from "@/styles/theme/tokens";
 import Image from "next/image";
-import { useRouter, useParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
-import { getAttendance } from "@/apis/attendance";
+import { getAttendance, postAttendance } from "@/apis/attendance";
 import { CategoryScore, getWeakness, WeaknessResponse } from "@/apis/weakness";
 import StudentLevel from "../components/StudentLevel";
 import Dropdown from "../components/Dropdown";
@@ -16,9 +16,6 @@ import HistoryBtn from "../components/HistoryBtn";
 import StudentEdit from "./components/StudentEdit";
 
 export default function StudentMyPage() {
-  const params = useParams();
-  const studentId = params.studentId ? Number(params.studentId) : 1;
-
   const router = useRouter();
   const [isEditOpen, setIsEditOpen] = useState(false);
   const [profileImg, setProfileImg] = useState<string>("/images/student.png");
@@ -43,19 +40,30 @@ export default function StudentMyPage() {
   };
 
   useEffect(() => {
-    handleApply(); // 첫 렌더 시 현재 주차 데이터 자동 조회
+    const markAndFetch = async () => {
+      try {
+        // 오늘 출석 체크
+        await postAttendance();
+
+        await handleApply();
+      } catch (err) {
+        console.error("출석 처리 또는 데이터 조회 실패:", err);
+      }
+    };
+
+    markAndFetch();
   }, []);
 
   // 적용 버튼 누르면 실행되는 함수
   const handleApply = async () => {
     try {
       // 출석 조회
-      const attendance = await getAttendance(studentId, week);
+      const attendance = await getAttendance(week);
       setAttendanceData(attendance.days.map((d) => d.isAttended));
       setDates(attendance.days.map((d) => new Date(d.day).getDate()));
 
       // 약점 조회
-      const weakness = await getWeakness(studentId, week);
+      const weakness = await getWeakness(week);
       setWeaknessData(weakness);
     } catch (err) {
       console.error("데이터 조회 실패:", err);

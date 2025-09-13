@@ -1,6 +1,6 @@
 "use client";
 
-import { useSearchParams, useParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import { useState, useEffect } from "react";
 import Image from "next/image";
 import SeriesCard from "./SeriesCard";
@@ -18,8 +18,6 @@ export default function SeriesHistory({
   statusFilter,
 }: SeriesHistoryProps) {
   const searchParams = useSearchParams();
-  const params = useParams();
-  const studentId = Number(params.studentId) || 1;
 
   const [isOpen, setIsOpen] = useState(false);
   const [seriesList, setSeriesList] = useState<Series[]>([]);
@@ -30,10 +28,10 @@ export default function SeriesHistory({
   const week = searchParams.get("week") === "이번주" ? "이번주" : "저번주";
 
   useEffect(() => {
-    getSeriesHistory(studentId, week)
+    getSeriesHistory(week)
       .then((data) => setSeriesList(data.seriesList))
       .catch((err) => console.error("시리즈 히스토리 API 실패:", err));
-  }, [studentId, week]);
+  }, [week]);
 
   const filteredSeries = seriesList.filter((series) => {
     // 키워드 필터

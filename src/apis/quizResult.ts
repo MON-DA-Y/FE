@@ -11,11 +11,10 @@ export interface QuizResultResponse {
 }
 
 export async function getQuizResult(
-  studentId: number,
   week: "이번주" | "저번주"
 ): Promise<QuizResultResponse> {
   const res = await API.get<QuizResultResponse>(
-    `/users/${studentId}/quiz-result?week=${week}`
+    `/users/quiz-result?week=${week}`
   );
   console.log("API response:", res.data);
   return res.data;
