@@ -2,7 +2,6 @@
 
 import { COLORS, FONT_SIZE, FONT_WEIGHT, SHADOW } from "@/styles/theme/tokens";
 import { useState } from "react";
-import { useRouter } from "next/navigation";
 
 interface SignUpBtnProps {
   userType: "student" | "parent";
@@ -10,19 +9,8 @@ interface SignUpBtnProps {
 }
 
 export default function SignUpBtn({ userType, onClick }: SignUpBtnProps) {
-  const router = useRouter();
   const [isHovered, setIsHovered] = useState(false);
   const [isActive, setIsActive] = useState(false);
-
-  const handleClick = () => {
-    if (onClick) onClick();
-
-    if (userType === "student") {
-      router.push("/account/signupsuccess/student");
-    } else {
-      router.push("/account/signupsuccess/parent");
-    }
-  };
 
   let bgColor =
     userType === "student" ? COLORS.primary.navy : COLORS.primary.mint;
@@ -31,7 +19,7 @@ export default function SignUpBtn({ userType, onClick }: SignUpBtnProps) {
 
   return (
     <div
-      onClick={handleClick}
+      onClick={onClick}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => {
         setIsHovered(false);

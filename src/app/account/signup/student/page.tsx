@@ -2,12 +2,15 @@
 
 import { FONT_SIZE, FONT_WEIGHT } from "@/styles/theme/tokens";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import Image from "next/image";
 import Icon from "@/app/account/components/icon";
 import SignUpBtn from "../components/SignUpBtn";
 import SignUpForm from "../components/SignUpForm";
+import { studentSignUp } from "@/apis/auth";
 
 export default function StudentSignUpPage() {
+  const router = useRouter();
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -56,9 +59,14 @@ export default function StudentSignUpPage() {
         />
         <SignUpBtn
           userType="student"
-          onClick={() => {
-            console.log("전송할 데이터:", formData);
-            // 여기서 서버 API 호출 가능
+          onClick={async () => {
+            try {
+              const res = await studentSignUp(formData); // API 호출
+              localStorage.setItem("token", res.token); // 토큰 저장
+              router.push("/account/signupsuccess/student"); // 성공 시 이동
+            } catch (err: any) {
+              alert(err.message || "회원가입 실패");
+            }
           }}
         />
       </div>
