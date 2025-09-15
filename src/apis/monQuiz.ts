@@ -41,7 +41,7 @@ export const monQuizApi = {
     try {
       const headers = getAuthHeader();
       const response = await axios.post(
-        `${baseURL}/monQuiz/done`,
+        `${baseURL}/monQuiz/submit`,
         { selectedChoices },
         {
           headers,
