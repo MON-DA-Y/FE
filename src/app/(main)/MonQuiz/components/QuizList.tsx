@@ -17,7 +17,6 @@ export default function QuizList() {
       try {
         setIsLoading(true);
         const data = await monQuizApi.getMonQuiz();
-        console.log(data);
         setQuizzes(data);
       } catch (error) {
         console.error("오늘의 monQuiz 조회 실패:", error);
@@ -36,13 +35,20 @@ export default function QuizList() {
     }));
   };
 
-  const handleSubmitClick = () => {
-    // Mon 퀴즈 제출 완료 api 로직 구현
+  const handleSubmitClick = async () => {
     if (
       confirm("하루에 한 번 퀴즈에 응시할 수 있습니다. 정말 제출하시겠습니까?")
     ) {
-      console.log("오늘 MonQuiz 제출 완료");
-      console.log("선택된 답:", selectedChoices);
+      try {
+        setIsLoading(true);
+        // console.log("오늘 MonQuiz 제출 완료");
+        // console.log("선택된 답:", selectedChoices);
+        await monQuizApi.postMonQuizSubmit(selectedChoices);
+      } catch (error) {
+        alert(error);
+      } finally {
+        setIsLoading(false);
+      }
     }
   };
 
