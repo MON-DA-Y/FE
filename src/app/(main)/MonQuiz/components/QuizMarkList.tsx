@@ -5,8 +5,10 @@ import QuizMarkItem from "./QuizMarkItem";
 import CommonBtn from "@/components/shared/CommonBtn";
 import { QuizMark } from "@/types/monQuiz";
 import { monQuizMarkApi } from "@/apis/monQuiz/monQuizMark";
+import { useRouter } from "next/navigation";
 
 export default function QuizList() {
+  const router = useRouter();
   const [quizMarks, setQuizMarks] = useState<QuizMark[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
@@ -16,6 +18,7 @@ export default function QuizList() {
         setIsLoading(true);
         const data = await monQuizMarkApi.getMonQuizMark();
         setQuizMarks(data);
+        router.push("/");
       } catch (error) {
         console.error("오늘 monQuiz 채점 조회 실패: ", error);
       } finally {
