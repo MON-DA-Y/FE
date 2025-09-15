@@ -21,6 +21,20 @@ const getAuthHeader = () => {
 };
 
 export const monQuizApi = {
+  // monQuiz 제출 여부
+  getStudentSubmit: async () => {
+    try {
+      const headers = getAuthHeader();
+      const response = await axios.get(`${baseURL}/monQuiz/submit/status`, {
+        headers,
+      });
+      return response.data.result;
+    } catch (error) {
+      console.error("monQuiz 제출 여부 get 실패: ", error);
+      throw error;
+    }
+  },
+
   // monQuiz 조회
   getMonQuiz: async () => {
     try {

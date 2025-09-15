@@ -6,13 +6,25 @@ import Image from "next/image";
 import QuizList from "./components/QuizList";
 import QuizMarkList from "./components/QuizMarkList";
 import { COLORS } from "@/styles/theme/tokens";
+import { monQuizApi } from "@/apis/monQuiz/monQuiz";
 
 export default function page() {
   const [isSubmit, setIsSubmit] = useState<boolean>(false);
 
   useEffect(() => {
     // 이 학생이 시험을 제출했었는지 데이터 가져오는 api 로직 구현
-    setIsSubmit(false);
+    const getStudentSubmit = async () => {
+      try {
+        const data = await monQuizApi.getStudentSubmit();
+        console.log(data);
+        setIsSubmit(data.submit);
+      } catch (error) {
+        console.error("monQuiz 제출 여부 조회 실패:", error);
+        alert(error);
+      }
+
+      getStudentSubmit();
+    };
   });
   return (
     <>
