@@ -60,9 +60,9 @@ export default function QuizMarkItem({
 
         {/* Marking */}
         {isCorrect ? (
-          <RedBox title="오답">{marking}</RedBox>
-        ) : (
           <NavyBox title="정답">{marking}</NavyBox>
+        ) : (
+          <RedBox title="오답">{marking}</RedBox>
         )}
       </div>
     </div>
