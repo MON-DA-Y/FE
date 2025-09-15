@@ -2,8 +2,9 @@
 
 import { useState, useEffect } from "react";
 import { FONT_SIZE, FONT_WEIGHT } from "@/styles/theme/tokens";
+import { studentInfoApi } from "@/apis/studentInfo";
 
-interface StudentInfo {
+export interface StudentInfo {
   std_name: string;
   std_level: string;
   std_img: string;
@@ -11,15 +12,23 @@ interface StudentInfo {
 
 export default function MyInfo() {
   const [student, setStudent] = useState<StudentInfo | null>(null);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   useEffect(() => {
-    // 더미 데이터
-    setStudent({
-      std_name: "이00",
-      std_level: "🌱 새싹",
-      std_img:
-        "https://i.pinimg.com/736x/b3/6d/d2/b36dd260dc6d22466fc1707ecbd12268.jpg",
-    });
+    const fetchStudentInfo = async () => {
+      try {
+        setIsLoading(true);
+        const data = await studentInfoApi.getStudentInfo();
+        console.log(data);
+        setStudent(data);
+      } catch (error) {
+        console.error("학생 정보 조회 실패:", error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchStudentInfo();
   }, []);
 
   if (!student) return null; // 데이터가 아직 없으면 렌더링하지 않음
