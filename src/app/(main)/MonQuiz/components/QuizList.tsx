@@ -5,7 +5,7 @@ import QuizItem from "./QuizItem";
 import CommonBtn from "@/components/shared/CommonBtn";
 import { Quizzes } from "@/types/monQuiz";
 import { selectedChoices } from "@/types/monQuiz";
-import { monQuizApi } from "@/apis/monQuiz";
+import { monQuizApi } from "@/apis/monQuiz/monQuiz";
 
 export default function QuizList() {
   const [quizzes, setQuizzes] = useState<Quizzes[]>([]);
