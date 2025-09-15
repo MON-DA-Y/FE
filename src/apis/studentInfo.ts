@@ -27,7 +27,7 @@ export const studentInfoApi = {
       const response = await axios.get(`${baseURL}/stdInfo`, {
         headers,
       });
-      console.log("학생 정보 조회 결과:", response.data);
+      // console.log("학생 정보 조회 결과:", response.data);
       return response.data.result;
     } catch (error) {
       console.error("학생 정보 get 실패:", error);

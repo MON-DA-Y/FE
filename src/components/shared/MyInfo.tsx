@@ -19,7 +19,6 @@ export default function MyInfo() {
       try {
         setIsLoading(true);
         const data = await studentInfoApi.getStudentInfo();
-        console.log(data);
         setStudent(data);
       } catch (error) {
         console.error("학생 정보 조회 실패:", error);

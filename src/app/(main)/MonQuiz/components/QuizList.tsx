@@ -4,29 +4,28 @@ import { useState, useEffect } from "react";
 import QuizItem from "./QuizItem";
 import CommonBtn from "@/components/shared/CommonBtn";
 import { Quizzes } from "@/types/monQuiz";
+import { selectedChoices } from "@/types/monQuiz";
+import { monQuizApi } from "@/apis/monQuiz";
 
 export default function QuizList() {
   const [quizzes, setQuizzes] = useState<Quizzes[]>([]);
-  const [selectedChoices, setSelectedChoices] = useState<{
-    [key: number]: string | null;
-  }>({});
+  const [selectedChoices, setSelectedChoices] = useState<selectedChoices>({});
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   useEffect(() => {
-    // MonQuiz 가져오기 api 로직 구현
-    setQuizzes([
-      {
-        id: 1,
-        type: "word",
-        question: "인플레이션은 무엇인가요?",
-        choices: ["물가 상승", "물가 하락", "경제 안정"],
-      },
-      {
-        id: 2,
-        type: "news",
-        question: "디플레이션의 특징은 무엇인가요?",
-        choices: ["물가 상승", "물가 하락", "경제 성장"],
-      },
-    ]);
+    const fetchTodayMonQuiz = async () => {
+      try {
+        setIsLoading(true);
+        const data = await monQuizApi.getMonQuiz();
+        setQuizzes(data);
+      } catch (error) {
+        console.error("오늘의 monQuiz 조회 실패:", error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchTodayMonQuiz();
   }, []);
 
   const handleChoiceSelect = (id: number, choice: string) => {
@@ -36,11 +35,21 @@ export default function QuizList() {
     }));
   };
 
-  const handleSubmitClick = () => {
-    // Mon 퀴즈 제출 완료 api 로직 구현
-    confirm("하루에 한 번 퀴즈에 응시할 수 있습니다. 정말 제출하시겠습니까?");
-    console.log("오늘 MonQuiz 제출 완료");
-    console.log("선택된 답:", selectedChoices);
+  const handleSubmitClick = async () => {
+    if (
+      confirm("하루에 한 번 퀴즈에 응시할 수 있습니다. 정말 제출하시겠습니까?")
+    ) {
+      try {
+        setIsLoading(true);
+        // console.log("오늘 MonQuiz 제출 완료");
+        // console.log("선택된 답:", selectedChoices);
+        await monQuizApi.postMonQuizSubmit(selectedChoices);
+      } catch (error) {
+        alert(error);
+      } finally {
+        setIsLoading(false);
+      }
+    }
   };
 
   return (
