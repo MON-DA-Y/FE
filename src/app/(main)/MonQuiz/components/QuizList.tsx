@@ -38,9 +38,12 @@ export default function QuizList() {
 
   const handleSubmitClick = () => {
     // Mon 퀴즈 제출 완료 api 로직 구현
-    confirm("하루에 한 번 퀴즈에 응시할 수 있습니다. 정말 제출하시겠습니까?");
-    console.log("오늘 MonQuiz 제출 완료");
-    console.log("선택된 답:", selectedChoices);
+    if (
+      confirm("하루에 한 번 퀴즈에 응시할 수 있습니다. 정말 제출하시겠습니까?")
+    ) {
+      console.log("오늘 MonQuiz 제출 완료");
+      console.log("선택된 답:", selectedChoices);
+    }
   };
 
   return (
