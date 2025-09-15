@@ -70,13 +70,13 @@ export default function LoginPage() {
                 type="email"
                 placeholder="이메일"
                 width={303}
-                onChange={(e) => setEmail(e.target.value)}
+                onChange={(value) => setEmail(value)}
               />
               <Input
                 type="password"
                 placeholder="비밀번호"
                 width={303}
-                onChange={(e) => setPassword(e.target.value)}
+                onChange={(value) => setPassword(value)}
               />
             </div>
             <button
