@@ -28,3 +28,8 @@ export interface Quizzes {
   question: string;
   choices: string[];
 }
+
+// 선택된 답변
+export type selectedChoices = {
+  [key: number]: string | null;
+};
