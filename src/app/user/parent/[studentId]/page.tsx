@@ -1,8 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { useParams } from "next/navigation";
-import { getAttendance } from "@/apis/attendance";
+import { getAttendance, postAttendance } from "@/apis/attendance";
 import { CategoryScore, getWeakness, WeaknessResponse } from "@/apis/weakness";
 import { Result, getQuizResult } from "@/apis/quizResult";
 import StudentProfile from "@/app/user/components/StudentProfile";
@@ -21,9 +20,6 @@ import InputBox from "../../components/InputBox";
 import QuizBtn from "../components/QuizBtn";
 
 export default function ParentPage() {
-  const params = useParams();
-  const studentId = Number(params.studentId) || 1;
-
   const [isHover, setIsHover] = useState(false);
   const [isActive, setIsActive] = useState(false);
 
@@ -47,23 +43,34 @@ export default function ParentPage() {
   const [quizResults, setQuizResults] = useState<Result[]>([]);
 
   useEffect(() => {
-    handleApply(); // 첫 렌더 시 현재 주차 데이터 자동 조회
+    const markAndFetch = async () => {
+      try {
+        // 오늘 출석 체크
+        await postAttendance();
+
+        await handleApply();
+      } catch (err) {
+        console.error("출석 처리 또는 데이터 조회 실패:", err);
+      }
+    };
+
+    markAndFetch();
   }, []);
 
   // 적용 버튼 누르면 실행되는 함수
   const handleApply = async () => {
     try {
       // 출석 조회
-      const attendance = await getAttendance(studentId, week);
+      const attendance = await getAttendance(week);
       setAttendanceData(attendance.days.map((d) => d.isAttended));
       setDates(attendance.days.map((d) => new Date(d.day).getDate()));
 
       // 약점 조회
-      const weakness = await getWeakness(studentId, week);
+      const weakness = await getWeakness(week);
       setWeaknessData(weakness);
 
       // 퀴즈 성적 조회
-      const quiz = await getQuizResult(studentId, week);
+      const quiz = await getQuizResult(week);
       setQuizResults(quiz.results);
     } catch (err) {
       console.error("데이터 조회 실패:", err);

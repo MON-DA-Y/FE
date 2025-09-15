@@ -24,11 +24,10 @@ export interface SeriesHistoryResponse {
 }
 
 export async function getSeriesHistory(
-  studentId: number,
   week: "이번주" | "저번주"
 ): Promise<SeriesHistoryResponse> {
   const res = await API.get<SeriesHistoryResponse>(
-    `/users/${studentId}/history/series?week=${week}`
+    `/users/history/series?week=${week}`
   );
   console.log("API response:", res.data);
   return res.data;

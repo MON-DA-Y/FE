@@ -10,14 +10,16 @@ export default function AccountLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <div
-      className="flex items-center justify-center w-[630px] h-[710px] bg-white"
-      style={{
-        boxShadow: SHADOW.interactive,
-        borderRadius: "40px",
-      }}
-    >
-      <main>{children}</main>
+    <div className="flex items-center justify-center">
+      <div
+        className="flex items-center justify-center w-[630px] h-[710px] bg-white"
+        style={{
+          boxShadow: SHADOW.interactive,
+          borderRadius: "40px",
+        }}
+      >
+        <main>{children}</main>
+      </div>
     </div>
   );
 }

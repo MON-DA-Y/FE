@@ -1,6 +1,6 @@
 "use client";
 
-import { useSearchParams, useParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import { useState, useEffect } from "react";
 import { News, getNewsHistory } from "@/apis/newsHistory";
 import NewsCard from "./NewsCard";
@@ -16,17 +16,15 @@ export default function NewsHistory({
   resultFilter,
 }: NewsHistoryProps) {
   const searchParams = useSearchParams();
-  const params = useParams();
-  const studentId = Number(params.studentId) || 1;
   const week = searchParams.get("week") === "이번주" ? "이번주" : "저번주";
 
   const [news, setNews] = useState<News[]>([]);
 
   useEffect(() => {
-    getNewsHistory(studentId, week)
+    getNewsHistory(week)
       .then((data) => setNews(data.newsList))
       .catch((err) => console.error("뉴스 히스토리 API 실패:", err));
-  }, [studentId, week]);
+  }, [week]);
 
   const filteredNews = news.filter((news) => {
     // 카테고리 필터

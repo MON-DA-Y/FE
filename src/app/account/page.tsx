@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Icon from "./components/icon";
 import MessageBox from "./components/MessageBox";
@@ -8,8 +9,12 @@ import { COLORS } from "@/styles/theme/tokens";
 
 export default function AccountPage() {
   const router = useRouter();
+  const [activeUser, setActiveUser] = useState<"student" | "parent" | null>(
+    null
+  );
 
   const handleClick = (type: "student" | "parent") => {
+    setActiveUser(type);
     if (type === "student") {
       router.push("/account/signup/student");
     } else {
@@ -32,11 +37,13 @@ export default function AccountPage() {
           userType={"student"}
           label="학생"
           onClick={() => handleClick("student")}
+          isActive={activeUser === "student"}
         />
         <Icon
           userType={"parent"}
           label="학부모"
           onClick={() => handleClick("parent")}
+          isActive={activeUser === "parent"}
         />
       </div>
       <div className="flex pt-5 pl-10 gap-15">
