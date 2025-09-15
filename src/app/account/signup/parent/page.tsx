@@ -15,7 +15,6 @@ export default function ParentSignUpPage() {
     name: "",
     email: "",
     password: "",
-    passwordConfirm: "",
     phone: "",
   });
 

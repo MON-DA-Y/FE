@@ -15,7 +15,6 @@ export default function StudentSignUpPage() {
     name: "",
     email: "",
     password: "",
-    passwordConfirm: "",
     schoolType: "middle" as "middle" | "high",
     grade: null as number | null,
   });
@@ -61,10 +60,12 @@ export default function StudentSignUpPage() {
           userType="student"
           onClick={async () => {
             try {
+              console.log("서버로 보내는 데이터:", formData);
               const res = await studentSignUp(formData); // API 호출
               localStorage.setItem("token", res.token); // 토큰 저장
               router.push("/account/signupsuccess/student"); // 성공 시 이동
             } catch (err: any) {
+              console.log("회원가입 오류 응답:", err.response?.data);
               alert(err.message || "회원가입 실패");
             }
           }}

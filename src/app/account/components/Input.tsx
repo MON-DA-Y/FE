@@ -7,7 +7,7 @@ interface InputProps {
   value?: string;
   children?: ReactNode;
   width: number;
-  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onChange?: (value: string) => void;
 }
 
 export default function Input({
@@ -32,7 +32,7 @@ export default function Input({
         type={type}
         placeholder={placeholder}
         value={value}
-        onChange={onChange}
+        onChange={(e) => onChange?.(e.target.value)}
       />
       {children}
     </div>
