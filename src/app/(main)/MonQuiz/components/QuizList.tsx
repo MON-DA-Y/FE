@@ -5,27 +5,28 @@ import QuizItem from "./QuizItem";
 import CommonBtn from "@/components/shared/CommonBtn";
 import { Quizzes } from "@/types/monQuiz";
 import { selectedChoices } from "@/types/monQuiz";
+import { monQuizApi } from "@/apis/monQuiz";
 
 export default function QuizList() {
   const [quizzes, setQuizzes] = useState<Quizzes[]>([]);
   const [selectedChoices, setSelectedChoices] = useState<selectedChoices>({});
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   useEffect(() => {
-    // MonQuiz 가져오기 api 로직 구현
-    setQuizzes([
-      {
-        id: 1,
-        type: "word",
-        question: "인플레이션은 무엇인가요?",
-        choices: ["물가 상승", "물가 하락", "경제 안정"],
-      },
-      {
-        id: 2,
-        type: "news",
-        question: "디플레이션의 특징은 무엇인가요?",
-        choices: ["물가 상승", "물가 하락", "경제 성장"],
-      },
-    ]);
+    const fetchTodayMonQuiz = async () => {
+      try {
+        setIsLoading(true);
+        const data = await monQuizApi.getMonQuiz();
+        console.log(data);
+        setQuizzes(data);
+      } catch (error) {
+        console.error("오늘의 monQuiz 조회 실패:", error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchTodayMonQuiz();
   }, []);
 
   const handleChoiceSelect = (id: number, choice: string) => {
