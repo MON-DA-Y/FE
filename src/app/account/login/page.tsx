@@ -22,15 +22,18 @@ export default function LoginPage() {
 
   const handleLogin = async () => {
     try {
+      console.log("로그인 시도 데이터:", { email, password, selectedType });
       let res;
       if (selectedType === "student") {
         res = await studentLogin({ email, password });
       } else {
         res = await parentLogin({ email, password });
       }
+      console.log("로그인 성공 응답:", res);
       localStorage.setItem("token", res.token);
       router.push(`/${selectedType}`); // 로그인 성공 후 이동
     } catch (err: any) {
+      console.log("로그인 오류 응답:", err.response?.data || err.message);
       alert(err.message || "로그인 실패");
     }
   };
@@ -70,13 +73,13 @@ export default function LoginPage() {
                 type="email"
                 placeholder="이메일"
                 width={303}
-                onChange={(e) => setEmail(e.target.value)}
+                onChange={(value) => setEmail(value)}
               />
               <Input
                 type="password"
                 placeholder="비밀번호"
                 width={303}
-                onChange={(e) => setPassword(e.target.value)}
+                onChange={(value) => setPassword(value)}
               />
             </div>
             <button
