@@ -12,7 +12,7 @@ export default function page() {
 
   useEffect(() => {
     // 이 학생이 시험을 제출했었는지 데이터 가져오는 api 로직 구현
-    setIsSubmit(true);
+    setIsSubmit(false);
   });
   return (
     <>
