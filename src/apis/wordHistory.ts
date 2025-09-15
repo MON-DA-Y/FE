@@ -15,11 +15,10 @@ export interface WordHistoryResponse {
 }
 
 export async function getWordHistory(
-  studentId: number,
   week: "이번주" | "저번주"
 ): Promise<WordHistoryResponse> {
   const res = await API.get<WordHistoryResponse>(
-    `/users/${studentId}/history/word?week=${week}`
+    `/users/history/word?week=${week}`
   );
   console.log("API response:", res.data);
   return res.data;

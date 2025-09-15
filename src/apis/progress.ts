@@ -19,13 +19,8 @@ export interface ProgressResponse {
   days: ProgressDay[];
 }
 
-export async function getProgress(
-  studentId: number,
-  week: number
-): Promise<ProgressResponse> {
-  const res = await API.get<ProgressResponse>(
-    `/users/${studentId}/progress?week=${week}`
-  );
+export async function getProgress(week: number): Promise<ProgressResponse> {
+  const res = await API.get<ProgressResponse>(`/users/progress?week=${week}`);
   console.log("API response:", res.data);
   return res.data;
 }

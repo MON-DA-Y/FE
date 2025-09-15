@@ -10,12 +10,17 @@ export interface AttendanceResponse {
 }
 
 export async function getAttendance(
-  studentId: number,
   week: "이번주" | "저번주"
 ): Promise<AttendanceResponse> {
   const res = await API.get<AttendanceResponse>(
-    `/users/${studentId}/attendance?week=${week}`
+    `/users/attendance?week=${week}`
   );
   console.log("API response:", res.data);
+  return res.data;
+}
+
+export async function postAttendance(): Promise<{ message: string }> {
+  const res = await API.post<{ message: string }>(`/users/attendance/today`);
+  console.log("오늘 출석 처리 API response:", res.data);
   return res.data;
 }

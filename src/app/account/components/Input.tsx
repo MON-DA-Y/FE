@@ -7,6 +7,7 @@ interface InputProps {
   value?: string;
   children?: ReactNode;
   width: number;
+  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 export default function Input({
@@ -15,18 +16,24 @@ export default function Input({
   value,
   children,
   width,
+  onChange,
 }: InputProps) {
   return (
     <div
-      className="flex items-center h-[55px] p-4 bg-white border gap-9"
+      className="flex items-center h-[55px] p-5 bg-white border gap-9"
       style={{
         borderRadius: "69px",
         borderColor: COLORS.sub.gray2,
-        color: COLORS.sub.gray2,
+        color: COLORS.sub.gray3,
         width: `${width}px`,
       }}
     >
-      <input type={type} placeholder={placeholder} value={value} />
+      <input
+        type={type}
+        placeholder={placeholder}
+        value={value}
+        onChange={onChange}
+      />
       {children}
     </div>
   );

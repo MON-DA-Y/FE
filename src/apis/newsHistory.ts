@@ -14,11 +14,10 @@ export interface NewsHistoryResponse {
 }
 
 export async function getNewsHistory(
-  studentId: number,
   week: "이번주" | "저번주"
 ): Promise<NewsHistoryResponse> {
   const res = await API.get<NewsHistoryResponse>(
-    `/users/${studentId}/history/news?week=${week}`
+    `/users/history/news?week=${week}`
   );
   console.log("API response:", res.data);
   return res.data;
