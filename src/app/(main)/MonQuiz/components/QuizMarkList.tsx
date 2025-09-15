@@ -18,7 +18,6 @@ export default function QuizList() {
         setIsLoading(true);
         const data = await monQuizMarkApi.getMonQuizMark();
         setQuizMarks(data);
-        router.push("/");
       } catch (error) {
         console.error("오늘 monQuiz 채점 조회 실패: ", error);
       } finally {
@@ -34,6 +33,7 @@ export default function QuizList() {
       setIsLoading(true);
       await monQuizMarkApi.postMonQuizDone();
       alert("오늘 MonQuiz 학습 완료 처리되었습니다!");
+      router.push("/");
     } catch (error) {
       console.error("MonQuiz 학습 완료 처리 실패:", error);
       alert("학습 완료 처리 중 오류가 발생했습니다.");
