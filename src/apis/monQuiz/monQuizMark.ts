@@ -28,7 +28,7 @@ export const monQuizMarkApi = {
       const response = await axios.get(`${baseURL}/monQuiz/mark`, {
         headers,
       });
-      console.log("monQuiz 채점 조회 결과:", response.data);
+      // console.log("monQuiz 채점 조회 결과:", response.data);
       return response.data.result;
     } catch (error) {
       console.error("monQuiz 채점 get 실패:", error);
