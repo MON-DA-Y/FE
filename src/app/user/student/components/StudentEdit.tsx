@@ -66,7 +66,7 @@ export default function StudentEdit({
                     학교
                   </label>
                   <select
-                    className="w-72 h-11 px-4 pr-5 rounded-[10px] border-[0.5px] placeholder-[#8E8E8E]"
+                    className="w-72 h-11 px-4 rounded-[10px] border-[0.5px] placeholder-[#8E8E8E]"
                     value={user.std_schoolType}
                     onChange={(e) =>
                       setUser({ ...user, std_schoolType: e.target.value })
