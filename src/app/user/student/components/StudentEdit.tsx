@@ -4,22 +4,12 @@ import { COLORS, FONT_SIZE, FONT_WEIGHT, SHADOW } from "@/styles/theme/tokens";
 import { useState } from "react";
 import InputBox from "../../components/InputBox";
 import ProfileImage from "./ProfileImage";
+import { StudentInfo } from "@/components/shared/MyInfo";
 
 interface StudentEditProps {
   closeRequest: () => void;
-  onSave: (data: {
-    name: string;
-    school: string;
-    grade: string;
-    email: string;
-    profileImg: string | null;
-  }) => void;
-  initialData: {
-    name: string;
-    school: string;
-    grade: string;
-    email: string;
-  };
+  onSave: (data: StudentInfo & { profileImg: string | null }) => void;
+  initialData: StudentInfo;
 }
 
 export default function StudentEdit({
@@ -59,30 +49,54 @@ export default function StudentEdit({
                 <InputBox
                   type="text"
                   placeholder="이름을 입력하세요"
-                  value={user.name}
+                  value={user?.std_name}
                   label="이름"
-                  onChange={(e) => setUser({ ...user, name: e.target.value })}
+                  onChange={(e) =>
+                    setUser({ ...user, std_name: e.target.value })
+                  }
                 />
-                <InputBox
-                  type="text"
-                  placeholder="학교를 입력하세요"
-                  value={user.school}
-                  label="학교"
-                  onChange={(e) => setUser({ ...user, school: e.target.value })}
-                />
+                <div className="flex items-center">
+                  <label
+                    className="w-20"
+                    style={{
+                      fontSize: FONT_SIZE.subtitle2,
+                      fontWeight: FONT_WEIGHT.subtitle2,
+                    }}
+                  >
+                    학교
+                  </label>
+                  <select
+                    className="w-72 h-11 px-4 rounded-[10px] border-[0.5px] placeholder-[#8E8E8E]"
+                    value={user.std_schoolType}
+                    onChange={(e) =>
+                      setUser({ ...user, std_schoolType: e.target.value })
+                    }
+                    style={{
+                      borderColor: COLORS.sub.gray3,
+                      color: COLORS.sub.gray3,
+                    }}
+                  >
+                    <option value="middle">중학교</option>
+                    <option value="high">고등학교</option>
+                  </select>
+                </div>
                 <InputBox
                   type="text"
                   placeholder="학년을 입력하세요"
-                  value={user.grade}
+                  value={user?.std_grade?.toString() || ""}
                   label="학년"
-                  onChange={(e) => setUser({ ...user, grade: e.target.value })}
+                  onChange={(e) =>
+                    setUser({ ...user, std_grade: Number(e.target.value) })
+                  }
                 />
                 <InputBox
                   type="text"
                   placeholder="이메일을 입력하세요"
-                  value={user.email}
+                  value={user?.std_email}
                   label="이메일"
-                  onChange={(e) => setUser({ ...user, email: e.target.value })}
+                  onChange={(e) =>
+                    setUser({ ...user, std_email: e.target.value })
+                  }
                 />
               </div>
               <ProfileImage onChange={setProfileImg} />
