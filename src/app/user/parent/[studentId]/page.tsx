@@ -18,8 +18,13 @@ import Slider from "../../components/Slider";
 import HistoryBtn from "../../components/HistoryBtn";
 import InputBox from "../../components/InputBox";
 import QuizBtn from "../components/QuizBtn";
+import { StudentInfo } from "@/components/shared/MyInfo";
 
-export default function ParentPage() {
+interface ParentPageProps {
+  user: StudentInfo;
+}
+
+export default function ParentPage({ user }: ParentPageProps) {
   const [isHover, setIsHover] = useState(false);
   const [isActive, setIsActive] = useState(false);
 
@@ -103,8 +108,11 @@ export default function ParentPage() {
                 fontWeight: FONT_WEIGHT.headline,
               }}
             >
-              이00
-              <StudentSchool />
+              {user?.std_name}
+              <StudentSchool
+                schoolType={user?.std_schoolType}
+                grade={user?.std_grade}
+              />
             </div>
             <div
               className="flex flex-row gap-1.5 pt-4"

@@ -22,7 +22,7 @@ export default function SignUpForm({ userType, onChange }: SignUpFormProps) {
         width={370}
         onChange={(value) => onChange("email", value)}
       >
-        <button
+        {/* <button
           className="flex items-center justify-center rounded-[34px] w-[63px] border p-1 text-black"
           style={{
             backgroundColor: COLORS.sub.gray1,
@@ -32,7 +32,7 @@ export default function SignUpForm({ userType, onChange }: SignUpFormProps) {
           }}
         >
           중복 확인
-        </button>
+        </button> */}
       </Input>
 
       <Input

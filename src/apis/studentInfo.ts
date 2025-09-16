@@ -1,37 +1,58 @@
-import axios from "axios";
+import { API } from "./config";
 
-const baseURL = process.env.NEXT_PUBLIC_API_BASE_URL;
+export interface StdInfoResponse {
+  std_name: string;
+  std_level: string;
+  std_img: string;
+  std_email: string;
+  std_schoolType: string;
+  std_grade: number;
+}
 
-// 토큰 가져오기
-const getToken = () => {
-  const token = localStorage.getItem("token");
-  //   console.log("가져온 토큰:", token);
-  return token;
-};
+interface StdInfoAPIResponse {
+  result: StdInfoResponse;
+}
 
-// 토큰을 헤더에 추가
-const getAuthHeader = () => {
-  const token = getToken();
-  const headers = {
-    Authorization: `Bearer ${token}`,
-  };
-  //   console.log("생성된 헤더:", headers);
-  return headers;
-};
+export async function getStudentInfo(): Promise<StdInfoResponse> {
+  const res = await API.get<StdInfoAPIResponse>("/stdInfo");
+  console.log("API response:", res.data.result);
+  return res.data.result;
+}
 
-export const studentInfoApi = {
-  // 학생 정보 조회
-  getStudentInfo: async () => {
-    try {
-      const headers = getAuthHeader();
-      const response = await axios.get(`${baseURL}/stdInfo`, {
-        headers,
-      });
-      // console.log("학생 정보 조회 결과:", response.data);
-      return response.data.result;
-    } catch (error) {
-      console.error("학생 정보 get 실패:", error);
-      throw error;
-    }
-  },
-};
+// import axios from "axios";
+
+// const baseURL = process.env.NEXT_PUBLIC_API_BASE_URL;
+
+// // 토큰 가져오기
+// const getToken = () => {
+//   const token = localStorage.getItem("token");
+//   //   console.log("가져온 토큰:", token);
+//   return token;
+// };
+
+// // 토큰을 헤더에 추가
+// const getAuthHeader = () => {
+//   const token = getToken();
+//   const headers = {
+//     Authorization: `Bearer ${token}`,
+//   };
+//   //   console.log("생성된 헤더:", headers);
+//   return headers;
+// };
+
+// export const studentInfoApi = {
+//   // 학생 정보 조회
+//   getStudentInfo: async () => {
+//     try {
+//       const headers = getAuthHeader();
+//       const response = await axios.get(`${baseURL}/stdInfo`, {
+//         headers,
+//       });
+//       // console.log("학생 정보 조회 결과:", response.data);
+//       return response.data.result;
+//     } catch (error) {
+//       console.error("학생 정보 get 실패:", error);
+//       throw error;
+//     }
+//   },
+// };
