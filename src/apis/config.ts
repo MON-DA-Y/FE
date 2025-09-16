@@ -4,3 +4,12 @@ export const API = axios.create({
   baseURL: "http://localhost:80/api",
   headers: { "Content-Type": "application/json" },
 });
+
+// 매 요청마다 토큰 붙이기
+API.interceptors.request.use((config) => {
+  const token = localStorage.getItem("token");
+  if (token) {
+    config.headers.Authorization = `Bearer ${token}`;
+  }
+  return config;
+});

@@ -2,12 +2,15 @@
 
 import { useState, useEffect } from "react";
 import { FONT_SIZE, FONT_WEIGHT } from "@/styles/theme/tokens";
-import { studentInfoApi } from "@/apis/studentInfo";
+import { getStudentInfo } from "@/apis/studentInfo";
 
 export interface StudentInfo {
   std_name: string;
   std_level: string;
   std_img: string;
+  std_schoolType: string;
+  std_grade: number;
+  std_email: string;
 }
 
 export default function MyInfo() {
@@ -18,7 +21,7 @@ export default function MyInfo() {
     const fetchStudentInfo = async () => {
       try {
         setIsLoading(true);
-        const data = await studentInfoApi.getStudentInfo();
+        const data = await getStudentInfo();
         setStudent(data);
       } catch (error) {
         console.error("학생 정보 조회 실패:", error);

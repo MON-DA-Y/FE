@@ -14,6 +14,7 @@ import Slider from "../components/Slider";
 import TabBar from "../components/TabBar";
 import HistoryBtn from "../components/HistoryBtn";
 import StudentEdit from "./components/StudentEdit";
+import { getStudentInfo } from "@/apis/studentInfo";
 
 export default function StudentMyPage() {
   const router = useRouter();
@@ -70,15 +71,13 @@ export default function StudentMyPage() {
     }
   };
 
-  {
-    /*나중에 회원정보 불러오기*/
-  }
-  const [user, setUser] = useState({
-    name: "이00",
-    school: "00중학교",
-    grade: "2학년",
-    email: "monday@naver.com",
-  });
+  const [user, setUser] = useState<any>({}); // 초기값은 빈 객체
+
+  useEffect(() => {
+    getStudentInfo()
+      .then(setUser)
+      .catch((err) => console.error("학생 정보 API 실패:", err));
+  }, []);
 
   return (
     //학생 메인 페이지로 이동하도록 router 수정
@@ -144,10 +143,10 @@ export default function StudentMyPage() {
                 initialData={user}
                 onSave={(updatedUser) => {
                   setUser({
-                    name: updatedUser.name,
-                    school: updatedUser.school,
-                    grade: updatedUser.grade,
-                    email: updatedUser.email,
+                    std_name: updatedUser.std_name,
+                    std_schoolType: updatedUser.std_schoolType,
+                    std_grade: updatedUser.std_grade,
+                    std_email: updatedUser.std_email,
                   });
                   if (updatedUser.profileImg) {
                     setProfileImg(updatedUser.profileImg);
@@ -175,7 +174,7 @@ export default function StudentMyPage() {
                       fontWeight: FONT_WEIGHT.subtitle1,
                     }}
                   >
-                    {user.name}
+                    {user.std_name}
                   </div>
                 </div>
 
@@ -195,7 +194,7 @@ export default function StudentMyPage() {
                       fontWeight: FONT_WEIGHT.subtitle1,
                     }}
                   >
-                    {user.school}
+                    {user.std_schoolType === "middle" ? "중학교" : "고등학교"}
                   </div>
                 </div>
 
@@ -215,7 +214,7 @@ export default function StudentMyPage() {
                       fontWeight: FONT_WEIGHT.subtitle1,
                     }}
                   >
-                    {user.grade}
+                    {user.std_grade}학년
                   </div>
                 </div>
 
@@ -235,7 +234,7 @@ export default function StudentMyPage() {
                       fontWeight: FONT_WEIGHT.subtitle1,
                     }}
                   >
-                    {user.email}
+                    {user.std_email}
                   </div>
                 </div>
               </div>
