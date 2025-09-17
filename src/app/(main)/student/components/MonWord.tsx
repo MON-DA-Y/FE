@@ -1,13 +1,32 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import { COLORS } from "@/styles/theme/tokens";
 import Image from "next/image";
 import WordBox from "@components/ui/WordBox";
 import { useRouter } from "next/navigation";
+import { stdMainApi } from "@/apis/stdMain";
 
 export default function MonWord() {
-  const monWords = ["디플레이션", "시장", "코인", "인플레이션"];
+  const [monWords, setMonWords] = useState<string[]>([]);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const router = useRouter();
+
+  useEffect(() => {
+    const fetchTodayMonQuizMark = async () => {
+      try {
+        setIsLoading(true);
+        const data = await stdMainApi.getStdMonWord();
+        setMonWords(data);
+      } catch (error) {
+        console.error("오늘 monQuiz 채점 조회 실패: ", error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchTodayMonQuizMark();
+  }, []);
 
   return (
     <>
@@ -27,11 +46,11 @@ export default function MonWord() {
           >
             {monWords.map((word, index) => (
               <div
+                key={index}
                 className="cursor-pointer"
                 onClick={() => router.push("/MonWord")}
               >
                 <WordBox
-                  key={index}
                   p={"10px 20px"}
                   bg={"white"}
                   textColor={`${COLORS.primary.navy}`}
