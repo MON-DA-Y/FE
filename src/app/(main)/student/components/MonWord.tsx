@@ -46,11 +46,11 @@ export default function MonWord() {
           >
             {monWords.map((word, index) => (
               <div
+                key={index}
                 className="cursor-pointer"
                 onClick={() => router.push("/MonWord")}
               >
                 <WordBox
-                  key={index}
                   p={"10px 20px"}
                   bg={"white"}
                   textColor={`${COLORS.primary.navy}`}
