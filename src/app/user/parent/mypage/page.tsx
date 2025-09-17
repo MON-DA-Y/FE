@@ -5,9 +5,10 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import InputBox from "../../components/InputBox";
 import StudentCard from "../components/StudentCard";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import AddStudentModal from "../components/AddStudentModal";
 import EditModal from "../components/EditModal";
+import { getParentInfo } from "@/apis/parentInfo";
 
 interface StudentProps {
   name: string;
@@ -21,14 +22,13 @@ export default function ParentMyPage() {
   const [isEditOpen, setIsEditOpen] = useState(false);
   const [students, setStudents] = useState<StudentProps[]>([]);
 
-  {
-    /*나중에 회원정보 불러오기*/
-  }
-  const [user, setUser] = useState({
-    name: "이00",
-    phone: "010-0000-0000",
-    email: "monday@naver.com",
-  });
+  const [user, setUser] = useState<any>({}); // 초기값은 빈 객체
+
+  useEffect(() => {
+    getParentInfo()
+      .then(setUser)
+      .catch((err) => console.error("학부모 정보 API 실패:", err));
+  }, []);
 
   return (
     <div className="relative w-full px-30 py-5">
@@ -101,9 +101,24 @@ export default function ParentMyPage() {
             />
           )}
           <div className="flex flex-col px-10 gap-5 pt-6">
-            <InputBox type="text" value={user.name} label="이름" readOnly />
-            <InputBox type="text" value={user.phone} label="연락처" readOnly />
-            <InputBox type="text" value={user.email} label="이메일" readOnly />
+            <InputBox
+              type="text"
+              value={user?.prt_name || "?"}
+              label="이름"
+              readOnly
+            />
+            <InputBox
+              type="text"
+              value={user.prt_phone}
+              label="연락처"
+              readOnly
+            />
+            <InputBox
+              type="text"
+              value={user.prt_email}
+              label="이메일"
+              readOnly
+            />
           </div>
 
           <div

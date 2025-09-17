@@ -289,7 +289,7 @@ export default function ParentPage({ user }: ParentPageProps) {
       </div>
 
       {/*바라는 한마디*/}
-      <div className="absolute top-85 left-145">
+      {/* <div className="absolute top-85 left-145">
         <div
           className="whitespace-nowrap"
           style={{
@@ -300,10 +300,10 @@ export default function ParentPage({ user }: ParentPageProps) {
           00이의 교육에 바라는 한마디
         </div>
         <InputBox type="textarea" />
-      </div>
+      </div> */}
 
       {/*이번 주 퀴즈*/}
-      <div className="absolute top-140 left-145">
+      <div className="absolute top-85 left-145">
         <div
           className="whitespace-nowrap"
           style={{
@@ -321,7 +321,7 @@ export default function ParentPage({ user }: ParentPageProps) {
       </div>
 
       {/*경제 TalkTalk*/}
-      <div className="absolute top-223 left-145">
+      <div className="absolute top-140 left-145">
         <div
           className="whitespace-nowrap"
           style={{
