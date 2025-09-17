@@ -239,23 +239,17 @@ export default function ParentPage({ user }: ParentPageProps) {
             <TabBar onChange={handleTabChange} selectedTab={selectedTab} />
           </div>
           <div className="flex flex-col px-5 pt-6 gap-6">
-            {selectedTab === "word"
-              ? weaknessData?.weakWord?.categories.map((c: CategoryScore) => (
-                  <Slider
-                    key={c.category}
-                    category={c.category}
-                    total={c.total}
-                    correct={c.correct}
-                  />
-                ))
-              : weaknessData?.weakNews?.categories.map((c: CategoryScore) => (
-                  <Slider
-                    key={c.category}
-                    category={c.category}
-                    total={c.total}
-                    correct={c.correct}
-                  />
-                ))}
+            {(selectedTab === "word"
+              ? weaknessData?.weakWord?.categories
+              : weaknessData?.weakNews?.categories
+            )?.map((c: CategoryScore) => (
+              <Slider
+                key={c.category}
+                category={c.category}
+                total={c.total}
+                correct={c.correct}
+              />
+            ))}
           </div>
           <div
             className="pt-8 max-w-110"
@@ -270,12 +264,13 @@ export default function ParentPage({ user }: ParentPageProps) {
             >
               ⋇ 이번 주 체크 포인트 :
             </div>
-            {/* summary는 약점 개수가 4개일때만 표시 */}
             {selectedTab === "word"
-              ? weaknessData?.weakWord?.summary ||
-                "약점 분석 데이터가 충분하지 않아요. 이번 주 남은 단어 학습을 마치면 더 정확한 피드백을 받을 수 있어요."
-              : weaknessData?.weakNews?.summary ||
-                "약점 분석 데이터가 충분하지 않아요. 이번 주 남은 뉴스 학습을 마치면 더 정확한 피드백을 받을 수 있어요."}
+              ? weaknessData?.weakWord?.categories?.length === 0
+                ? "이번 주 약점 분석은 임계치(50%) 이상으로 맞춘 카테고리는 약점으로 표시되지 않습니다."
+                : weaknessData?.weakWord?.summary
+              : weaknessData?.weakNews?.categories?.length === 0
+              ? "이번 주 약점 분석은 임계치(50%) 이상으로 맞춘 카테고리는 약점으로 표시되지 않습니다."
+              : weaknessData?.weakNews?.summary}
           </div>
         </div>
       </div>
