@@ -5,18 +5,30 @@ import { COLORS, FONT_SIZE, FONT_WEIGHT } from "@/styles/theme/tokens";
 import Image from "next/image";
 import styled from "styled-components";
 import { useRouter } from "next/navigation";
+import { stdMainApi } from "@/apis/stdMain";
 
 export default function MonNews() {
-  const [monNews, setMonNew] = useState<ReactNode>(null);
+  const [monNews, setMonNews] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const router = useRouter();
 
   useEffect(() => {
-    setMonNew(
-      <>
-        우리나라 돈의 가치가 떨어져서, <Mint>1달러</Mint>를 사려면{" "}
-        <Mint>1,480원</Mint>이나 필요하다고?
-      </>
-    );
+    const fetchStdMonNews = async () => {
+      try {
+        setIsLoading(true);
+        const data = await stdMainApi.getStdMonNews();
+        setMonNews(data);
+      } catch (error: any) {
+        console.error("오늘 monQuiz 채점 조회 실패: ", error);
+        const msg =
+          error.response?.data?.message || "서버와 연결할 수 없습니다.";
+        alert(msg);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchStdMonNews();
   }, []);
   return (
     <div
@@ -47,6 +59,6 @@ export default function MonNews() {
   );
 }
 
-const Mint = styled.span`
-  color: ${COLORS.primary.mint};
-`;
+// const Mint = styled.span`
+//   color: ${COLORS.primary.mint};
+// `;
