@@ -16,7 +16,6 @@ import AttendBtn from "../../components/AttendBtn";
 import TabBar from "../../components/TabBar";
 import Slider from "../../components/Slider";
 import HistoryBtn from "../../components/HistoryBtn";
-import InputBox from "../../components/InputBox";
 import QuizBtn from "../components/QuizBtn";
 import { StudentInfo } from "@/components/shared/MyInfo";
 
@@ -279,13 +278,6 @@ export default function ParentPage({ user }: ParentPageProps) {
                 "약점 분석 데이터가 충분하지 않아요. 이번 주 남은 뉴스 학습을 마치면 더 정확한 피드백을 받을 수 있어요."}
           </div>
         </div>
-
-        {/*히스토리 버튼*/}
-        <div className="flex flex-col pt-15 gap-5">
-          <HistoryBtn type="word" week={week} />
-          <HistoryBtn type="news" week={week} />
-          <HistoryBtn type="series" week={week} />
-        </div>
       </div>
 
       {/*바라는 한마디*/}
@@ -320,8 +312,15 @@ export default function ParentPage({ user }: ParentPageProps) {
         </div>
       </div>
 
+      {/*히스토리 버튼*/}
+      <div className="absolute top-150 left-145 flex flex-col gap-5">
+        <HistoryBtn type="word" week={week} />
+        <HistoryBtn type="news" week={week} />
+        <HistoryBtn type="series" week={week} />
+      </div>
+
       {/*경제 TalkTalk*/}
-      <div className="absolute top-140 left-145">
+      <div className="absolute top-250 left-145">
         <div
           className="whitespace-nowrap"
           style={{
