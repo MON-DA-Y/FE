@@ -16,7 +16,6 @@ import AttendBtn from "../../components/AttendBtn";
 import TabBar from "../../components/TabBar";
 import Slider from "../../components/Slider";
 import HistoryBtn from "../../components/HistoryBtn";
-import InputBox from "../../components/InputBox";
 import QuizBtn from "../components/QuizBtn";
 import { StudentInfo } from "@/components/shared/MyInfo";
 
@@ -240,23 +239,17 @@ export default function ParentPage({ user }: ParentPageProps) {
             <TabBar onChange={handleTabChange} selectedTab={selectedTab} />
           </div>
           <div className="flex flex-col px-5 pt-6 gap-6">
-            {selectedTab === "word"
-              ? weaknessData?.weakWord?.categories.map((c: CategoryScore) => (
-                  <Slider
-                    key={c.category}
-                    category={c.category}
-                    total={c.total}
-                    correct={c.correct}
-                  />
-                ))
-              : weaknessData?.weakNews?.categories.map((c: CategoryScore) => (
-                  <Slider
-                    key={c.category}
-                    category={c.category}
-                    total={c.total}
-                    correct={c.correct}
-                  />
-                ))}
+            {(selectedTab === "word"
+              ? weaknessData?.weakWord?.categories
+              : weaknessData?.weakNews?.categories
+            )?.map((c: CategoryScore) => (
+              <Slider
+                key={c.category}
+                category={c.category}
+                total={c.total}
+                correct={c.correct}
+              />
+            ))}
           </div>
           <div
             className="pt-8 max-w-110"
@@ -271,20 +264,14 @@ export default function ParentPage({ user }: ParentPageProps) {
             >
               ⋇ 이번 주 체크 포인트 :
             </div>
-            {/* summary는 약점 개수가 4개일때만 표시 */}
             {selectedTab === "word"
-              ? weaknessData?.weakWord?.summary ||
-                "약점 분석 데이터가 충분하지 않아요. 이번 주 남은 단어 학습을 마치면 더 정확한 피드백을 받을 수 있어요."
-              : weaknessData?.weakNews?.summary ||
-                "약점 분석 데이터가 충분하지 않아요. 이번 주 남은 뉴스 학습을 마치면 더 정확한 피드백을 받을 수 있어요."}
+              ? weaknessData?.weakWord?.categories?.length === 0
+                ? "이번 주 약점 분석은 임계치(50%) 이상으로 맞춘 카테고리는 약점으로 표시되지 않습니다."
+                : weaknessData?.weakWord?.summary
+              : weaknessData?.weakNews?.categories?.length === 0
+              ? "이번 주 약점 분석은 임계치(50%) 이상으로 맞춘 카테고리는 약점으로 표시되지 않습니다."
+              : weaknessData?.weakNews?.summary}
           </div>
-        </div>
-
-        {/*히스토리 버튼*/}
-        <div className="flex flex-col pt-15 gap-5">
-          <HistoryBtn type="word" week={week} />
-          <HistoryBtn type="news" week={week} />
-          <HistoryBtn type="series" week={week} />
         </div>
       </div>
 
@@ -320,8 +307,15 @@ export default function ParentPage({ user }: ParentPageProps) {
         </div>
       </div>
 
+      {/*히스토리 버튼*/}
+      <div className="absolute top-150 left-145 flex flex-col gap-5">
+        <HistoryBtn type="word" week={week} />
+        <HistoryBtn type="news" week={week} />
+        <HistoryBtn type="series" week={week} />
+      </div>
+
       {/*경제 TalkTalk*/}
-      <div className="absolute top-140 left-145">
+      <div className="absolute top-250 left-145">
         <div
           className="whitespace-nowrap"
           style={{
