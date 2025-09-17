@@ -24,13 +24,24 @@ export const stdMainApi = {
   getStdMonWord: async () => {
     try {
       const headers = getAuthHeader();
-      const response = await axios.get(`${baseURL}/std/monWord`, {
-        headers,
-      });
+      const response = await axios.get(`${baseURL}/std/monWord`, { headers });
       // console.log("monWord 조회 결과:", response.data);
       return response.data.result;
     } catch (error) {
       console.error("monWord get 실패:", error);
+      throw error;
+    }
+  },
+
+  // monNews 조회
+  getStdMonNews: async () => {
+    try {
+      const headers = getAuthHeader();
+      const response = await axios.get(`${baseURL}/std/monNews`, { headers });
+
+      return response.data.result;
+    } catch (error) {
+      console.error("monNews 조회 실패:", error);
       throw error;
     }
   },
