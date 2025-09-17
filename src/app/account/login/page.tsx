@@ -31,7 +31,7 @@ export default function LoginPage() {
       }
       console.log("로그인 성공 응답:", res);
       localStorage.setItem("token", res.token);
-      router.push(`/${selectedType}`); // 로그인 성공 후 이동
+      router.push(selectedType === "student" ? "/student" : "/user/parent"); // 로그인 성공 후 이동
     } catch (err: any) {
       console.log("로그인 오류 응답:", err.response?.data || err.message);
       alert(err.message || "로그인 실패");

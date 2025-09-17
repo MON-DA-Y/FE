@@ -5,11 +5,14 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import InputBox from "../../components/InputBox";
 import StudentCard from "../components/StudentCard";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import AddStudentModal from "../components/AddStudentModal";
 import EditModal from "../components/EditModal";
+import { getParentInfo } from "@/apis/parentInfo";
+import { getStudentInfo } from "@/apis/studentInfo";
 
 interface StudentProps {
+  id: number;
   name: string;
   school: string;
   grade: string;
@@ -21,26 +24,30 @@ export default function ParentMyPage() {
   const [isEditOpen, setIsEditOpen] = useState(false);
   const [students, setStudents] = useState<StudentProps[]>([]);
 
-  {
-    /*나중에 회원정보 불러오기*/
-  }
-  const [user, setUser] = useState({
-    name: "이00",
-    phone: "010-0000-0000",
-    email: "monday@naver.com",
-  });
+  const [user, setUser] = useState<any>({}); // 초기값은 빈 객체
+
+  useEffect(() => {
+    getParentInfo()
+      .then(setUser)
+      .catch((err) => console.error("학부모 정보 API 실패:", err));
+  }, []);
+
+  // 자녀 삭제
+  const handleDeleteStudent = (id?: number) => {
+    setStudents(students.filter((s) => s.id !== id));
+  };
 
   return (
     <div className="relative w-full px-30 py-5">
-      <div className="flex justify-between">
-        <Image
+      <div className="flex justify-end">
+        {/* <Image
           src="/icons/Home.svg"
           alt="home"
           width={40}
           height={40}
           onClick={() => router.push("/user/parent")}
           className="cursor-pointer"
-        />
+        /> */}
         <div className="flex flex-col -space-y-2">
           <Image src="/images/logo.svg" alt="home" width={160} height={48} />
           <div
@@ -101,9 +108,24 @@ export default function ParentMyPage() {
             />
           )}
           <div className="flex flex-col px-10 gap-5 pt-6">
-            <InputBox type="text" value={user.name} label="이름" readOnly />
-            <InputBox type="text" value={user.phone} label="연락처" readOnly />
-            <InputBox type="text" value={user.email} label="이메일" readOnly />
+            <InputBox
+              type="text"
+              value={user?.prt_name || "?"}
+              label="이름"
+              readOnly
+            />
+            <InputBox
+              type="text"
+              value={user.prt_phone}
+              label="연락처"
+              readOnly
+            />
+            <InputBox
+              type="text"
+              value={user.prt_email}
+              label="이메일"
+              readOnly
+            />
           </div>
 
           <div
@@ -116,15 +138,19 @@ export default function ParentMyPage() {
             자녀 관리
           </div>
           {/*자녀 리스트*/}
-          <div className="flex p-6 gap-3">
-            {students.map((s, idx) => (
+          <div className="flex flex-wrap p-6 gap-3">
+            {students.map((s) => (
+              //<div key={s.id}>
               <StudentCard
-                key={idx}
+                key={s.id}
                 name={s.name || ""}
                 school={s.school || ""}
                 grade={s.grade || ""}
                 level=""
+                onDelete={() => handleDeleteStudent(s.id)}
+                onClick={() => router.push(`/user/parent/${s.id}`)}
               />
+              //</div>
             ))}
             {/*자녀 추가 버튼*/}
             <div
@@ -155,7 +181,7 @@ export default function ParentMyPage() {
                   <AddStudentModal
                     closeRequest={() => setIsModalOpen(false)}
                     onAddStudent={(newStudent) => {
-                      setStudents([...students, newStudent]);
+                      setStudents((prev) => [...prev, newStudent]);
                       setIsModalOpen(false);
                     }}
                   />

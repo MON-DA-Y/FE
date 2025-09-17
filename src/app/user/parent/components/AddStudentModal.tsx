@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { COLORS, FONT_SIZE, FONT_WEIGHT, SHADOW } from "@/styles/theme/tokens";
 import SearchInput from "./SerchInput";
+import { getStudentByEmail, StdInfoResponse } from "@/apis/studentInfo";
 
 interface AddStudentProps {
   closeRequest: () => void;
@@ -10,6 +11,7 @@ interface AddStudentProps {
 }
 
 interface StudentProps {
+  id: number;
   name: string;
   school: string;
   grade: string;
@@ -20,23 +22,30 @@ export default function AddStudentModal({
   onAddStudent,
 }: AddStudentProps) {
   const [student, setStudent] = useState<StudentProps | null>(null);
-  const handleSearch = (query: string) => {
-    if (query === "이00") {
+  const handleSearch = async (email: string) => {
+    try {
+      const data: StdInfoResponse = await getStudentByEmail(email);
+      console.log("검색 결과:", data);
+      // 타입 맞춰서 변환
       setStudent({
-        name: "이00",
-        school: "00중",
-        grade: "2학년",
+        id: data.std_id,
+        name: data.std_name,
+        school: data.std_schoolType,
+        grade: `${data.std_grade}학년`,
       });
-    } else {
+    } catch (err) {
+      console.error(err);
       setStudent(null);
       alert("해당 이메일의 자녀를 찾을 수 없습니다.");
     }
   };
 
   const handleAdd = () => {
-    if (student) {
-      onAddStudent(student);
+    if (!student) {
+      alert("자녀 정보를 먼저 검색해주세요.");
+      return;
     }
+    onAddStudent(student);
   };
 
   const handleCancel = () => {
@@ -50,7 +59,7 @@ export default function AddStudentModal({
     >
       <div className="absolute inset-0 bg-black/50">
         <div
-          className="relative z-10 w-[515px] h-96 rounded-[30px] mx-65 my-50"
+          className="relative z-10 w-[515px] h-96 rounded-[30px] mx-148 my-50"
           style={{
             backgroundColor: COLORS.sub.gray1,
             boxShadow: SHADOW.interactive,
@@ -97,7 +106,7 @@ export default function AddStudentModal({
                       fontWeight: FONT_WEIGHT.subtitle2,
                     }}
                   >
-                    {student.school}
+                    {student.school === "middle" ? "중학교" : "고등학교"}
                   </div>
                   <div
                     style={{
