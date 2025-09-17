@@ -1,6 +1,7 @@
 import { API } from "./config";
 
 export interface StdInfoResponse {
+  std_id: number;
   std_name: string;
   std_level: string;
   std_img: string;
@@ -17,6 +18,22 @@ export async function getStudentInfo(): Promise<StdInfoResponse> {
   const res = await API.get<StdInfoAPIResponse>("/stdInfo");
   console.log("API response:", res.data.result);
   return res.data.result;
+}
+
+export async function getStudentByEmail(
+  email: string
+): Promise<StdInfoResponse> {
+  const res = await API.get(`/student/email?email=${email}`);
+  const data = res.data;
+  return {
+    std_id: data._id,
+    std_name: data.std_name,
+    std_level: data.std_level,
+    std_img: data.std_img,
+    std_email: data.std_email,
+    std_schoolType: data.std_schoolType,
+    std_grade: data.std_grade,
+  };
 }
 
 // import axios from "axios";

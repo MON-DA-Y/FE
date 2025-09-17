@@ -8,6 +8,8 @@ interface StudentCardProps {
   school: string;
   grade: string;
   level: string;
+  onDelete?: () => void;
+  onClick?: () => void;
 }
 
 export default function StudentCard({
@@ -15,15 +17,18 @@ export default function StudentCard({
   school,
   grade,
   level,
+  onDelete,
+  onClick,
 }: StudentCardProps) {
   return (
     <div
-      className="flex w-64 h-28 rounded-[10px] p-5 border"
+      className="relative flex w-64 h-28 rounded-[10px] p-5 border cursor-pointer"
       style={{
         borderColor: COLORS.sub.gray3,
         boxShadow: SHADOW.interactive,
         color: COLORS.sub.gray3,
       }}
+      onClick={onClick}
     >
       <StudentProfile width={50} height={50} />
       <div className="flex flex-col mx-6 gap-2 justify-start">
@@ -34,7 +39,7 @@ export default function StudentCard({
               fontWeight: FONT_WEIGHT.subtitle2,
             }}
           >
-            이00
+            {name}
           </div>
           <div
             style={{
@@ -42,7 +47,7 @@ export default function StudentCard({
               fontWeight: FONT_WEIGHT.body2,
             }}
           >
-            00중
+            {school === "middle" ? "중학교" : "고등학교"}
           </div>
           <div
             style={{
@@ -50,11 +55,25 @@ export default function StudentCard({
               fontWeight: FONT_WEIGHT.body2,
             }}
           >
-            2학년
+            {grade}
           </div>
         </div>
         <StudentLevel />
       </div>
+
+      {/* 삭제 버튼 */}
+      {onDelete && (
+        <button
+          onClick={(e) => {
+            e.stopPropagation();
+            onDelete();
+          }}
+          className="absolute top-2 right-3 flex justify-center items-center w-3 h-3 rounded-full p-2.5"
+          style={{ color: COLORS.sub.white, backgroundColor: COLORS.sub.gray2 }}
+        >
+          X
+        </button>
+      )}
     </div>
   );
 }
