@@ -45,11 +45,11 @@ export default function StudentMyPage() {
           }}
         >
           진도 현황
-          <div className="flex gap-4.5">
+          {/* <div className="flex gap-4.5">
             <Dropdown type="year" />
             <Dropdown type="month" />
             <Dropdown type="week" />
-          </div>
+          </div> */}
         </div>
         {/*Slider*/}
         <div className="pt-10">
