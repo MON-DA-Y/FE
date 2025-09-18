@@ -207,7 +207,7 @@ export default function ParentPage({ user }: ParentPageProps) {
               fontWeight: FONT_WEIGHT.subtitle1,
             }}
           >
-            00이의 약점 분석
+            {user?.std_name}이의 약점 분석
           </div>
           <div className="flex items-center gap-31">
             <div
@@ -323,7 +323,7 @@ export default function ParentPage({ user }: ParentPageProps) {
             fontWeight: FONT_WEIGHT.subtitle1,
           }}
         >
-          00이와의 경제TalkTalk
+          {user?.std_name}이와의 경제TalkTalk
         </div>
         <div
           className="px-13 py-3 ml-[-8px] mt-6 w-92 h-24 rounded-[30px]"
@@ -337,7 +337,7 @@ export default function ParentPage({ user }: ParentPageProps) {
               fontWeight: FONT_WEIGHT.subtitle2,
             }}
           >
-            00이는 이번 주에
+            {user?.std_name} 학생은 이번 주에
           </div>
           <span
             style={{

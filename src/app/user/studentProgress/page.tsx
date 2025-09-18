@@ -1,5 +1,6 @@
 "use client";
 
+import { useSearchParams } from "next/navigation";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { FONT_SIZE, FONT_WEIGHT, COLORS } from "@/styles/theme/tokens";
@@ -13,9 +14,14 @@ export default function StudentMyPage() {
   const router = useRouter();
   const [progress, setProgress] = useState<ProgressResponse | null>(null);
 
+  const searchParams = useSearchParams();
+  const week = searchParams.get("week") === "이번주" ? "이번주" : "저번주";
+
   useEffect(() => {
-    getProgress(1, 3).then(setProgress);
-  }, []);
+    getProgress(week)
+      .then((data) => setProgress(data))
+      .catch((err) => console.error("뉴스 히스토리 API 실패:", err));
+  }, [week]);
 
   if (!progress) return <div>Loading...</div>;
 
@@ -46,10 +52,7 @@ export default function StudentMyPage() {
         </div>
         {/*Slider*/}
         <div className="pt-10">
-          <ProgressSlider
-            weekCompletionRate={progress.weekCompletionRate}
-            strikeDay={progress.strikeDay}
-          />
+          <ProgressSlider weekCompletionRate={progress.weekCompletionRate} />
         </div>
         {/*진도 현황*/}
         <div className="flex items-center pt-13">

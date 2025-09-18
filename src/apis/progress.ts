@@ -13,13 +13,13 @@ export interface ProgressDay {
 }
 
 export interface ProgressResponse {
-  week: number;
   weekCompletionRate: number;
-  strikeDay: number;
   days: ProgressDay[];
 }
 
-export async function getProgress(week: number): Promise<ProgressResponse> {
+export async function getProgress(
+  week: "이번주" | "저번주"
+): Promise<ProgressResponse> {
   const res = await API.get<ProgressResponse>(`/users/progress?week=${week}`);
   console.log("API response:", res.data);
   return res.data;
