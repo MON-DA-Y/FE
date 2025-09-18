@@ -20,7 +20,7 @@ export default function StudentMyPage() {
   useEffect(() => {
     getProgress(week)
       .then((data) => setProgress(data))
-      .catch((err) => console.error("뉴스 히스토리 API 실패:", err));
+      .catch((err) => console.error("진도 API 실패:", err));
   }, [week]);
 
   if (!progress) return <div>Loading...</div>;
@@ -52,7 +52,10 @@ export default function StudentMyPage() {
         </div>
         {/*Slider*/}
         <div className="pt-10">
-          <ProgressSlider weekCompletionRate={progress.weekCompletionRate} />
+          <ProgressSlider
+            weekCompletionRate={progress.weekCompletionRate}
+            strikeDay={progress.strikeDay}
+          />
         </div>
         {/*진도 현황*/}
         <div className="flex items-center pt-13">

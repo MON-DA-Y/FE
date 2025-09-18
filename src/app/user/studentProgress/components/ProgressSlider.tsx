@@ -3,12 +3,12 @@ import { COLORS, FONT_SIZE, FONT_WEIGHT, SHADOW } from "@/styles/theme/tokens";
 
 interface ProgressSliderProps {
   weekCompletionRate: number;
+  strikeDay: number;
 }
-
-const strikeDay = 3;
 
 export default function ProgressSlider({
   weekCompletionRate,
+  strikeDay,
 }: ProgressSliderProps) {
   return (
     <div

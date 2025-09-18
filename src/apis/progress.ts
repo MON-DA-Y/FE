@@ -14,6 +14,7 @@ export interface ProgressDay {
 
 export interface ProgressResponse {
   weekCompletionRate: number;
+  strikeDay: number;
   days: ProgressDay[];
 }
 
