@@ -27,6 +27,10 @@ export default function StudentMyPage() {
   const [dates, setDates] = useState<number[]>([]);
   const [week, setWeek] = useState<"이번주" | "저번주">("이번주");
 
+  // 로딩 화면
+  const [loadingUser, setLoadingUser] = useState(true);
+  const [loadingWeakness, setLoadingWeakness] = useState(true);
+
   // 출석률 조회
   const [attendanceData, setAttendanceData] = useState<boolean[]>([]);
 
@@ -58,6 +62,7 @@ export default function StudentMyPage() {
   // 적용 버튼 누르면 실행되는 함수
   const handleApply = async () => {
     try {
+      setLoadingWeakness(true);
       // 출석 조회
       const attendance = await getAttendance(week);
       setAttendanceData(attendance.days.map((d) => d.isAttended));
@@ -68,16 +73,22 @@ export default function StudentMyPage() {
       setWeaknessData(weakness);
     } catch (err) {
       console.error("데이터 조회 실패:", err);
+    } finally {
+      setLoadingWeakness(false);
     }
   };
 
   const [user, setUser] = useState<any>({}); // 초기값은 빈 객체
 
   useEffect(() => {
+    setLoadingUser(true);
     getStudentInfo()
       .then(setUser)
-      .catch((err) => console.error("학생 정보 API 실패:", err));
+      .catch((err) => console.error("학생 정보 API 실패:", err))
+      .finally(() => setLoadingUser(false));
   }, []);
+
+  if (loadingUser) return <div>학생 정보 로딩중...</div>;
 
   return (
     //학생 메인 페이지로 이동하도록 router 수정
@@ -326,7 +337,7 @@ export default function StudentMyPage() {
                     fontWeight: FONT_WEIGHT.body2,
                   }}
                 >
-                  2025 8월 첫째주
+                  2025 9월 넷째주
                 </div>
                 <div
                   className="flex items-center"
@@ -348,19 +359,23 @@ export default function StudentMyPage() {
               <div className="pt-3.5 px-55">
                 <TabBar onChange={handleTabChange} selectedTab={selectedTab} />
               </div>
-              <div className="flex flex-col pt-5 gap-6 -ml-4">
-                {(selectedTab === "word"
-                  ? weaknessData?.weakWord?.categories
-                  : weaknessData?.weakNews?.categories
-                )?.map((c: CategoryScore) => (
-                  <Slider
-                    key={c.category}
-                    category={c.category}
-                    total={c.total}
-                    correct={c.correct}
-                  />
-                ))}
-              </div>
+              {loadingWeakness ? (
+                <div>약점 분석 로딩중...</div>
+              ) : (
+                <div className="flex flex-col pt-5 gap-6 -ml-4">
+                  {(selectedTab === "word"
+                    ? weaknessData?.weakWord?.categories
+                    : weaknessData?.weakNews?.categories
+                  )?.map((c: CategoryScore) => (
+                    <Slider
+                      key={c.category}
+                      category={c.category}
+                      total={c.total}
+                      correct={c.correct}
+                    />
+                  ))}
+                </div>
+              )}
               <div
                 className="pt-6 max-w-[44ch] -ml-2"
                 style={{
@@ -380,10 +395,10 @@ export default function StudentMyPage() {
                 {selectedTab === "word"
                   ? weaknessData?.weakWord?.categories?.length === 0
                     ? "이번 주 약점 분석은 임계치(50%) 이상으로 맞춘 카테고리는 약점으로 표시되지 않습니다."
-                    : weaknessData?.weakWord?.summary
+                    : weaknessData?.weakWord?.summary_words
                   : weaknessData?.weakNews?.categories?.length === 0
                   ? "이번 주 약점 분석은 임계치(50%) 이상으로 맞춘 카테고리는 약점으로 표시되지 않습니다."
-                  : weaknessData?.weakNews?.summary}
+                  : weaknessData?.weakNews?.summary_news}
               </div>
             </div>
 

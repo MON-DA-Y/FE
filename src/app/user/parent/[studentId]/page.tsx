@@ -1,5 +1,6 @@
 "use client";
 
+import { useParams } from "next/navigation";
 import { useState, useEffect } from "react";
 import { getAttendance, postAttendance } from "@/apis/attendance";
 import { CategoryScore, getWeakness, WeaknessResponse } from "@/apis/weakness";
@@ -17,18 +18,23 @@ import TabBar from "../../components/TabBar";
 import Slider from "../../components/Slider";
 import HistoryBtn from "../../components/HistoryBtn";
 import QuizBtn from "../components/QuizBtn";
-import { StudentInfo } from "@/components/shared/MyInfo";
+import { getStudentInfoById, StdInfoResponse } from "@/apis/studentInfo";
 
-interface ParentPageProps {
-  user: StudentInfo;
-}
+export default function ParentPage() {
+  const { studentId } = useParams();
+  const id = Array.isArray(studentId) ? studentId[0] : studentId ?? "";
 
-export default function ParentPage({ user }: ParentPageProps) {
+  const [user, setUser] = useState<StdInfoResponse | null>(null);
+  const [loadingUser, setLoadingUser] = useState(true);
+
   const [isHover, setIsHover] = useState(false);
   const [isActive, setIsActive] = useState(false);
 
   const [dates, setDates] = useState<number[]>([]);
   const [week, setWeek] = useState<"이번주" | "저번주">("이번주");
+
+  // 로딩 화면
+  const [loadingWeakness, setLoadingWeakness] = useState(true);
 
   // 출석률
   const [attendanceData, setAttendanceData] = useState<boolean[]>([]);
@@ -47,22 +53,20 @@ export default function ParentPage({ user }: ParentPageProps) {
   const [quizResults, setQuizResults] = useState<Result[]>([]);
 
   useEffect(() => {
-    const markAndFetch = async () => {
+    const fetchData = async () => {
       try {
-        // 오늘 출석 체크
-        await postAttendance();
-
         await handleApply();
       } catch (err) {
         console.error("출석 처리 또는 데이터 조회 실패:", err);
       }
     };
 
-    markAndFetch();
-  }, []);
+    fetchData();
+  }, [id]);
 
   // 적용 버튼 누르면 실행되는 함수
   const handleApply = async () => {
+    setLoadingWeakness(true);
     try {
       // 출석 조회
       const attendance = await getAttendance(week);
@@ -78,8 +82,21 @@ export default function ParentPage({ user }: ParentPageProps) {
       setQuizResults(quiz.results);
     } catch (err) {
       console.error("데이터 조회 실패:", err);
+    } finally {
+      setLoadingWeakness(false);
     }
   };
+
+  // 학생 정보 가져오기
+  useEffect(() => {
+    if (!id) return;
+    setLoadingUser(true);
+
+    getStudentInfoById(id)
+      .then(setUser)
+      .catch((err) => console.error("학생 정보 API 실패:", err))
+      .finally(() => setLoadingUser(false));
+  }, [id]);
 
   return (
     <div className="relative w-full px-13 py-7">
@@ -109,8 +126,8 @@ export default function ParentPage({ user }: ParentPageProps) {
             >
               {user?.std_name}
               <StudentSchool
-                schoolType={user?.std_schoolType}
-                grade={user?.std_grade}
+                schoolType={user?.std_schoolType || ""}
+                grade={user?.std_grade || 0}
               />
             </div>
             <div
@@ -126,7 +143,8 @@ export default function ParentPage({ user }: ParentPageProps) {
                 width={24}
                 height={24}
               />
-              가입일 : 2025.02.14
+              {/* 가입일 바꾸기 ! */}
+              가입일 : 2025.07.23
             </div>
             <div
               className="flex flex-row gap-1.5"
@@ -207,7 +225,7 @@ export default function ParentPage({ user }: ParentPageProps) {
               fontWeight: FONT_WEIGHT.subtitle1,
             }}
           >
-            {user?.std_name}이의 약점 분석
+            자녀의 약점 분석
           </div>
           <div className="flex items-center gap-31">
             <div
@@ -216,7 +234,7 @@ export default function ParentPage({ user }: ParentPageProps) {
                 fontWeight: FONT_WEIGHT.body2,
               }}
             >
-              2025 8월 첫째주
+              2025 9월 넷째주
             </div>
             <div
               className="flex items-center gap-1"
@@ -238,19 +256,23 @@ export default function ParentPage({ user }: ParentPageProps) {
           <div className="pt-3.5 px-74">
             <TabBar onChange={handleTabChange} selectedTab={selectedTab} />
           </div>
-          <div className="flex flex-col px-5 pt-6 gap-6">
-            {(selectedTab === "word"
-              ? weaknessData?.weakWord?.categories
-              : weaknessData?.weakNews?.categories
-            )?.map((c: CategoryScore) => (
-              <Slider
-                key={c.category}
-                category={c.category}
-                total={c.total}
-                correct={c.correct}
-              />
-            ))}
-          </div>
+          {loadingWeakness ? (
+            <div>약점 분석 로딩중...</div>
+          ) : (
+            <div className="flex flex-col px-5 pt-6 gap-6">
+              {(selectedTab === "word"
+                ? weaknessData?.weakWord?.categories
+                : weaknessData?.weakNews?.categories
+              )?.map((c: CategoryScore) => (
+                <Slider
+                  key={c.category}
+                  category={c.category}
+                  total={c.total}
+                  correct={c.correct}
+                />
+              ))}
+            </div>
+          )}
           <div
             className="pt-8 max-w-110"
             style={{ fontSize: FONT_SIZE.body2, fontWeight: FONT_WEIGHT.body2 }}
@@ -267,10 +289,10 @@ export default function ParentPage({ user }: ParentPageProps) {
             {selectedTab === "word"
               ? weaknessData?.weakWord?.categories?.length === 0
                 ? "이번 주 약점 분석은 임계치(50%) 이상으로 맞춘 카테고리는 약점으로 표시되지 않습니다."
-                : weaknessData?.weakWord?.summary
+                : weaknessData?.weakWord?.summary_words
               : weaknessData?.weakNews?.categories?.length === 0
               ? "이번 주 약점 분석은 임계치(50%) 이상으로 맞춘 카테고리는 약점으로 표시되지 않습니다."
-              : weaknessData?.weakNews?.summary}
+              : weaknessData?.weakNews?.summary_news}
           </div>
         </div>
       </div>
@@ -323,7 +345,7 @@ export default function ParentPage({ user }: ParentPageProps) {
             fontWeight: FONT_WEIGHT.subtitle1,
           }}
         >
-          {user?.std_name}이와의 경제TalkTalk
+          자녀와의 경제TalkTalk
         </div>
         <div
           className="px-13 py-3 ml-[-8px] mt-6 w-92 h-24 rounded-[30px]"

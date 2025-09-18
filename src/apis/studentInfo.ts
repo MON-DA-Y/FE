@@ -20,6 +20,13 @@ export async function getStudentInfo(): Promise<StdInfoResponse> {
   return res.data.result;
 }
 
+export async function getStudentInfoById(
+  studentId: string
+): Promise<StdInfoResponse> {
+  const res = await API.get<StdInfoAPIResponse>(`/stdInfo/${studentId}`);
+  return res.data.result;
+}
+
 export async function getStudentByEmail(
   email: string
 ): Promise<StdInfoResponse> {
