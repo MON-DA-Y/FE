@@ -1,5 +1,6 @@
 "use client";
 
+import { useSearchParams } from "next/navigation";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { FONT_SIZE, FONT_WEIGHT, COLORS } from "@/styles/theme/tokens";
@@ -13,9 +14,15 @@ export default function StudentMyPage() {
   const router = useRouter();
   const [progress, setProgress] = useState<ProgressResponse | null>(null);
 
+  const searchParams = useSearchParams();
+  // 기본을 이번주로 수정
+  const week = searchParams.get("week") === "저번주" ? "저번주" : "이번주";
+
   useEffect(() => {
-    getProgress(1, 3).then(setProgress);
-  }, []);
+    getProgress(week)
+      .then((data) => setProgress(data))
+      .catch((err) => console.error("진도 API 실패:", err));
+  }, [week]);
 
   if (!progress) return <div>Loading...</div>;
 
@@ -38,11 +45,11 @@ export default function StudentMyPage() {
           }}
         >
           진도 현황
-          <div className="flex gap-4.5">
+          {/* <div className="flex gap-4.5">
             <Dropdown type="year" />
             <Dropdown type="month" />
             <Dropdown type="week" />
-          </div>
+          </div> */}
         </div>
         {/*Slider*/}
         <div className="pt-10">

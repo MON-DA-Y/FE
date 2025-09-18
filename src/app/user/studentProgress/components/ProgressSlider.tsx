@@ -52,7 +52,7 @@ export default function ProgressSlider({
           <div
             className="absolute top-1/2 -translate-y-1/2 mx-20 w-20 h-14 rounded-3xl flex items-center justify-center"
             style={{
-              left: `${weekCompletionRate - 10}%`,
+              left: `${weekCompletionRate}%`,
               backgroundColor: COLORS.primary.navy,
               color: COLORS.sub.white,
             }}
