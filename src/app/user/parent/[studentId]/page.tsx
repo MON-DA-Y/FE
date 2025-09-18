@@ -1,5 +1,6 @@
 "use client";
 
+import { useParams } from "next/navigation";
 import { useState, useEffect } from "react";
 import { getAttendance, postAttendance } from "@/apis/attendance";
 import { CategoryScore, getWeakness, WeaknessResponse } from "@/apis/weakness";
@@ -17,13 +18,15 @@ import TabBar from "../../components/TabBar";
 import Slider from "../../components/Slider";
 import HistoryBtn from "../../components/HistoryBtn";
 import QuizBtn from "../components/QuizBtn";
-import { StudentInfo } from "@/components/shared/MyInfo";
+import { getStudentInfoById, StdInfoResponse } from "@/apis/studentInfo";
 
-interface ParentPageProps {
-  user: StudentInfo;
-}
+export default function ParentPage() {
+  const { studentId } = useParams();
+  const id = Array.isArray(studentId) ? studentId[0] : studentId ?? "";
 
-export default function ParentPage({ user }: ParentPageProps) {
+  const [user, setUser] = useState<StdInfoResponse | null>(null);
+  const [loadingUser, setLoadingUser] = useState(true);
+
   const [isHover, setIsHover] = useState(false);
   const [isActive, setIsActive] = useState(false);
 
@@ -87,6 +90,17 @@ export default function ParentPage({ user }: ParentPageProps) {
     }
   };
 
+  // 학생 정보 가져오기
+  useEffect(() => {
+    if (!id) return;
+    setLoadingUser(true);
+
+    getStudentInfoById(id)
+      .then(setUser)
+      .catch((err) => console.error("학생 정보 API 실패:", err))
+      .finally(() => setLoadingUser(false));
+  }, [id]);
+
   return (
     <div className="relative w-full px-13 py-7">
       {/*학부모 프로필*/}
@@ -115,8 +129,8 @@ export default function ParentPage({ user }: ParentPageProps) {
             >
               {user?.std_name}
               <StudentSchool
-                schoolType={user?.std_schoolType}
-                grade={user?.std_grade}
+                schoolType={user?.std_schoolType || ""}
+                grade={user?.std_grade || 0}
               />
             </div>
             <div
@@ -132,7 +146,8 @@ export default function ParentPage({ user }: ParentPageProps) {
                 width={24}
                 height={24}
               />
-              가입일 : 2025.02.14
+              {/* 가입일 바꾸기 ! */}
+              가입일 : 2025.07.23
             </div>
             <div
               className="flex flex-row gap-1.5"
@@ -213,7 +228,7 @@ export default function ParentPage({ user }: ParentPageProps) {
               fontWeight: FONT_WEIGHT.subtitle1,
             }}
           >
-            {user?.std_name}이의 약점 분석
+            자녀의 약점 분석
           </div>
           <div className="flex items-center gap-31">
             <div
@@ -333,7 +348,7 @@ export default function ParentPage({ user }: ParentPageProps) {
             fontWeight: FONT_WEIGHT.subtitle1,
           }}
         >
-          {user?.std_name}이와의 경제TalkTalk
+          자녀와의 경제TalkTalk
         </div>
         <div
           className="px-13 py-3 ml-[-8px] mt-6 w-92 h-24 rounded-[30px]"

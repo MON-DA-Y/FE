@@ -9,7 +9,6 @@ import { useState, useEffect } from "react";
 import AddStudentModal from "../components/AddStudentModal";
 import EditModal from "../components/EditModal";
 import { getParentInfo } from "@/apis/parentInfo";
-import { getStudentInfo } from "@/apis/studentInfo";
 
 interface StudentProps {
   id: number;
