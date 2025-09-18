@@ -30,6 +30,9 @@ export default function ParentPage({ user }: ParentPageProps) {
   const [dates, setDates] = useState<number[]>([]);
   const [week, setWeek] = useState<"이번주" | "저번주">("이번주");
 
+  // 로딩 화면
+  const [loadingWeakness, setLoadingWeakness] = useState(true);
+
   // 출석률
   const [attendanceData, setAttendanceData] = useState<boolean[]>([]);
 
@@ -63,6 +66,7 @@ export default function ParentPage({ user }: ParentPageProps) {
 
   // 적용 버튼 누르면 실행되는 함수
   const handleApply = async () => {
+    setLoadingWeakness(true);
     try {
       // 출석 조회
       const attendance = await getAttendance(week);
@@ -78,6 +82,8 @@ export default function ParentPage({ user }: ParentPageProps) {
       setQuizResults(quiz.results);
     } catch (err) {
       console.error("데이터 조회 실패:", err);
+    } finally {
+      setLoadingWeakness(false);
     }
   };
 
@@ -216,7 +222,7 @@ export default function ParentPage({ user }: ParentPageProps) {
                 fontWeight: FONT_WEIGHT.body2,
               }}
             >
-              2025 8월 첫째주
+              2025 9월 넷째주
             </div>
             <div
               className="flex items-center gap-1"
@@ -238,19 +244,23 @@ export default function ParentPage({ user }: ParentPageProps) {
           <div className="pt-3.5 px-74">
             <TabBar onChange={handleTabChange} selectedTab={selectedTab} />
           </div>
-          <div className="flex flex-col px-5 pt-6 gap-6">
-            {(selectedTab === "word"
-              ? weaknessData?.weakWord?.categories
-              : weaknessData?.weakNews?.categories
-            )?.map((c: CategoryScore) => (
-              <Slider
-                key={c.category}
-                category={c.category}
-                total={c.total}
-                correct={c.correct}
-              />
-            ))}
-          </div>
+          {loadingWeakness ? (
+            <div>약점 분석 로딩중...</div>
+          ) : (
+            <div className="flex flex-col px-5 pt-6 gap-6">
+              {(selectedTab === "word"
+                ? weaknessData?.weakWord?.categories
+                : weaknessData?.weakNews?.categories
+              )?.map((c: CategoryScore) => (
+                <Slider
+                  key={c.category}
+                  category={c.category}
+                  total={c.total}
+                  correct={c.correct}
+                />
+              ))}
+            </div>
+          )}
           <div
             className="pt-8 max-w-110"
             style={{ fontSize: FONT_SIZE.body2, fontWeight: FONT_WEIGHT.body2 }}
