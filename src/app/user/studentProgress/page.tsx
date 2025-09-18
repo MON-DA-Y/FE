@@ -15,7 +15,8 @@ export default function StudentMyPage() {
   const [progress, setProgress] = useState<ProgressResponse | null>(null);
 
   const searchParams = useSearchParams();
-  const week = searchParams.get("week") === "이번주" ? "이번주" : "저번주";
+  // 기본을 이번주로 수정
+  const week = searchParams.get("week") === "저번주" ? "저번주" : "이번주";
 
   useEffect(() => {
     getProgress(week)
