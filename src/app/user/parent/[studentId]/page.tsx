@@ -53,19 +53,16 @@ export default function ParentPage() {
   const [quizResults, setQuizResults] = useState<Result[]>([]);
 
   useEffect(() => {
-    const markAndFetch = async () => {
+    const fetchData = async () => {
       try {
-        // 오늘 출석 체크
-        await postAttendance();
-
         await handleApply();
       } catch (err) {
         console.error("출석 처리 또는 데이터 조회 실패:", err);
       }
     };
 
-    markAndFetch();
-  }, []);
+    fetchData();
+  }, [id]);
 
   // 적용 버튼 누르면 실행되는 함수
   const handleApply = async () => {
