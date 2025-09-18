@@ -267,10 +267,10 @@ export default function ParentPage({ user }: ParentPageProps) {
             {selectedTab === "word"
               ? weaknessData?.weakWord?.categories?.length === 0
                 ? "이번 주 약점 분석은 임계치(50%) 이상으로 맞춘 카테고리는 약점으로 표시되지 않습니다."
-                : weaknessData?.weakWord?.summary
+                : weaknessData?.weakWord?.summary_words
               : weaknessData?.weakNews?.categories?.length === 0
               ? "이번 주 약점 분석은 임계치(50%) 이상으로 맞춘 카테고리는 약점으로 표시되지 않습니다."
-              : weaknessData?.weakNews?.summary}
+              : weaknessData?.weakNews?.summary_news}
           </div>
         </div>
       </div>

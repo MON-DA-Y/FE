@@ -10,7 +10,8 @@ export interface CategoryScore {
 export interface Weakness {
   date: Date;
   categories: CategoryScore[];
-  summary: string | null;
+  summary_words?: string | null;
+  summary_news?: string | null;
 }
 
 export interface WeaknessResponse {
