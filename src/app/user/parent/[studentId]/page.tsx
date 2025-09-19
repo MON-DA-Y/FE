@@ -2,7 +2,7 @@
 
 import { useParams } from "next/navigation";
 import { useState, useEffect } from "react";
-import { getAttendance, postAttendance } from "@/apis/attendance";
+import { getStudentAttendance } from "@/apis/attendance";
 import { CategoryScore, getWeakness, WeaknessResponse } from "@/apis/weakness";
 import { Result, getQuizResult } from "@/apis/quizResult";
 import StudentProfile from "@/app/user/components/StudentProfile";
@@ -69,7 +69,7 @@ export default function ParentPage() {
     setLoadingWeakness(true);
     try {
       // 출석 조회
-      const attendance = await getAttendance(week);
+      const attendance = await getStudentAttendance(id, week);
       setAttendanceData(attendance.days.map((d) => d.isAttended));
       setDates(attendance.days.map((d) => new Date(d.day).getDate()));
 
