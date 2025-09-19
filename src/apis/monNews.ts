@@ -1,5 +1,4 @@
 import axios from "axios";
-import { News } from "@/types/monNews";
 
 const baseURL = process.env.NEXT_PUBLIC_API_BASE_URL;
 
@@ -21,6 +20,23 @@ const getAuthHeader = () => {
 };
 
 export const monNewsApi = {
+  // monNews 배정
+  postMonNewsAssign: async () => {
+    try {
+      const headers = getAuthHeader();
+      const response = await axios.post(
+        `${baseURL}/monNews/assign`,
+        {},
+        { headers }
+      );
+      // console.log("monNews 배정 post 결과:", response.data);
+      return response.data.result;
+    } catch (error) {
+      console.error("monWord get 실패:", error);
+    }
+  },
+
+  // monNews 조회
   getMonNews: async () => {
     const headers = getAuthHeader();
     const response = await axios.get(`${baseURL}/monNews`, {
@@ -30,6 +46,7 @@ export const monNewsApi = {
     return response.data.result;
   },
 
+  // monNews 학습 완료
   postMonNews: async () => {
     const headers = getAuthHeader();
     const response = await axios.post(`${baseURL}/monNews/done`, {
