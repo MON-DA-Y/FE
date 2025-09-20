@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { FONT_SIZE, FONT_WEIGHT } from "@/styles/theme/tokens";
 import { getStudentInfo } from "@/apis/studentInfo";
+import Image from "next/image";
 
 export interface StudentInfo {
   std_name: string;
@@ -57,10 +58,13 @@ export default function MyInfo() {
       >
         {student.std_name} 학생
       </div>
-      <img
+      <Image
         className="w-12 h-12 rounded-full"
-        src={student.std_img}
+        src={student.std_img || "/images/logo.svg"}
+        width={12}
+        height={12}
         onClick={() => router.push(`/user/student`)}
+        alt="profile"
       />
     </div>
   );
