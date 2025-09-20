@@ -19,6 +19,7 @@ import Slider from "../../components/Slider";
 import HistoryBtn from "../../components/HistoryBtn";
 import QuizBtn from "../components/QuizBtn";
 import { getStudentInfoById, StdInfoResponse } from "@/apis/studentInfo";
+import AssignLoading from "@/components/shared/AssignLoading";
 
 export default function ParentPage() {
   const { studentId } = useParams();
@@ -97,6 +98,10 @@ export default function ParentPage() {
       .catch((err) => console.error("학생 정보 API 실패:", err))
       .finally(() => setLoadingUser(false));
   }, [id]);
+
+  if (loadingUser) {
+    return <AssignLoading />;
+  }
 
   return (
     <div className="relative w-full px-13 py-7">
