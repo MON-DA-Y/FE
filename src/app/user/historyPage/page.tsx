@@ -118,7 +118,7 @@ export default function HistoryPage() {
                   }
                 }}
               />
-              <Dropdown
+              {/* <Dropdown
                 type="result"
                 onChange={(value) => {
                   setResultFilter(
@@ -129,7 +129,7 @@ export default function HistoryPage() {
                       : "all"
                   );
                 }}
-              />
+              /> */}
             </div>
           )}
         </div>
