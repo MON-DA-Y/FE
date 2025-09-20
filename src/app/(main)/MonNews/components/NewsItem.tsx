@@ -33,9 +33,12 @@ export default function NewsItem() {
   const postMonNewsDone = async () => {
     try {
       setIsLoading(true);
-      const data = await monNewsApi.postMonNews();
+
+      if (news) {
+        await monNewsApi.postMonNews(news.id);
+      }
       alert("오늘의 MonNews를 완료했어요!");
-      router.push("/");
+      router.push("/student");
     } catch (error: any) {
       if (error.response) {
         alert(error.response.data.message);
