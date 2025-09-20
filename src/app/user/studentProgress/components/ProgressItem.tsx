@@ -20,7 +20,7 @@ export default function ProgressItem({ days }: ProgressItemProps) {
             fontWeight: FONT_WEIGHT.subtitle2,
           }}
         >
-          <div>{day}</div>
+          <div>{day.split("T")[0]}</div>
           <div className="flex gap-6">
             {Object.entries(tasks).map(([label, status]) => (
               <StatusBtn
