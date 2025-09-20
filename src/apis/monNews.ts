@@ -39,19 +39,19 @@ export const monNewsApi = {
   // monNews 조회
   getMonNews: async () => {
     const headers = getAuthHeader();
-    const response = await axios.get(`${baseURL}/monNews`, {
-      headers,
-    });
+    const response = await axios.get(`${baseURL}/monNews`, { headers });
     // console.log("monNews 조회 결과:", response.data);
-    return response.data.result;
+    return response.data.result[0];
   },
 
   // monNews 학습 완료
-  postMonNews: async () => {
+  postMonNews: async (newsId: number) => {
     const headers = getAuthHeader();
-    const response = await axios.post(`${baseURL}/monNews/done`, {
-      headers,
-    });
+    const response = await axios.post(
+      `${baseURL}/monNews/done`,
+      { newsId: newsId },
+      { headers }
+    );
     return response.data.result;
   },
 };
