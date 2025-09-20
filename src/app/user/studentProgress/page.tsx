@@ -36,7 +36,7 @@ export default function StudentMyPage() {
         onClick={() => router.push("/user/student")}
         className="cursor-pointer"
       />
-      <div className="flex flex-col items-stretch justify-between w-[900px] pt-10 px-12">
+      <div className="flex flex-col justify-between w-[900px] pt-10 pl-35">
         <div
           className="flex justify-between"
           style={{
@@ -61,7 +61,7 @@ export default function StudentMyPage() {
         {/*진도 현황*/}
         <div className="flex items-center pt-13">
           <div
-            className="flex pl-19 gap-80"
+            className="flex pl-19 gap-70"
             style={{
               fontSize: FONT_SIZE.subtitle1,
               fontWeight: FONT_WEIGHT.subtitle1,

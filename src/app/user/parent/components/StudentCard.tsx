@@ -22,7 +22,7 @@ export default function StudentCard({
 }: StudentCardProps) {
   return (
     <div
-      className="relative flex w-64 h-28 rounded-[10px] p-5 border cursor-pointer"
+      className="relative flex w-64 h-28 rounded-[10px] p-5 border cursor-pointer hover:bg-gray-100"
       style={{
         borderColor: COLORS.sub.gray3,
         boxShadow: SHADOW.interactive,
@@ -69,7 +69,7 @@ export default function StudentCard({
             onDelete();
           }}
           className="absolute top-2 right-3 flex justify-center items-center w-3 h-3 rounded-full p-2.5"
-          style={{ color: COLORS.sub.white, backgroundColor: COLORS.sub.gray2 }}
+          style={{ color: COLORS.sub.white, backgroundColor: COLORS.sub.gray3 }}
         >
           X
         </button>
