@@ -99,7 +99,7 @@ export default function StudentMyPage() {
           alt="home"
           width={40}
           height={40}
-          onClick={() => router.push("/")}
+          onClick={() => router.push("/student")}
           className="cursor-pointer"
         />
         <div className="flex flex-col -space-y-2">

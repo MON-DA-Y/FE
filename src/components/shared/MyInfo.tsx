@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
 import { FONT_SIZE, FONT_WEIGHT } from "@/styles/theme/tokens";
 import { getStudentInfo } from "@/apis/studentInfo";
 
@@ -16,6 +17,8 @@ export interface StudentInfo {
 export default function MyInfo() {
   const [student, setStudent] = useState<StudentInfo | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
+
+  const router = useRouter();
 
   useEffect(() => {
     const fetchStudentInfo = async () => {
@@ -54,7 +57,11 @@ export default function MyInfo() {
       >
         {student.std_name} 학생
       </div>
-      <img className="w-12 h-12 rounded-full" src={student.std_img} />
+      <img
+        className="w-12 h-12 rounded-full"
+        src={student.std_img}
+        onClick={() => router.push(`/user/student`)}
+      />
     </div>
   );
 }
