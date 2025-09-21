@@ -4,5 +4,4 @@ export interface Word {
   word: string;
   explain: React.ReactNode;
   use: string;
-  understandFunc: () => void;
 }

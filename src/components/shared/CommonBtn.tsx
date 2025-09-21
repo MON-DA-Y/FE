@@ -13,6 +13,7 @@ interface CommonBtnProps {
     | "monday_complete"; // 패딩
   subText?: string;
   seriesName?: string;
+  children?: React.ReactNode;
   onClick: () => void;
 }
 
@@ -20,6 +21,7 @@ export default function CommonBtn({
   type,
   subText,
   seriesName,
+  children,
   onClick,
 }: CommonBtnProps) {
   return (
@@ -37,7 +39,7 @@ export default function CommonBtn({
               fontWeight: FONT_WEIGHT.caption1,
             }}
           >
-            💪🏻 이해했어요
+            {children}
           </div>
         </div>
       )}
