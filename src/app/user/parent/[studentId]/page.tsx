@@ -3,7 +3,11 @@
 import { useParams } from "next/navigation";
 import { useState, useEffect } from "react";
 import { getStudentAttendance } from "@/apis/attendance";
-import { CategoryScore, getWeakness, WeaknessResponse } from "@/apis/weakness";
+import {
+  CategoryScore,
+  getStudentWeakness,
+  WeaknessResponse,
+} from "@/apis/weakness";
 import { Result, getQuizResult } from "@/apis/quizResult";
 import StudentProfile from "@/app/user/components/StudentProfile";
 import ParentProfile from "../components/ParentProfile";
@@ -19,6 +23,7 @@ import Slider from "../../components/Slider";
 import HistoryBtn from "../../components/HistoryBtn";
 import QuizBtn from "../components/QuizBtn";
 import { getStudentInfoById, StdInfoResponse } from "@/apis/studentInfo";
+import { getStudentProgress, ProgressResponse } from "@/apis/progress";
 import AssignLoading from "@/components/shared/AssignLoading";
 
 export default function ParentPage() {
@@ -45,13 +50,16 @@ export default function ParentPage() {
     null
   );
 
+  // 총 학습일
+  const [progress, setProgress] = useState<ProgressResponse | null>(null);
+
+  // 퀴즈 성적
+  const [quizResults, setQuizResults] = useState<Result[]>([]);
+
   const [selectedTab, setSelectedTab] = useState<"word" | "news">("word");
   const handleTabChange = (value: { selectedTab: "word" | "news" }) => {
     setSelectedTab(value.selectedTab);
   };
-
-  // 퀴즈 성적
-  const [quizResults, setQuizResults] = useState<Result[]>([]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -75,11 +83,16 @@ export default function ParentPage() {
       setDates(attendance.days.map((d) => new Date(d.day).getDate()));
 
       // 약점 조회
-      const weakness = await getWeakness(week);
+      const weakness = await getStudentWeakness(id, week);
       setWeaknessData(weakness);
 
+      // 총 학습일 조회
+      const progressData = await getStudentProgress(id, week);
+      console.log("progressData:", progressData);
+      setProgress(progressData);
+
       // 퀴즈 성적 조회
-      const quiz = await getQuizResult(week);
+      const quiz = await getQuizResult(id, week);
       setQuizResults(quiz.results);
     } catch (err) {
       console.error("데이터 조회 실패:", err);
@@ -149,7 +162,7 @@ export default function ParentPage() {
                 height={24}
               />
               {/* 가입일 바꾸기 ! */}
-              가입일 : 2025.07.23
+              가입일 : {user?.std_joinDate}
             </div>
             <div
               className="flex flex-row gap-1.5"
@@ -164,7 +177,7 @@ export default function ParentPage() {
                 width={24}
                 height={24}
               />
-              총 학습일 : 63일
+              총 학습일 : {progress?.strikeDay ?? 0}일
             </div>
           </div>
         </div>

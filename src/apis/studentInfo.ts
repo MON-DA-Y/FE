@@ -8,6 +8,7 @@ export interface StdInfoResponse {
   std_email: string;
   std_schoolType: string;
   std_grade: number;
+  std_joinDate: string;
 }
 
 interface StdInfoAPIResponse {
@@ -40,6 +41,7 @@ export async function getStudentByEmail(
     std_email: data.std_email,
     std_schoolType: data.std_schoolType,
     std_grade: data.std_grade,
+    std_joinDate: data.std_joinDate,
   };
 }
 
