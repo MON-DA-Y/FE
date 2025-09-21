@@ -19,6 +19,7 @@ import Slider from "../../components/Slider";
 import HistoryBtn from "../../components/HistoryBtn";
 import QuizBtn from "../components/QuizBtn";
 import { getStudentInfoById, StdInfoResponse } from "@/apis/studentInfo";
+import { getStudentProgress, ProgressResponse } from "@/apis/progress";
 import AssignLoading from "@/components/shared/AssignLoading";
 
 export default function ParentPage() {
@@ -45,13 +46,16 @@ export default function ParentPage() {
     null
   );
 
+  // 총 학습일
+  const [progress, setProgress] = useState<ProgressResponse | null>(null);
+
+  // 퀴즈 성적
+  const [quizResults, setQuizResults] = useState<Result[]>([]);
+
   const [selectedTab, setSelectedTab] = useState<"word" | "news">("word");
   const handleTabChange = (value: { selectedTab: "word" | "news" }) => {
     setSelectedTab(value.selectedTab);
   };
-
-  // 퀴즈 성적
-  const [quizResults, setQuizResults] = useState<Result[]>([]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -77,6 +81,11 @@ export default function ParentPage() {
       // 약점 조회
       const weakness = await getWeakness(week);
       setWeaknessData(weakness);
+
+      // 총 학습일 조회
+      const progressData = await getStudentProgress(id, week);
+      console.log("progressData:", progressData);
+      setProgress(progressData);
 
       // 퀴즈 성적 조회
       const quiz = await getQuizResult(week);
@@ -164,7 +173,7 @@ export default function ParentPage() {
                 width={24}
                 height={24}
               />
-              총 학습일 : 63일
+              총 학습일 : {progress?.strikeDay ?? 3}일
             </div>
           </div>
         </div>
