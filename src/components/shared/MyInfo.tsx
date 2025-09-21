@@ -40,7 +40,10 @@ export default function MyInfo() {
   if (!student) return null; // 데이터가 아직 없으면 렌더링하지 않음
 
   return (
-    <div className="z-10 w-80 h-20 px-10 py-3 bg-white rounded-[30px] shadow-[0px_0px_10px_0px_rgba(0,0,0,0.25)] inline-flex justify-center items-center gap-5 whitespace-nowrap">
+    <div
+      className="z-10 w-80 h-20 px-10 py-3 bg-white rounded-[30px] shadow-[0px_0px_10px_0px_rgba(0,0,0,0.25)] inline-flex justify-center items-center gap-5 whitespace-nowrap cursor-pointer"
+      onClick={() => router.push(`/user/student`)}
+    >
       <div
         className="px-4 py-[5px] bg-green-300/30 rounded-[30px] flex justify-center items-center"
         style={{
@@ -63,7 +66,6 @@ export default function MyInfo() {
         src={student.std_img || "/images/logo.svg"}
         width={12}
         height={12}
-        onClick={() => router.push(`/user/student`)}
         alt="profile"
       />
     </div>
