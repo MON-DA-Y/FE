@@ -173,7 +173,7 @@ export default function ParentPage() {
                 width={24}
                 height={24}
               />
-              총 학습일 : {progress?.strikeDay ?? 3}일
+              총 학습일 : {progress?.strikeDay ?? 0}일
             </div>
           </div>
         </div>
