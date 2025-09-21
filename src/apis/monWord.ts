@@ -20,6 +20,21 @@ const getAuthHeader = () => {
 };
 
 export const monWordApi = {
+  // monWord 배정
+  postMonWordAssign: async () => {
+    try {
+      const headers = getAuthHeader();
+      const response = await axios.post(
+        `${baseURL}/monWord/assign`,
+        {},
+        { headers }
+      );
+      console.log("monWord 배정 post 결과", response);
+    } catch (error) {
+      console.error("monWord 배정 실패:", error);
+    }
+  },
+
   // monWord 조회
   getMonWord: async () => {
     try {
