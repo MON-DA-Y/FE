@@ -149,7 +149,7 @@ export default function ParentPage() {
                 height={24}
               />
               {/* 가입일 바꾸기 ! */}
-              가입일 : 2025.07.23
+              가입일 : {user?.std_joinDate}
             </div>
             <div
               className="flex flex-row gap-1.5"

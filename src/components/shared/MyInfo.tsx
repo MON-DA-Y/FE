@@ -13,6 +13,7 @@ export interface StudentInfo {
   std_schoolType: string;
   std_grade: number;
   std_email: string;
+  std_joinDate: string;
 }
 
 export default function MyInfo() {
