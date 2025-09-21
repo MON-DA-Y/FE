@@ -29,7 +29,7 @@ export const monWordApi = {
         {},
         { headers }
       );
-      console.log("monWord 배정 post 결과", response);
+      // console.log("monWord 배정 post 결과", response);
     } catch (error) {
       console.error("monWord 배정 실패:", error);
     }
@@ -39,9 +39,7 @@ export const monWordApi = {
   getMonWord: async () => {
     try {
       const headers = getAuthHeader();
-      const response = await axios.get(`${baseURL}/monWord`, {
-        headers,
-      });
+      const response = await axios.get(`${baseURL}/monWord`, { headers });
       // console.log("monWord 조회 결과:", response.data);
       return response.data.result;
     } catch (error) {
@@ -71,9 +69,11 @@ export const monWordApi = {
   postMonWordDone: async () => {
     try {
       const headers = getAuthHeader();
-      const response = await axios.post(`${baseURL}/monWord/done`, {
-        headers,
-      });
+      const response = await axios.post(
+        `${baseURL}/monWord/done`,
+        {},
+        { headers }
+      );
       return response.data.result;
     } catch (error) {
       console.error("momWord 학습 완료 post 실패:", error);
