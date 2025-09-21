@@ -26,3 +26,14 @@ export async function getWeakness(
   console.log("API response:", res.data);
   return res.data;
 }
+
+export async function getStudentWeakness(
+  studentId: string,
+  week: "이번주" | "저번주"
+): Promise<WeaknessResponse> {
+  const res = await API.get<WeaknessResponse>(
+    `/users/${studentId}//weakness?week=${week}`
+  );
+  console.log("API response:", res.data);
+  return res.data;
+}
