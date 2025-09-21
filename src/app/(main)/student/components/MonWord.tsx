@@ -6,6 +6,8 @@ import Image from "next/image";
 import WordBox from "@components/ui/WordBox";
 import { useRouter } from "next/navigation";
 import { stdMainApi } from "@/apis/stdMain";
+import { monWordApi } from "@/apis/monWord";
+import AssignLoading from "@/components/shared/AssignLoading";
 
 export default function MonWord() {
   const [monWords, setMonWords] = useState<string[]>([]);
@@ -13,20 +15,43 @@ export default function MonWord() {
   const router = useRouter();
 
   useEffect(() => {
-    const fetchTodayMonQuizMark = async () => {
+    // monWord 배정 후 monWord 조회
+    const monWordAssign = async () => {
       try {
         setIsLoading(true);
-        const data = await stdMainApi.getStdMonWord();
-        setMonWords(data);
-      } catch (error) {
-        console.error("오늘 monQuiz 채점 조회 실패: ", error);
+        await monWordApi.postMonWordAssign();
+        fetchStdMonWord();
+      } catch (error: any) {
+        console.error("오늘 monWord 배정 실패: ", error);
+        const msg = error.response?.message || "서버와 연결할 수 없습니다.";
+        alert(msg);
       } finally {
         setIsLoading(false);
       }
     };
 
-    fetchTodayMonQuizMark();
+    const fetchStdMonWord = async () => {
+      try {
+        setIsLoading(true);
+        const data = await stdMainApi.getStdMonWord();
+        // console.log("학생 메인 monWord:", data);
+
+        const words = data.map(
+          (item: { id: number; word: string }) => item.word
+        );
+
+        setMonWords(words);
+      } catch (error) {
+        console.error("오늘 monWord 조회 실패: ", error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    monWordAssign();
   }, []);
+
+  if (isLoading) return <AssignLoading />;
 
   return (
     <>
