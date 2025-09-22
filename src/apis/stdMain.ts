@@ -20,6 +20,20 @@ const getAuthHeader = () => {
 };
 
 export const stdMainApi = {
+  // 오늘 학습률 조회
+  getTodayLearningRate: async () => {
+    try {
+      const headers = getAuthHeader();
+      const response = await axios.get(`${baseURL}/std/todayLearningRate`, {
+        headers,
+      });
+      return response.data.result;
+    } catch (error) {
+      console.error("오늘 학습률 get 실패: ", error);
+      throw error;
+    }
+  },
+
   // monWord 조회
   getStdMonWord: async () => {
     try {
