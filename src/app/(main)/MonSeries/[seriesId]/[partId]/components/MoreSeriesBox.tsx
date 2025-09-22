@@ -15,7 +15,7 @@ export default function MoreSeriesBox({
   nextPartFunc,
 }: MoreSeriesBoxProps) {
   return (
-    <div className="w-[680px] px-10 pt-10 pb-7 bg-white rounded-[30px] flex justify-between items-center gap-3.5 sm:flex-row">
+    <div className="w-[680px] px-10 py-5 bg-white rounded-[30px] flex justify-between items-center sm:flex-row">
       <div className="flex flex-col justify-center items-left">
         <div
           style={{
