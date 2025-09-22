@@ -27,7 +27,7 @@ export default function ViewSwitchTab({ viewMode, onChangeView }: ViewSwitch) {
         }}
         onClick={() => handleViewSwitch("series")}
       >
-        시리즈로 보기
+        목록으로 보기
       </button>
       <button
         className="p-1.5 rounded-xl shadow-[0px_0px_10px_0px_rgba(0,0,0,0.25) inline-flex justify-center items-center cursor-pointer"
