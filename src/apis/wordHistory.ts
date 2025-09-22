@@ -5,13 +5,13 @@ export interface Word {
   wordId: number;
   category: Category;
   word: string;
-  explain: string;
-  use: string;
+  meaning: string;
+  practice: string;
   isCorrect: boolean;
 }
 
 export interface WordHistoryResponse {
-  words: Word[];
+  wordList: Word[];
 }
 
 export async function getWordHistory(

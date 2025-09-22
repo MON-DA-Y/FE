@@ -17,13 +17,13 @@ export default function WordHistory({
   resultFilter,
 }: WordHistoryProps) {
   const searchParams = useSearchParams();
-  const week = searchParams.get("week") === "이번주" ? "이번주" : "저번주";
+  const week = searchParams.get("week") === "저번주" ? "저번주" : "이번주";
 
   const [words, setWords] = useState<Word[]>([]);
 
   useEffect(() => {
     getWordHistory(week)
-      .then((data) => setWords(data.words))
+      .then((data) => setWords(data.wordList))
       .catch((err) => console.error("단어 히스토리 API 실패:", err));
   }, [week]);
 
@@ -52,8 +52,8 @@ export default function WordHistory({
           key={word.wordId}
           category={word.category}
           word={word.word}
-          explain={word.explain}
-          use={word.use}
+          explain={word.meaning}
+          use={word.practice}
         />
       ))}
     </div>

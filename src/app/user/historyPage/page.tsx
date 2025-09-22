@@ -62,9 +62,9 @@ export default function HistoryPage() {
   }
 
   return (
-    <div className="relative w-full px-13 py-7">
+    <div className="relative w-full px-20 py-5">
       <HomeBtn />
-      <div className="flex flex-col items-stretch w-[900px] pt-10 px-12">
+      <div className="flex flex-col items-stretch w-[900px] pt-10 pl-16">
         <div
           className="flex"
           style={{
@@ -75,7 +75,7 @@ export default function HistoryPage() {
           <span style={{ color: COLORS.primary.mint }}>🗂️MON</span>
           <span style={{ color: COLORS.primary.navy }}>{label} 히스토리</span>
         </div>
-        <div className="absolute top-35 left-190">
+        <div className="absolute top-35 left-215">
           {type === "series" ? (
             <div className="flex gap-4.5">
               <Dropdown

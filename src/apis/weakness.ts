@@ -32,7 +32,7 @@ export async function getStudentWeakness(
   week: "이번주" | "저번주"
 ): Promise<WeaknessResponse> {
   const res = await API.get<WeaknessResponse>(
-    `/users/${studentId}//weakness?week=${week}`
+    `/users/${studentId}/weakness?week=${week}`
   );
   console.log("API response:", res.data);
   return res.data;
