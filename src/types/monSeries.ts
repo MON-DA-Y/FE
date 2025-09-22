@@ -4,7 +4,7 @@ export interface PartStudy {
   summary: string;
   life_example: string;
   useful_terms: string;
-  body: React.ReactNode;
+  body: string;
 }
 
 // 파트 - 기본 type
@@ -69,4 +69,10 @@ export interface ViewSwitch {
 export interface TextBox {
   type: "lifeExample" | "term";
   text: string;
+}
+
+// 시리즈 props
+export interface SeriesStudyProps {
+  series: Series;
+  part: Part;
 }
