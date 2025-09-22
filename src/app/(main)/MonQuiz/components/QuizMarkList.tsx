@@ -18,7 +18,7 @@ export default function QuizList() {
       try {
         setIsLoading(true);
         const data = await monQuizMarkApi.getMonQuizMark();
-        console.log("채점 조회: ", data);
+        // console.log("채점 조회: ", data);
         setQuizMarks(data);
       } catch (error) {
         console.error("오늘 monQuiz 채점 조회 실패: ", error);

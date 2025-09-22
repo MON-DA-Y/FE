@@ -18,7 +18,7 @@ export default function Page() {
       try {
         setIsLoading(true);
         const data = await monQuizApi.getStudentSubmit();
-        console.log("제출여부:", data);
+        // console.log("제출여부:", data);
         setIsSubmit(data.submit);
       } catch (error) {
         console.error("monQuiz 제출 여부 조회 실패:", error);
