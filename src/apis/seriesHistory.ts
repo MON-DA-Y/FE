@@ -1,21 +1,16 @@
 import { API } from "./config";
 
 export interface Part {
-  partId: number;
-  isLearned: boolean;
-  part_title: string;
-  part_sub_title: string;
+  msaId: number;
+  title: string;
+  subtitle: string;
 }
 
 export interface Series {
-  seriesId: number;
+  msId: number;
   keyword: string;
   title: string;
   sub_title: string;
-  status: "done" | "ongoing";
-  totalCount: number;
-  learnedCount: number;
-  imgUrl: string;
   parts: Part[];
 }
 
