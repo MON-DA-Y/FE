@@ -25,6 +25,8 @@ export default function StudentMyPage() {
   const [isHover, setIsHover] = useState(false);
   const [isActive, setIsActive] = useState(false);
 
+  const [isLevelHover, setIsLevelHover] = useState(false);
+
   const [dates, setDates] = useState<number[]>([]);
   const [week, setWeek] = useState<"이번주" | "저번주">("이번주");
 
@@ -160,20 +162,30 @@ export default function StudentMyPage() {
               width={24}
               height={24}
             />
-            총 학습일 : {progress?.strikeDay ?? 0}일
+            총 스트라이크 수 : {progress?.strikeDay ?? 0}일
+            <div
+              className="flex flex-row gap-1.5"
+              style={{
+                color: COLORS.sub.gray3,
+                fontSize: FONT_SIZE.body2,
+                fontWeight: FONT_WEIGHT.body2,
+              }}
+            >
+              하루 학습(단어·뉴스·퀴즈·시리즈)을 모두 완료한 일수
+            </div>
           </div>
         </div>
 
         {/*개인정보 박스*/}
         <div className="flex flex-col mt-3 px-10">
           <div
-            className="w-full rounded-[30px] px-25 pt-8 pb-5 border"
+            className="w-full rounded-[30px] px-25 pt-5 pb-5 border"
             style={{
               borderColor: COLORS.sub.gray2,
             }}
           >
             <div
-              className="flex items-center justify-center w-7 h-7 border rounded-full mt-[-46px] mx-170 mb-2 cursor-pointer"
+              className="flex items-center justify-center w-9 h-9 border rounded-full mt-[-46px] mx-150 mb-2 cursor-pointer"
               style={{
                 boxShadow: SHADOW.interactive,
                 borderColor: COLORS.sub.gray1,
@@ -207,7 +219,41 @@ export default function StudentMyPage() {
               />
             )}
             <div className="flex items-center">
-              <div className="flex flex-col">
+              <div className="absolute flex flex-col left-50">
+                <Image src={profileImg} alt="image" width={80} height={80} />
+                <div
+                  className="relative inline-block -mt-4 mx-2"
+                  onMouseEnter={() => setIsLevelHover(true)}
+                  onMouseLeave={() => setIsLevelHover(false)}
+                >
+                  <StudentLevel />
+                </div>
+                {isLevelHover && (
+                  <div
+                    className="absolute top-full mt-2 -left-25 w-71 rounded-lg z-10 p-5"
+                    style={{
+                      backgroundColor: COLORS.series.yellow1,
+                      fontWeight: FONT_WEIGHT.body1,
+                      fontSize: FONT_SIZE.body1,
+                    }}
+                  >
+                    하루에 단어·뉴스·퀴즈·시리즈를 모두 끝내면 스트라이크 수가
+                    쌓여요.
+                    <br />
+                    이 스트라이크 수가 일정 기준을 넘을 때마다 레벨이
+                    올라갑니다. <br />
+                    <br />
+                    🥑 씨앗: 기본 <br />
+                    🌱 새싹: 21일 <br />
+                    🌿 잎새: 30일 <br />
+                    🪵 가지: 66일 <br />
+                    🌳 나무: 100일 <br />
+                    🌼 꽃: 365일 <br />
+                    🍎 열매: 700일
+                  </div>
+                )}
+              </div>
+              <div className="flex flex-col ml-30">
                 <div className="flex gap-3 items-center">
                   <div
                     className="w-20"
@@ -286,12 +332,6 @@ export default function StudentMyPage() {
                   >
                     {user.std_email}
                   </div>
-                </div>
-              </div>
-              <div className="absolute flex flex-col left-195">
-                <Image src={profileImg} alt="image" width={80} height={80} />
-                <div className="-mt-4 mx-2">
-                  <StudentLevel />
                 </div>
               </div>
             </div>
@@ -442,7 +482,7 @@ export default function StudentMyPage() {
             </div>
 
             {/*히스토리 버튼*/}
-            <div className="flex absolute flex-col gap-5 top-180 left-130">
+            <div className="flex absolute flex-col gap-5 top-195 left-130">
               <HistoryBtn type="word" week={week} />
               <HistoryBtn type="news" week={week} />
               <HistoryBtn type="series" week={week} />
