@@ -23,3 +23,13 @@ export async function getWordHistory(
   console.log("API response:", res.data);
   return res.data;
 }
+
+export async function getParentWordHistory(
+  week: "이번주" | "저번주"
+): Promise<WordHistoryResponse> {
+  const res = await API.get<WordHistoryResponse>(
+    `/users/parent/history/word?week=${week}`
+  );
+  console.log("API response:", res.data);
+  return res.data;
+}

@@ -22,3 +22,13 @@ export async function getNewsHistory(
   console.log("API response:", res.data);
   return res.data;
 }
+
+export async function getParentNewsHistory(
+  week: "이번주" | "저번주"
+): Promise<NewsHistoryResponse> {
+  const res = await API.get<NewsHistoryResponse>(
+    `/users/parent/history/news?week=${week}`
+  );
+  console.log("API response:", res.data);
+  return res.data;
+}

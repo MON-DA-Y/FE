@@ -490,9 +490,9 @@ export default function StudentMyPage() {
 
             {/*히스토리 버튼*/}
             <div className="flex absolute flex-col gap-5 top-195 left-130">
-              <HistoryBtn type="word" week={week} />
-              <HistoryBtn type="news" week={week} />
-              <HistoryBtn type="series" week={week} />
+              <HistoryBtn type="word" week={week} role="student" />
+              <HistoryBtn type="news" week={week} role="student" />
+              <HistoryBtn type="series" week={week} role="student" />
             </div>
           </div>
         </div>
