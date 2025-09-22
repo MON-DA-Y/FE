@@ -6,35 +6,55 @@ import { useRouter } from "next/navigation";
 import TrendingSeriesDropdown from "./TrendingSeriesDropdown";
 import SeriesCard from "./SeriesCard";
 import { Series } from "@/types/monSeries";
+import { stdMainApi } from "@/apis/stdMain";
+import AssignLoading from "@/components/shared/AssignLoading";
 
 export default function MonSeries() {
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const [todaySeries, setTodaySeries] = useState<Series[]>([]);
   const router = useRouter();
 
   // 더미데이터
   useEffect(() => {
-    setTodaySeries([
-      {
-        id: 12,
-        keyword: "이자",
-        title: "트럼프와 경제 정책",
-        sub_title: "",
-        parts: [],
-      },
-      {
-        id: 13,
-        keyword: "인플레이션",
-        title: "2만원 떡볶이 시대",
-        sub_title: "",
-        parts: [],
-      },
-    ]);
+    // setTodaySeries([
+    //   {
+    //     id: 12,
+    //     keyword: "이자",
+    //     title: "트럼프와 경제 정책",
+    //     sub_title: "",
+    //     parts: [],
+    //   },
+    //   {
+    //     id: 13,
+    //     keyword: "인플레이션",
+    //     title: "2만원 떡볶이 시대",
+    //     sub_title: "",
+    //     parts: [],
+    //   },
+    // ]);
+
+    const fetchMonSeries = async () => {
+      try {
+        setIsLoading(true);
+        const data = await stdMainApi.getStdMonSeries();
+        // console.log("오늘 MonSeries 조회: ", data);
+        setTodaySeries(data);
+      } catch (error) {
+        console.error("오늘 MonSeries 조회 실패: ", error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchMonSeries();
   }, []);
 
   // SeriesCard 선택
   const handleSeriesCardClick = (series_id: number) => {
     router.push(`/MonSeries/${series_id}`); // MonSeries의 해당 키워드로 이동
   };
+
+  if (isLoading) return <AssignLoading />;
 
   return (
     <>
