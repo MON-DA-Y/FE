@@ -2,7 +2,7 @@ import { Category } from "@/types/category";
 import { API } from "./config";
 
 export interface Word {
-  wordId: number;
+  mwiId: number;
   category: Category;
   word: string;
   meaning: string;

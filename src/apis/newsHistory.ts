@@ -2,7 +2,7 @@ import { Category } from "@/types/category";
 import { API } from "./config";
 
 export interface News {
-  newsId: number;
+  mnId: number;
   category: Category;
   title: string;
   imgUrl: string;

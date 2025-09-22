@@ -22,7 +22,10 @@ export default function NewsHistory({
 
   useEffect(() => {
     getNewsHistory(week)
-      .then((data) => setNews(data.newsList))
+      .then((data) => {
+        console.log("뉴스 히스토리 데이터:", data.newsList);
+        setNews(data.newsList);
+      })
       .catch((err) => console.error("뉴스 히스토리 API 실패:", err));
   }, [week]);
 
@@ -42,7 +45,7 @@ export default function NewsHistory({
     <div className="flex flex-wrap gap-x-10 gap-y-15 p-2">
       {filteredNews.map((news) => (
         <NewsCard
-          key={news.newsId}
+          key={news.mnId}
           category={news.category}
           title={news.title}
           imgUrl={news.imgUrl}

@@ -49,7 +49,7 @@ export default function WordHistory({
     >
       {filteredWords.map((word) => (
         <WordItem
-          key={word.wordId}
+          key={word.mwiId}
           category={word.category}
           word={word.word}
           explain={word.meaning}

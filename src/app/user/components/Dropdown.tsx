@@ -15,19 +15,20 @@ interface DropdownProps {
     | "keyword"
     | "result"
     | "status";
-  value?: string | number | null;
+  value?: string | null;
   onChange?: (value: string | number) => void;
 }
 
 export default function Dropdown({ type, value, onChange }: DropdownProps) {
-  const studentId = 1;
-  const [week, setWeek] = useState<"이번주" | "저번주">("이번주");
-
   const dropdownRef = useRef<HTMLDivElement>(null);
   const [isOpen, setIsOpen] = useState(false);
 
   const [seriesList, setSeriesList] = useState<Series[]>([]);
   const keywords = Array.from(new Set(seriesList.map((s) => s.keyword))); // keyword 중복 제거
+
+  const [selectedValue, setSelectedValue] = useState<string | null>(
+    value ?? null
+  );
 
   // useEffect(() => {
   //   getSeriesHistory(studentId, week)
@@ -51,16 +52,17 @@ export default function Dropdown({ type, value, onChange }: DropdownProps) {
     };
   }, []);
 
-  const handleSelect = (selectedValue: string | number) => {
+  const handleSelect = (val: string | number) => {
+    setSelectedValue(val as string);
     setIsOpen(false);
-    onChange?.(selectedValue);
+    onChange?.(val);
   };
 
   const defaultPlaceholder = {
     year: new Date().getFullYear() + "년",
     month: new Date().getMonth() + 1 + "월",
     week: "이번주",
-    category: "카테고리",
+    category: "전체",
     keyword: "키워드",
     result: "전체",
     status: "전체",
@@ -83,7 +85,7 @@ export default function Dropdown({ type, value, onChange }: DropdownProps) {
           color: COLORS.sub.gray3,
         }}
       >
-        {value || defaultPlaceholder}
+        {selectedValue || defaultPlaceholder}
       </span>
       <Image
         src="/icons/Arrow_Down.png"

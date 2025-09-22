@@ -55,7 +55,7 @@ export default function StudentMyPage() {
           <div className="pt-10">
             <ProgressSlider
               weekCompletionRate={progress.weekCompletionRate}
-              strikeDay={progress.strikeDay}
+              strikeDay={progress.strikeDay || 0}
             />
           </div>
           {/*진도 현황*/}
