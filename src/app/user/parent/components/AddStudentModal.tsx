@@ -4,6 +4,7 @@ import { useState } from "react";
 import { COLORS, FONT_SIZE, FONT_WEIGHT, SHADOW } from "@/styles/theme/tokens";
 import SearchInput from "./SerchInput";
 import { getStudentByEmail, StdInfoResponse } from "@/apis/studentInfo";
+import { addStudent } from "@/apis/parentInfo";
 
 interface AddStudentProps {
   closeRequest: () => void;
@@ -11,7 +12,7 @@ interface AddStudentProps {
 }
 
 interface StudentProps {
-  id: number;
+  id: string;
   name: string;
   school: string;
   grade: string;
@@ -28,7 +29,7 @@ export default function AddStudentModal({
       console.log("검색 결과:", data);
       // 타입 맞춰서 변환
       setStudent({
-        id: data.std_id,
+        id: data.std_id.toString(),
         name: data.std_name,
         school: data.std_schoolType,
         grade: `${data.std_grade}학년`,
@@ -40,12 +41,22 @@ export default function AddStudentModal({
     }
   };
 
-  const handleAdd = () => {
+  const handleAdd = async () => {
     if (!student) {
       alert("자녀 정보를 먼저 검색해주세요.");
       return;
     }
-    onAddStudent(student);
+    try {
+      // 부모 DB에 studentId 추가
+      const added = await addStudent(student.id);
+      console.log("추가된 학생:", added.student);
+
+      onAddStudent(student);
+      closeRequest();
+    } catch (err) {
+      console.error(err);
+      alert("자녀 추가에 실패했습니다.");
+    }
   };
 
   const handleCancel = () => {

@@ -10,13 +10,9 @@ import { Series, getSeriesHistory } from "@/apis/seriesHistory";
 
 interface SeriesHistoryProps {
   keywordFilter: string | "all";
-  statusFilter: "all" | "done" | "ongoing";
 }
 
-export default function SeriesHistory({
-  keywordFilter,
-  statusFilter,
-}: SeriesHistoryProps) {
+export default function SeriesHistory({ keywordFilter }: SeriesHistoryProps) {
   const searchParams = useSearchParams();
 
   const [isOpen, setIsOpen] = useState(false);
@@ -37,9 +33,6 @@ export default function SeriesHistory({
     // 키워드 필터
     if (keywordFilter !== "all" && series.keyword !== keywordFilter)
       return false;
-
-    // 학습 현황 필터
-    if (statusFilter !== "all" && series.status !== statusFilter) return false;
     return true;
   });
 
@@ -47,12 +40,12 @@ export default function SeriesHistory({
     <div className="grid grid-cols-3 gap-y-15">
       {filteredSeries.map((series) => (
         <SeriesCard
-          key={series.seriesId}
+          key={series.msId}
           keyword={series.keyword}
-          status={series.status}
-          totalCount={series.totalCount}
-          learnedCount={series.learnedCount}
-          imgUrl={series.imgUrl}
+          // status={series.status}
+          // totalCount={series.totalCount}
+          // learnedCount={series.learnedCount}
+          // imgUrl={series.imgUrl}
           title={series.title}
           onClick={() => {
             setSelectedSeries(series);
@@ -89,52 +82,51 @@ export default function SeriesHistory({
             </div>
             {selectedSeries?.parts.map((part) => (
               <div
-                key={part.partId}
+                key={part.msaId}
                 className="cursor-pointer"
                 onClick={() =>
                   router.push(
-                    `/MonSeries/${selectedSeries?.seriesId}/part/${part.partId}`
+                    `/MonSeries/${selectedSeries?.msId}/part/${part.msaId}`
                   )
                 }
               >
                 <div className="flex justify-start items-center gap-[10px] mt-4">
-                  {part.isLearned === true ? (
-                    <Image
-                      src="/icons/Pin_LearnedPart.svg"
-                      alt="Pin"
-                      width={30}
-                      height={30}
-                    />
+                  {/* {part.isLearned === true ? ( */}
+                  <Image
+                    src="/icons/Pin_LearnedPart.svg"
+                    alt="Pin"
+                    width={30}
+                    height={30}
+                  />
                   ) : (
-                    <Image
-                      src="/icons/Pin_UpcomingPart.svg"
-                      alt="Pin"
-                      width={30}
-                      height={30}
-                    />
-                  )}
+                  <Image
+                    src="/icons/Pin_UpcomingPart.svg"
+                    alt="Pin"
+                    width={30}
+                    height={30}
+                  />
                   <div className="flex flex-col">
                     <div
                       style={{
-                        color: part.isLearned
-                          ? COLORS.sub.gray4
-                          : COLORS.sub.black,
+                        // color: part.isLearned
+                        //   ? COLORS.sub.gray4
+                        //   : COLORS.sub.black,
                         fontSize: FONT_SIZE.body1,
                         fontWeight: FONT_WEIGHT.body1,
                       }}
                     >
-                      {part.part_title}
+                      {part.title}
                     </div>
                     <div
                       style={{
-                        color: part.isLearned
-                          ? COLORS.sub.gray3
-                          : COLORS.sub.black,
+                        // color: part.isLearned
+                        //   ? COLORS.sub.gray3
+                        //   : COLORS.sub.black,
                         fontSize: FONT_SIZE.caption2,
                         fontWeight: FONT_WEIGHT.caption2,
                       }}
                     >
-                      {part.part_sub_title}
+                      {part.subtitle}
                     </div>
                   </div>
                 </div>

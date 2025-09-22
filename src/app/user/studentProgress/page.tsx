@@ -7,21 +7,51 @@ import { FONT_SIZE, FONT_WEIGHT, COLORS } from "@/styles/theme/tokens";
 import Image from "next/image";
 import ProgressSlider from "./components/ProgressSlider";
 import ProgressItem from "./components/ProgressItem";
-import { getProgress, ProgressResponse } from "@/apis/progress";
+import {
+  getProgress,
+  ProgressResponse,
+  getParentProgress,
+} from "@/apis/progress";
+import { getParentInfo } from "@/apis/parentInfo";
 
 export default function StudentMyPage() {
   const router = useRouter();
-  const [progress, setProgress] = useState<ProgressResponse | null>(null);
-
   const searchParams = useSearchParams();
+  const role = searchParams.get("role") === "parent" ? "parent" : "student";
+  const [progress, setProgress] = useState<ProgressResponse | null>(null);
+  const [studentId, setStudentId] = useState<string | null>(null);
+
   // 기본을 이번주로 수정
   const week = searchParams.get("week") === "저번주" ? "저번주" : "이번주";
 
   useEffect(() => {
-    getProgress(week)
-      .then((data) => setProgress(data))
-      .catch((err) => console.error("진도 API 실패:", err));
-  }, [week]);
+    const fetchData = async () => {
+      try {
+        let id: string | null = null;
+
+        if (role === "parent") {
+          const parentInfo = await getParentInfo();
+          console.log("parentInfo:", parentInfo);
+          if (!parentInfo.studentIds || parentInfo.studentIds.length === 0) {
+            console.error("자녀 정보가 없습니다.");
+            return;
+          }
+          id = parentInfo.studentIds[0]; // 학생 한 명만 있다고 가정
+          setStudentId(id);
+
+          const data = await getParentProgress(week);
+          setProgress(data);
+        } else {
+          const data = await getProgress(week);
+          setProgress(data);
+        }
+      } catch (err) {
+        console.error("진도 API 실패:", err);
+      }
+    };
+
+    fetchData();
+  }, [week, role]);
 
   if (!progress) return <div>Loading...</div>;
 
@@ -33,7 +63,11 @@ export default function StudentMyPage() {
           alt="home"
           width={40}
           height={40}
-          onClick={() => router.push("/user/student")}
+          onClick={() =>
+            router.push(
+              role === "student" ? `/user/student` : `/user/parent/${studentId}`
+            )
+          }
           className="cursor-pointer"
         />
         <div className="flex flex-col items-stretch justify-between w-[900px] pt-10 px-5 pl-16">
@@ -55,7 +89,7 @@ export default function StudentMyPage() {
           <div className="pt-10">
             <ProgressSlider
               weekCompletionRate={progress.weekCompletionRate}
-              strikeDay={progress.strikeDay}
+              strikeDay={progress.strikeDay || 0}
             />
           </div>
           {/*진도 현황*/}
@@ -79,7 +113,7 @@ export default function StudentMyPage() {
               >
                 <div className="ml-5">완료</div>
               </div>
-              <div
+              {/* <div
                 className="flex items-center w-3 h-3 rounded-full"
                 style={{
                   backgroundColor: COLORS.series.yellow2,
@@ -87,7 +121,7 @@ export default function StudentMyPage() {
                 }}
               >
                 <div className="ml-5">진행중</div>
-              </div>
+              </div> */}
               <div
                 className="flex items-center w-3 h-3 rounded-full ml-3"
                 style={{

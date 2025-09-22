@@ -8,9 +8,10 @@ import { useRouter } from "next/navigation";
 interface HistoryBtnProps {
   type: "word" | "news" | "series";
   week: "이번주" | "저번주";
+  role: "student" | "parent";
 }
 
-export default function HistoryBtn({ type, week }: HistoryBtnProps) {
+export default function HistoryBtn({ type, week, role }: HistoryBtnProps) {
   const [isHover, setIsHover] = useState(false);
   const [isActive, setIsActive] = useState(false);
 
@@ -22,7 +23,7 @@ export default function HistoryBtn({ type, week }: HistoryBtnProps) {
   const router = useRouter();
 
   const handleClick = () => {
-    router.push(`/user/historyPage?type=${type}&week=${week}`);
+    router.push(`/user/historyPage?type=${type}&week=${week}&role=${role}`);
   };
 
   return (

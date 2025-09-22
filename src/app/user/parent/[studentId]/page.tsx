@@ -23,7 +23,7 @@ import Slider from "../../components/Slider";
 import HistoryBtn from "../../components/HistoryBtn";
 import QuizBtn from "../components/QuizBtn";
 import { getStudentInfoById, StdInfoResponse } from "@/apis/studentInfo";
-import { getStudentProgress, ProgressResponse } from "@/apis/progress";
+import { getParentProgress, ProgressResponse } from "@/apis/progress";
 import AssignLoading from "@/components/shared/AssignLoading";
 
 export default function ParentPage() {
@@ -55,6 +55,9 @@ export default function ParentPage() {
 
   // 퀴즈 성적
   const [quizResults, setQuizResults] = useState<Result[]>([]);
+  const uniqueQuizResults = quizResults.filter(
+    (quiz, index, self) => index === self.findIndex((q) => q.day === quiz.day)
+  );
 
   const [selectedTab, setSelectedTab] = useState<"word" | "news">("word");
   const handleTabChange = (value: { selectedTab: "word" | "news" }) => {
@@ -87,7 +90,7 @@ export default function ParentPage() {
       setWeaknessData(weakness);
 
       // 총 학습일 조회
-      const progressData = await getStudentProgress(id, week);
+      const progressData = await getParentProgress(week);
       console.log("progressData:", progressData);
       setProgress(progressData);
 
@@ -186,7 +189,7 @@ export default function ParentPage() {
                   fontWeight: FONT_WEIGHT.body2,
                 }}
               >
-                하루 학습(단어·뉴스·퀴즈·시리즈)을 모두 완료한 일수
+                하루 학습(단어·뉴스·퀴즈)을 모두 완료한 일수
               </div>
             </div>
           </div>
@@ -234,7 +237,7 @@ export default function ParentPage() {
           >
             이번 주 출석 현황
           </div>
-          <ProgressBtn />
+          <ProgressBtn role="parent" />
         </div>
         <div className="pt-4">
           <AttendBtn
@@ -351,7 +354,7 @@ export default function ParentPage() {
           이번 주 퀴즈
         </div>
         <div className="flex flex-col pt-5 gap-2.5">
-          {quizResults.map((quiz) => (
+          {uniqueQuizResults.map((quiz) => (
             <QuizBtn key={quiz.day} day={quiz.day} score={quiz.score} />
           ))}
         </div>
@@ -359,9 +362,9 @@ export default function ParentPage() {
 
       {/*히스토리 버튼*/}
       <div className="absolute top-150 left-145 flex flex-col gap-5">
-        <HistoryBtn type="word" week={week} />
-        <HistoryBtn type="news" week={week} />
-        <HistoryBtn type="series" week={week} />
+        <HistoryBtn type="word" week={week} role="parent" />
+        <HistoryBtn type="news" week={week} role="parent" />
+        <HistoryBtn type="series" week={week} role="parent" />
       </div>
 
       {/*경제 TalkTalk*/}

@@ -2,7 +2,7 @@ import { Category } from "@/types/category";
 import { API } from "./config";
 
 export interface News {
-  newsId: number;
+  mnId: number;
   category: Category;
   title: string;
   imgUrl: string;
@@ -18,6 +18,16 @@ export async function getNewsHistory(
 ): Promise<NewsHistoryResponse> {
   const res = await API.get<NewsHistoryResponse>(
     `/users/history/news?week=${week}`
+  );
+  console.log("API response:", res.data);
+  return res.data;
+}
+
+export async function getParentNewsHistory(
+  week: "이번주" | "저번주"
+): Promise<NewsHistoryResponse> {
+  const res = await API.get<NewsHistoryResponse>(
+    `/users/parent/history/news?week=${week}`
   );
   console.log("API response:", res.data);
   return res.data;

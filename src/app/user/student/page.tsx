@@ -193,8 +193,7 @@ export default function StudentMyPage() {
                     fontSize: FONT_SIZE.body1,
                   }}
                 >
-                  하루에 단어·뉴스·퀴즈·시리즈를 모두 끝내면 스트라이크 수가
-                  쌓여요.
+                  하루에 단어·뉴스·퀴즈를 모두 끝내면 스트라이크 수가 쌓여요.
                   <br />이 스트라이크 수가 일정 기준을 넘을 때마다 레벨이
                   올라갑니다. <br />
                   <br />
@@ -394,7 +393,7 @@ export default function StudentMyPage() {
                   >
                     🎯 출석 및 학습 진행률
                   </div>
-                  <ProgressBtn />
+                  <ProgressBtn role="student" />
                 </div>
                 <AttendBtn
                   days_gap={80}
@@ -490,9 +489,9 @@ export default function StudentMyPage() {
 
             {/*히스토리 버튼*/}
             <div className="flex absolute flex-col gap-5 top-195 left-130">
-              <HistoryBtn type="word" week={week} />
-              <HistoryBtn type="news" week={week} />
-              <HistoryBtn type="series" week={week} />
+              <HistoryBtn type="word" week={week} role="student" />
+              <HistoryBtn type="news" week={week} role="student" />
+              <HistoryBtn type="series" week={week} role="student" />
             </div>
           </div>
         </div>

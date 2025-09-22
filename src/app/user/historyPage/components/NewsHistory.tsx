@@ -2,7 +2,7 @@
 
 import { useSearchParams } from "next/navigation";
 import { useState, useEffect } from "react";
-import { News, getNewsHistory } from "@/apis/newsHistory";
+import { News, getNewsHistory, getParentNewsHistory } from "@/apis/newsHistory";
 import NewsCard from "./NewsCard";
 import { Category } from "@/types/category";
 
@@ -16,15 +16,25 @@ export default function NewsHistory({
   resultFilter,
 }: NewsHistoryProps) {
   const searchParams = useSearchParams();
+  const role = searchParams.get("role") as "student" | "parent";
   const week = searchParams.get("week") === "이번주" ? "이번주" : "저번주";
 
   const [news, setNews] = useState<News[]>([]);
 
   useEffect(() => {
-    getNewsHistory(week)
-      .then((data) => setNews(data.newsList))
-      .catch((err) => console.error("뉴스 히스토리 API 실패:", err));
-  }, [week]);
+    const fetchData = async () => {
+      try {
+        const data =
+          role === "parent"
+            ? await getParentNewsHistory(week)
+            : await getNewsHistory(week);
+        setNews(data.newsList);
+      } catch (err) {
+        console.error("뉴스 히스토리 API 실패:", err);
+      }
+    };
+    fetchData();
+  }, [week, role]);
 
   const filteredNews = news.filter((news) => {
     // 카테고리 필터
@@ -42,7 +52,7 @@ export default function NewsHistory({
     <div className="flex flex-wrap gap-x-10 gap-y-15 p-2">
       {filteredNews.map((news) => (
         <NewsCard
-          key={news.newsId}
+          key={news.mnId}
           category={news.category}
           title={news.title}
           imgUrl={news.imgUrl}

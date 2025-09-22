@@ -4,11 +4,15 @@ import { useRouter } from "next/navigation";
 import { FONT_SIZE, FONT_WEIGHT, COLORS, SHADOW } from "@/styles/theme/tokens";
 import Image from "next/image";
 
-export default function ProgressBtn() {
+interface ProgressBtnProps {
+  role: "student" | "parent";
+}
+
+export default function ProgressBtn({ role }: ProgressBtnProps) {
   const router = useRouter();
 
   const handleClick = () => {
-    router.push("/user/studentProgress");
+    router.push(`/user/studentProgress?role=${role}`);
   };
 
   return (

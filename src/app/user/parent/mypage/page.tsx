@@ -11,7 +11,7 @@ import EditModal from "../components/EditModal";
 import { getParentInfo } from "@/apis/parentInfo";
 
 interface StudentProps {
-  id: number;
+  id: string;
   name: string;
   school: string;
   grade: string;
@@ -32,7 +32,7 @@ export default function ParentMyPage() {
   }, []);
 
   // 자녀 삭제
-  const handleDeleteStudent = (id?: number) => {
+  const handleDeleteStudent = (id?: string) => {
     setStudents(students.filter((s) => s.id !== id));
   };
 
@@ -109,7 +109,7 @@ export default function ParentMyPage() {
           <div className="flex flex-col px-10 gap-5 pt-6">
             <InputBox
               type="text"
-              value={user?.prt_name || "?"}
+              value={user?.prt_name}
               label="이름"
               readOnly
             />
@@ -138,10 +138,9 @@ export default function ParentMyPage() {
           </div>
           {/*자녀 리스트*/}
           <div className="flex flex-wrap p-6 gap-3">
-            {students.map((s) => (
-              //<div key={s.id}>
+            {students.map((s, idx) => (
               <StudentCard
-                key={s.id}
+                key={`${s.id}-${idx}`}
                 name={s.name || ""}
                 school={s.school || ""}
                 grade={s.grade || ""}
@@ -149,7 +148,6 @@ export default function ParentMyPage() {
                 onDelete={() => handleDeleteStudent(s.id)}
                 onClick={() => router.push(`/user/parent/${s.id}`)}
               />
-              //</div>
             ))}
             {/*자녀 추가 버튼*/}
             <div

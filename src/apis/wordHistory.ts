@@ -2,7 +2,7 @@ import { Category } from "@/types/category";
 import { API } from "./config";
 
 export interface Word {
-  wordId: number;
+  mwiId: number;
   category: Category;
   word: string;
   meaning: string;
@@ -19,6 +19,16 @@ export async function getWordHistory(
 ): Promise<WordHistoryResponse> {
   const res = await API.get<WordHistoryResponse>(
     `/users/history/word?week=${week}`
+  );
+  console.log("API response:", res.data);
+  return res.data;
+}
+
+export async function getParentWordHistory(
+  week: "이번주" | "저번주"
+): Promise<WordHistoryResponse> {
+  const res = await API.get<WordHistoryResponse>(
+    `/users/parent/history/word?week=${week}`
   );
   console.log("API response:", res.data);
   return res.data;

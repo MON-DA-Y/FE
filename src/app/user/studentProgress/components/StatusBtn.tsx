@@ -4,13 +4,12 @@ import { useRouter } from "next/navigation";
 
 interface StatusBtnProps {
   label: string;
-  status: "done" | "ongoing" | "pending";
+  status: "done" | "pending";
 }
 
 const labelMap: Record<StatusBtnProps["label"], string> = {
   word: "단어",
   news: "뉴스",
-  series: "시리즈",
   quiz: "퀴즈",
 };
 
@@ -23,11 +22,11 @@ export default function StatusBtn({ label, status }: StatusBtnProps) {
           backgroundColor: COLORS.primary.mint,
           color: COLORS.series.deepGreen,
         };
-      case "ongoing":
-        return {
-          backgroundColor: COLORS.series.yellow2,
-          color: COLORS.series.yellow3,
-        };
+      // case "ongoing":
+      //   return {
+      //     backgroundColor: COLORS.series.yellow2,
+      //     color: COLORS.series.yellow3,
+      //   };
       case "pending":
         return {
           backgroundColor: COLORS.series.error,

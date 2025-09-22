@@ -2,7 +2,7 @@
 
 import { useSearchParams } from "next/navigation";
 import { useState, useEffect } from "react";
-import { Word, getWordHistory } from "@/apis/wordHistory";
+import { Word, getWordHistory, getParentWordHistory } from "@/apis/wordHistory";
 import { COLORS, SHADOW } from "@/styles/theme/tokens";
 import WordItem from "./WordItem";
 import { Category } from "@/types/category";
@@ -17,15 +17,25 @@ export default function WordHistory({
   resultFilter,
 }: WordHistoryProps) {
   const searchParams = useSearchParams();
+  const role = searchParams.get("role") as "student" | "parent";
   const week = searchParams.get("week") === "저번주" ? "저번주" : "이번주";
 
   const [words, setWords] = useState<Word[]>([]);
 
   useEffect(() => {
-    getWordHistory(week)
-      .then((data) => setWords(data.wordList))
-      .catch((err) => console.error("단어 히스토리 API 실패:", err));
-  }, [week]);
+    const fetchData = async () => {
+      try {
+        const data =
+          role === "parent"
+            ? await getParentWordHistory(week)
+            : await getWordHistory(week);
+        setWords(data.wordList);
+      } catch (err) {
+        console.error("뉴스 히스토리 API 실패:", err);
+      }
+    };
+    fetchData();
+  }, [week, role]);
 
   const filteredWords = words.filter((word) => {
     // 카테고리 필터
@@ -49,7 +59,7 @@ export default function WordHistory({
     >
       {filteredWords.map((word) => (
         <WordItem
-          key={word.wordId}
+          key={word.mwiId}
           category={word.category}
           word={word.word}
           explain={word.meaning}

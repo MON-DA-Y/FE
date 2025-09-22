@@ -27,11 +27,14 @@ export default function Options({ type, onSelect, keywords }: OptionsProps) {
       case "category":
         return [
           "전체",
-          "정책/규제",
-          "거시경제",
-          "특집/이슈",
-          "글로벌경제",
           "금융/시장",
+          "거시경제",
+          "생활경제",
+          "글로벌경제",
+          "산업/기업",
+          "특집/이슈",
+          "테크/신사업",
+          "정책/규제",
         ];
       case "keyword":
         return ["전체", ...(keywords ?? [])];
