@@ -6,8 +6,13 @@ import CommonBtn from "@/components/shared/CommonBtn";
 import { Quizzes } from "@/types/monQuiz";
 import { selectedChoices } from "@/types/monQuiz";
 import { monQuizApi } from "@/apis/monQuiz/monQuiz";
+import AssignLoading from "@/components/shared/AssignLoading";
 
-export default function QuizList() {
+interface QuizListProps {
+  onSubmitSuccess: () => void; // 제출 성공 후 호출
+}
+
+export default function QuizList({ onSubmitSuccess }: QuizListProps) {
   const [quizzes, setQuizzes] = useState<Quizzes[]>([]);
   const [selectedChoices, setSelectedChoices] = useState<selectedChoices>({});
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -41,9 +46,10 @@ export default function QuizList() {
     ) {
       try {
         setIsLoading(true);
-        // console.log("오늘 MonQuiz 제출 완료");
-        // console.log("선택된 답:", selectedChoices);
-        await monQuizApi.postMonQuizSubmit(selectedChoices);
+        const data = await monQuizApi.postMonQuizSubmit(selectedChoices);
+        console.log("제출 성공", data);
+        // 제출 성공 후 page에 알리기
+        onSubmitSuccess();
       } catch (error) {
         alert(error);
       } finally {
@@ -52,24 +58,24 @@ export default function QuizList() {
     }
   };
 
+  if (isLoading) return <AssignLoading />;
+
   return (
-    <>
-      <div className="px-5 py-7 flex flex-col justify-center items-center gap-5">
-        {quizzes.map((item, index) => (
-          <QuizItem
-            key={item.id}
-            id={item.id}
-            type={item.type}
-            question={`Q${index + 1}. ${item.question}`}
-            choices={item.choices}
-            selectedChoice={selectedChoices[item.id] || null}
-            onClick={(choice) => handleChoiceSelect(item.id, choice)}
-          />
-        ))}
-        <div className="">
-          <CommonBtn type="quiz_submit" onClick={handleSubmitClick} />
-        </div>
+    <div className="px-5 py-7 flex flex-col justify-center items-center gap-5">
+      {quizzes.map((item, index) => (
+        <QuizItem
+          key={item.id}
+          id={item.id}
+          type={item.type}
+          question={`Q${index + 1}. ${item.question}`}
+          choices={item.choices}
+          selectedChoice={selectedChoices[item.id] || null}
+          onClick={(choice) => handleChoiceSelect(item.id, choice)}
+        />
+      ))}
+      <div className="">
+        <CommonBtn type="quiz_submit" onClick={handleSubmitClick} />
       </div>
-    </>
+    </div>
   );
 }
