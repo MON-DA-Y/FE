@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useSearchParams } from "next/navigation";
 import HomeBtn from "./components/HomeBtn";
 import Dropdown from "../components/Dropdown";
@@ -10,9 +10,12 @@ import SeriesHistory from "./components/SeriesHistory";
 import { COLORS, FONT_SIZE, FONT_WEIGHT } from "@/styles/theme/tokens";
 import { Category } from "@/types/category";
 import { Category_Label } from "../../../../constants/categoryLabel";
+import { getParentInfo } from "@/apis/parentInfo";
 
 export default function HistoryPage() {
   const searchParams = useSearchParams();
+  const role = searchParams.get("role") === "parent" ? "parent" : "student";
+  const [studentId, setStudentId] = useState<string | null>(null);
   const type = searchParams.get("type") || "series";
 
   const [keywordFilter, setKeywordFilter] = useState<"all" | string>("all");
@@ -23,6 +26,23 @@ export default function HistoryPage() {
   const [resultFilter, setResultFilter] = useState<
     "all" | "correct" | "incorrect"
   >("all");
+
+  // 부모일 때만 studentId 가져오기
+  useEffect(() => {
+    if (role === "parent") {
+      const fetchStudentId = async () => {
+        try {
+          const parentInfo = await getParentInfo();
+          if (parentInfo.studentIds && parentInfo.studentIds.length > 0) {
+            setStudentId(parentInfo.studentIds[0]);
+          }
+        } catch (err) {
+          console.error("부모 정보 불러오기 실패:", err);
+        }
+      };
+      fetchStudentId();
+    }
+  }, [role]);
 
   const label =
     {
@@ -63,7 +83,7 @@ export default function HistoryPage() {
 
   return (
     <div className="relative w-full px-20 py-5">
-      <HomeBtn />
+      <HomeBtn role={role} studentId={role === "parent" ? studentId : ""} />
       <div className="flex flex-col items-stretch w-[900px] pt-10 pl-16">
         <div
           className="flex"

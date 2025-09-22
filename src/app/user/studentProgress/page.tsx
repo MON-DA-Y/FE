@@ -12,31 +12,45 @@ import {
   ProgressResponse,
   getParentProgress,
 } from "@/apis/progress";
+import { getParentInfo } from "@/apis/parentInfo";
 
 export default function StudentMyPage() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const role = searchParams.get("role") === "parent" ? "parent" : "student";
   const [progress, setProgress] = useState<ProgressResponse | null>(null);
+  const [studentId, setStudentId] = useState<string | null>(null);
 
   // 기본을 이번주로 수정
   const week = searchParams.get("week") === "저번주" ? "저번주" : "이번주";
 
   useEffect(() => {
-    const fetchProgress = async () => {
+    const fetchData = async () => {
       try {
-        let data;
-        if (role === "student") {
-          data = await getProgress(week);
+        let id: string | null = null;
+
+        if (role === "parent") {
+          const parentInfo = await getParentInfo();
+          console.log("parentInfo:", parentInfo);
+          if (!parentInfo.studentIds || parentInfo.studentIds.length === 0) {
+            console.error("자녀 정보가 없습니다.");
+            return;
+          }
+          id = parentInfo.studentIds[0]; // 학생 한 명만 있다고 가정
+          setStudentId(id);
+
+          const data = await getParentProgress(week);
+          setProgress(data);
         } else {
-          data = await getParentProgress(week);
+          const data = await getProgress(week);
+          setProgress(data);
         }
-        setProgress(data);
       } catch (err) {
         console.error("진도 API 실패:", err);
       }
     };
-    fetchProgress();
+
+    fetchData();
   }, [week, role]);
 
   if (!progress) return <div>Loading...</div>;
@@ -49,7 +63,11 @@ export default function StudentMyPage() {
           alt="home"
           width={40}
           height={40}
-          onClick={() => router.push("/user/student")}
+          onClick={() =>
+            router.push(
+              role === "student" ? `/user/student` : `/user/parent/${studentId}`
+            )
+          }
           className="cursor-pointer"
         />
         <div className="flex flex-col items-stretch justify-between w-[900px] pt-10 px-5 pl-16">

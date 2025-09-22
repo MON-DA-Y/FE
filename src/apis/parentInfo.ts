@@ -4,6 +4,7 @@ export interface PrtInfoResponse {
   prt_name: string;
   prt_email: string;
   prt_phone: string;
+  studentIds: string[];
 }
 
 interface PrtInfoAPIResponse {
