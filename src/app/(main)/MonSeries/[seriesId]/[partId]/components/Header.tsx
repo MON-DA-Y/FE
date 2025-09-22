@@ -9,8 +9,9 @@ import { SeriesStudyProps } from "@/types/monSeries";
 
 export default function Header({ series, part }: SeriesStudyProps) {
   if (!series || !part) {
-    return <p>잘못된 접근입니다.</p>;
+    return <div className="flex flex-col gap-32">잘못된 접근입니다.</div>;
   }
+  const currentIndex = series.parts.findIndex((p) => p.id === part.id);
 
   return (
     <div className="flex flex-col gap-32">
@@ -32,9 +33,9 @@ export default function Header({ series, part }: SeriesStudyProps) {
         </WordBox>
         <div className="mt-[-25px]">
           <SeriesPartBar
-            part_title={part.part_title}
+            part_title={part.title}
             total={series.parts.length}
-            current={part.id}
+            current={currentIndex + 1}
           />
         </div>
       </div>
