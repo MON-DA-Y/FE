@@ -32,7 +32,7 @@ export const monNewsApi = {
       // console.log("monNews 배정 post 결과:", response.data);
       return response.data.result;
     } catch (error) {
-      console.error("monWord get 실패:", error);
+      console.error("monNews 배정 실패:", error);
     }
   },
 
