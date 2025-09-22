@@ -1,10 +1,8 @@
 // 파트 - 학습용 type
-export interface PartStudy {
-  part_category: string[];
-  summary: string;
-  life_example: string;
-  useful_terms: string;
-  body: string;
+export interface wordItem {
+  msaWiId: number;
+  word: string;
+  meaning: string;
 }
 
 // 파트 - 기본 type
@@ -13,7 +11,10 @@ export interface Part {
   //   isLearned: boolean;
   title: string;
   subtitle: string;
-  // part_study: PartStudy;
+  main?: string;
+  practice?: string;
+  summary?: string;
+  wordItem?: wordItem[];
 }
 
 // 시리즈 - 기본 type
@@ -69,7 +70,7 @@ export interface ViewSwitch {
 // 시리즈 study - 실생활 예시 / 알아두면 좋을 용어
 export interface TextBox {
   type: "lifeExample" | "term";
-  text: string;
+  text: string | undefined;
 }
 
 // 시리즈 props
