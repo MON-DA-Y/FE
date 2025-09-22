@@ -3,7 +3,6 @@ import { API } from "./config";
 export interface Task {
   word: string;
   news: string;
-  series: string;
   quiz: string;
 }
 

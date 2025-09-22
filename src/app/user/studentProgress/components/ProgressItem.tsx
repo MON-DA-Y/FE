@@ -26,7 +26,7 @@ export default function ProgressItem({ days }: ProgressItemProps) {
               <StatusBtn
                 key={label}
                 label={label}
-                status={status as "done" | "ongoing" | "pending"}
+                status={status as "done" | "pending"}
               />
             ))}
           </div>

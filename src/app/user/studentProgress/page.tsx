@@ -113,7 +113,7 @@ export default function StudentMyPage() {
               >
                 <div className="ml-5">완료</div>
               </div>
-              <div
+              {/* <div
                 className="flex items-center w-3 h-3 rounded-full"
                 style={{
                   backgroundColor: COLORS.series.yellow2,
@@ -121,7 +121,7 @@ export default function StudentMyPage() {
                 }}
               >
                 <div className="ml-5">진행중</div>
-              </div>
+              </div> */}
               <div
                 className="flex items-center w-3 h-3 rounded-full ml-3"
                 style={{

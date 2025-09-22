@@ -193,8 +193,7 @@ export default function StudentMyPage() {
                     fontSize: FONT_SIZE.body1,
                   }}
                 >
-                  하루에 단어·뉴스·퀴즈·시리즈를 모두 끝내면 스트라이크 수가
-                  쌓여요.
+                  하루에 단어·뉴스·퀴즈를 모두 끝내면 스트라이크 수가 쌓여요.
                   <br />이 스트라이크 수가 일정 기준을 넘을 때마다 레벨이
                   올라갑니다. <br />
                   <br />
