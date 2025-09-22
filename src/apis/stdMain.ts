@@ -59,4 +59,16 @@ export const stdMainApi = {
       throw error;
     }
   },
+
+  // monSeries 조회
+  getStdMonSeries: async () => {
+    try {
+      const headers = getAuthHeader();
+      const response = await axios.get(`${baseURL}/std/monSeries`, { headers });
+      return response.data.result;
+    } catch (error) {
+      console.error("monSeries 조회 실패:", error);
+      throw error;
+    }
+  },
 };

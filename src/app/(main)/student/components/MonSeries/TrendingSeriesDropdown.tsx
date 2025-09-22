@@ -12,11 +12,10 @@ export default function TrendingSeriesDropdown() {
   const [currentIndex, setCurrentIndex] = useState<number>(0);
 
   useEffect(() => {
-    // Trending Series 더미데이터
     setSeriesRank([
-      { id: 1, keyword: "인플레이션" },
-      { id: 2, keyword: "이자" },
-      { id: 3, keyword: "저축" },
+      { id: 1, keyword: "혁신기술" },
+      { id: 2, keyword: "유통비용" },
+      { id: 3, keyword: "물류" },
     ]);
   }, []);
 

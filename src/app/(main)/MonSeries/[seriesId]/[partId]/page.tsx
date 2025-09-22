@@ -2,102 +2,12 @@
 
 import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
-import { Series, Part } from "@/types/monSeries";
 import Header from "./components/Header";
 import Study from "./components/Study";
 import { COLORS } from "@/styles/theme/tokens";
-
-const dummySeriesList: Series[] = [
-  {
-    id: 1,
-    keyword: "정치",
-    title: "트럼프와 경제 정책",
-    sub_title: "트럼프의 경제 정책이 세계 경제에 미친 영향",
-    parts: [
-      {
-        id: 1,
-        isLearned: true,
-        part_title: "2016년: 대선 승리",
-        part_sub_title: "트럼프의 경제 공약과 당선 배경",
-        part_study: {
-          part_category: ["코로나19", "백신", "팬데믹"],
-          summary:
-            "관세는 다른 나라에서 수입되는 물건에 부과하는 세금으로, 국내 산업 보호 및 무역 수지를 위해 사용돼요.",
-          life_example:
-            "중국에서 만든 1,000달러짜리 전자제품에 25%의 관세가 부과되면, 미국에 수입될 때 250달러의 세금이 추가되어 최소 1,250달러의 가격이 돼요. 이렇게 되면 미국 소비자들은 더 비싼 가격을 지불해야 해요.",
-          useful_terms:
-            "무역 적자: 수출보다 수입이 많을 때 발생하는 상황\nWTO(세계 무역 기구): 무역 규칙을 관리하고 분쟁을 해결하는 국제기구",
-          body: `관세는 왜 부과할까요?
-- 국내 산업 보호
-- 정부 수입 확보
-- 무역 불균형 해소
-- 정치적 압력 수단
-
-트럼프와 관세
-도널드 트럼프 대통령은 “미국 우선주의(America First)” 정책에 따라 중국산 제품에 최대 25%의 관세를 부과했어요.
-- 무역 적자 줄이기
-- 중국의 불공정 무역 관행 견제
-- 미국 제조업 일자리 보호
-
-관세의 영향
-[긍정적 영향]
-- 국내 산업 보호
-- 정부 세수 증가
-- 무역 협상 지렛대
-
-[부정적 영향]
-- 소비자 가격 상승
-- 보복 관세
-- 글로벌 공급망 혼란
-`,
-        },
-      },
-      {
-        id: 2,
-        isLearned: false,
-        part_title: "2018년: 관세 인상",
-        part_sub_title: "중국 제품에 대한 관세 인상과 무역 전쟁의 시작",
-        part_study: {
-          part_category: ["코로나19", "백신", "팬데믹"],
-          summary:
-            "관세는 다른 나라에서 수입되는 물건에 부과하는 세금으로, 국내 산업 보호 및 무역 수지를 위해 사용돼요.",
-          life_example:
-            "중국에서 만든 1,000달러짜리 전자제품에 25%의 관세가 부과되면, 미국에 수입될 때 250달러의 세금이 추가되어 최소 1,250달러의 가격이 돼요. 이렇게 되면 미국 소비자들은 더 비싼 가격을 지불해야 해요.",
-          useful_terms:
-            "무역 적자: 수출보다 수입이 많을 때 발생하는 상황\nWTO(세계 무역 기구): 무역 규칙을 관리하고 분쟁을 해결하는 국제기구",
-          body: `관세는 왜 부과할까요?
-- 국내 산업 보호
-- 정부 수입 확보
-- 무역 불균형 해소
-- 정치적 압력 수단
-
-트럼프와 관세
-도널드 트럼프 대통령은 “미국 우선주의(America First)” 정책에 따라 중국산 제품에 최대 25%의 관세를 부과했어요.
-- 무역 적자 줄이기
-- 중국의 불공정 무역 관행 견제
-- 미국 제조업 일자리 보호
-
-관세의 영향
-[긍정적 영향]
-- 국내 산업 보호
-- 정부 세수 증가
-- 무역 협상 지렛대
-
-[부정적 영향]
-- 소비자 가격 상승
-- 보복 관세
-- 글로벌 공급망 혼란
-`,
-        },
-      },
-    ],
-  },
-  // 필요하면 다른 시리즈도 추가
-];
-
-async function fetchSeries(seriesId: number): Promise<Series | null> {
-  return dummySeriesList.find((s) => s.id === seriesId) ?? null;
-}
+import { monSeriesApi } from "@/apis/monSeries";
+import { Series, Part } from "@/types/monSeries";
+import AssignLoading from "@/components/shared/AssignLoading";
 
 export default function StudyPage() {
   const params = useParams();
@@ -108,19 +18,29 @@ export default function StudyPage() {
   const [part, setPart] = useState<Part | null>(null);
 
   useEffect(() => {
-    if (!seriesId) return;
-    fetchSeries(seriesId).then((data) => {
-      setSeries(data);
-      if (data) {
-        const foundPart = data.parts.find((p) => p.id === partId);
-        setPart(foundPart ?? null);
+    if (!seriesId || !partId) return;
+    const fetchMonSeriesStudy = async () => {
+      try {
+        const data = await monSeriesApi.getMonSeriesPart(seriesId, partId);
+        // data.result 구조에 맞게 분리
+        setSeries({
+          id: data.msId,
+          keyword: data.keyword, // 필요시 추가
+          title: data.title,
+          sub_title: data.subtitle,
+          parts: Array.isArray(data.series) ? data.series : [], // 단일 파트만 배열로
+        });
+        // console.log("fetchMonSeriesStudy data:", data);
+        setPart(data.part);
+      } catch (error) {
+        console.error("MonSeriesStudy 조회 실패: ", error);
       }
-    });
+    };
+
+    fetchMonSeriesStudy();
   }, [seriesId, partId]);
 
-  if (!series || !part) {
-    return <div>데이터를 불러오는 중입니다...</div>;
-  }
+  if (!series || !part) return <AssignLoading />;
 
   return (
     <div className="relative flex justify-center gap-5">

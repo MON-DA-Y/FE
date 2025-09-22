@@ -3,113 +3,60 @@
 import { COLORS, FONT_SIZE, FONT_WEIGHT } from "@/styles/theme/tokens";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { Part, Series } from "@/types/monSeries";
-import { useSeriesStore } from "@/store/useSeriesStore";
+import { Series } from "@/types/monSeries";
 
-interface PartItem_Props extends Part {
+// 실제 데이터 구조에 맞게 props 타입 정의
+interface PartItem_Props {
   series: Series;
+  id: number;
+  title: string;
+  subtitle: string;
 }
 
 export default function PartItem({
   id,
-  isLearned,
-  part_title,
-  part_sub_title,
+  title,
+  subtitle,
   series,
-  part_study,
 }: PartItem_Props) {
   const router = useRouter();
-  const setCurrentSeries = useSeriesStore((state) => state.setCurrentSeries);
-  const setCurrentPart = useSeriesStore((state) => state.setCurrentPart);
 
   const handleClick = () => {
-    setCurrentSeries(series);
-    setCurrentPart({
-      id,
-      isLearned,
-      part_title,
-      part_sub_title,
-      part_study,
-    });
-    router.push("/MonSeries/study");
+    router.push(`/MonSeries/${series.id}/${id}`);
   };
 
-  return isLearned ? (
-    <>
-      {/* 학습한 파트 */}
-      <div
-        className="inline-flex justify-start items-center gap-[10px] cursor-pointer p-2.5 rounded-2xl outline-1 outline-offset-[-1px]"
-        style={{
-          outlineColor: COLORS.sub.gray1,
-        }}
-        onClick={handleClick}
-      >
-        <div className="flex justify-start items-center gap-[10px]">
-          <Image
-            src="/icons/Pin_LearnedPart.svg"
-            alt="Pin"
-            width={30}
-            height={30}
-          />
-          <div className="flex flex-col items-start">
-            <div
-              style={{
-                color: COLORS.sub.gray4,
-                fontSize: FONT_SIZE.body1,
-                fontWeight: FONT_WEIGHT.body1,
-              }}
-            >
-              {part_title}
-            </div>
-            <div
-              className="mt-[-2px]"
-              style={{
-                color: COLORS.sub.gray3,
-                fontSize: FONT_SIZE.caption2,
-                fontWeight: FONT_WEIGHT.caption2,
-              }}
-            >
-              {part_sub_title}
-            </div>
-          </div>
+  return (
+    <div
+      className="inline-flex justify-start items-center gap-[10px] cursor-pointer p-2.5 rounded-2xl outline-1 outline-offset-[-1px] bg-green-300/10 outline-green-300/50"
+      onClick={handleClick}
+    >
+      <Image
+        src="/icons/Pin_UpcomingPart.svg"
+        alt="Pin"
+        width={30}
+        height={30}
+      />
+      <div className="flex flex-col items-start">
+        <div
+          style={{
+            color: COLORS.sub.gray4,
+            fontSize: FONT_SIZE.body1,
+            fontWeight: FONT_WEIGHT.body1,
+          }}
+        >
+          {title}
+        </div>
+        <div
+          className="mt-[-2px]"
+          style={{
+            color: COLORS.sub.gray3,
+            fontSize: FONT_SIZE.caption2,
+            fontWeight: FONT_WEIGHT.caption2,
+          }}
+        >
+          {subtitle}
         </div>
       </div>
-    </>
-  ) : (
-    <>
-      {/* 학습할 파트 */}
-      <div
-        className="inline-flex justify-start items-center gap-[10px] cursor-pointer p-2.5 rounded-2xl outline-1 outline-offset-[-1px] bg-green-300/10 outline-green-300/50"
-        onClick={handleClick}
-      >
-        <Image
-          src="/icons/Pin_UpcomingPart.svg"
-          alt="Pin"
-          width={30}
-          height={30}
-        />
-        <div className="inline-flex flex-col justify-start">
-          <div
-            style={{
-              color: COLORS.sub.black,
-              fontSize: FONT_SIZE.body1,
-              fontWeight: FONT_WEIGHT.body1,
-            }}
-          >
-            {part_title}
-          </div>
-          <div
-            className="mt-[-2px]"
-            style={{
-              color: COLORS.sub.gray4,
-              fontSize: FONT_SIZE.caption2,
-              fontWeight: FONT_WEIGHT.caption2,
-            }}
-          >
-            {part_sub_title}
-          </div>
-        </div>
-      </div>
-    </>
+    </div>
   );
 }
