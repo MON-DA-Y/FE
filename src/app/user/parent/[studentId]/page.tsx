@@ -55,6 +55,9 @@ export default function ParentPage() {
 
   // 퀴즈 성적
   const [quizResults, setQuizResults] = useState<Result[]>([]);
+  const uniqueQuizResults = quizResults.filter(
+    (quiz, index, self) => index === self.findIndex((q) => q.day === quiz.day)
+  );
 
   const [selectedTab, setSelectedTab] = useState<"word" | "news">("word");
   const handleTabChange = (value: { selectedTab: "word" | "news" }) => {
@@ -351,7 +354,7 @@ export default function ParentPage() {
           이번 주 퀴즈
         </div>
         <div className="flex flex-col pt-5 gap-2.5">
-          {quizResults.map((quiz) => (
+          {uniqueQuizResults.map((quiz) => (
             <QuizBtn key={quiz.day} day={quiz.day} score={quiz.score} />
           ))}
         </div>

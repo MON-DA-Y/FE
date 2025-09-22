@@ -1,4 +1,3 @@
-import { QuizItemProps } from "@/app/(main)/MonQuiz/components/QuizItem";
 import { COLORS, FONT_SIZE, FONT_WEIGHT, SHADOW } from "@/styles/theme/tokens";
 import Image from "next/image";
 
