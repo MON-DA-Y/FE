@@ -1,5 +1,8 @@
+"use client";
+
 import { COLORS, FONT_SIZE, FONT_WEIGHT, SHADOW } from "@/styles/theme/tokens";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 
 interface QuizBtnProps {
   day: string;
@@ -10,6 +13,11 @@ export default function QuizBtn({ day, score }: QuizBtnProps) {
   const date = new Date(day);
   const month = date.getMonth() + 1;
   const d = date.getDate();
+
+  // const router = useRouter();
+  // const handleClick = () => {
+  //   router.push(`/MonQuiz?day=${day}`);
+  // };
 
   return (
     <div className="flex whitespace-nowrap">
@@ -23,7 +31,7 @@ export default function QuizBtn({ day, score }: QuizBtnProps) {
       >
         {`${month}월 ${d}일`}
         <div
-          className="flex absolute justify-center items-center w-26 h-6 left-48 rounded-[30px]"
+          className="flex absolute justify-center items-center w-26 h-6 left-55 rounded-[30px]"
           style={{
             backgroundColor: COLORS.primary.mint,
             fontSize: FONT_SIZE.body2,
@@ -33,14 +41,17 @@ export default function QuizBtn({ day, score }: QuizBtnProps) {
         >
           점수 : {score}점
         </div>
-        <div className="pl-6 absolute left-73 cursor-pointer">
+        {/* <div
+          className="pl-6 absolute left-73 cursor-pointer"
+          onClick={handleClick}
+        >
           <Image
             src="/icons/Arrow_right.svg"
             alt="arrow"
             width={24}
             height={24}
           />
-        </div>
+        </div> */}
       </div>
     </div>
   );
