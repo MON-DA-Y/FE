@@ -10,10 +10,10 @@ export interface PartStudy {
 // 파트 - 기본 type
 export interface Part {
   id: number;
-  isLearned: boolean;
-  part_title: string;
-  part_sub_title: string;
-  part_study: PartStudy;
+  //   isLearned: boolean;
+  title: string;
+  subtitle: string;
+  // part_study: PartStudy;
 }
 
 // 시리즈 - 기본 type
@@ -53,6 +53,7 @@ export interface KeywordModalSelectSeries {
 
 // 키워드 - 기본 type
 export interface Keyword {
+  index: number;
   id: number;
   keyword: string;
   explain: string;
