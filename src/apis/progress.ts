@@ -26,12 +26,11 @@ export async function getProgress(
   return res.data;
 }
 
-export async function getStudentProgress(
-  studentId: string,
+export async function getParentProgress(
   week: "이번주" | "저번주"
 ): Promise<ProgressResponse> {
   const res = await API.get<ProgressResponse>(
-    `/users/${studentId}/progress?week=${week}`
+    `/users/parent/progress?week=${week}`
   );
   console.log("API response: (progress)", res.data);
   return res.data;

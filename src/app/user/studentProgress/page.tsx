@@ -7,21 +7,37 @@ import { FONT_SIZE, FONT_WEIGHT, COLORS } from "@/styles/theme/tokens";
 import Image from "next/image";
 import ProgressSlider from "./components/ProgressSlider";
 import ProgressItem from "./components/ProgressItem";
-import { getProgress, ProgressResponse } from "@/apis/progress";
+import {
+  getProgress,
+  ProgressResponse,
+  getParentProgress,
+} from "@/apis/progress";
 
 export default function StudentMyPage() {
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const role = searchParams.get("role") === "parent" ? "parent" : "student";
   const [progress, setProgress] = useState<ProgressResponse | null>(null);
 
-  const searchParams = useSearchParams();
   // 기본을 이번주로 수정
   const week = searchParams.get("week") === "저번주" ? "저번주" : "이번주";
 
   useEffect(() => {
-    getProgress(week)
-      .then((data) => setProgress(data))
-      .catch((err) => console.error("진도 API 실패:", err));
-  }, [week]);
+    const fetchProgress = async () => {
+      try {
+        let data;
+        if (role === "student") {
+          data = await getProgress(week);
+        } else {
+          data = await getParentProgress(week);
+        }
+        setProgress(data);
+      } catch (err) {
+        console.error("진도 API 실패:", err);
+      }
+    };
+    fetchProgress();
+  }, [week, role]);
 
   if (!progress) return <div>Loading...</div>;
 

@@ -23,7 +23,7 @@ import Slider from "../../components/Slider";
 import HistoryBtn from "../../components/HistoryBtn";
 import QuizBtn from "../components/QuizBtn";
 import { getStudentInfoById, StdInfoResponse } from "@/apis/studentInfo";
-import { getStudentProgress, ProgressResponse } from "@/apis/progress";
+import { getParentProgress, ProgressResponse } from "@/apis/progress";
 import AssignLoading from "@/components/shared/AssignLoading";
 
 export default function ParentPage() {
@@ -90,7 +90,7 @@ export default function ParentPage() {
       setWeaknessData(weakness);
 
       // 총 학습일 조회
-      const progressData = await getStudentProgress(id, week);
+      const progressData = await getParentProgress(week);
       console.log("progressData:", progressData);
       setProgress(progressData);
 
@@ -237,7 +237,7 @@ export default function ParentPage() {
           >
             이번 주 출석 현황
           </div>
-          <ProgressBtn />
+          <ProgressBtn role="parent" />
         </div>
         <div className="pt-4">
           <AttendBtn

@@ -394,7 +394,7 @@ export default function StudentMyPage() {
                   >
                     🎯 출석 및 학습 진행률
                   </div>
-                  <ProgressBtn />
+                  <ProgressBtn role="student" />
                 </div>
                 <AttendBtn
                   days_gap={80}
