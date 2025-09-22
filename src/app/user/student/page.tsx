@@ -174,7 +174,7 @@ export default function StudentMyPage() {
               하루 학습(단어·뉴스·퀴즈·시리즈)을 모두 완료한 일수
             </div>
             <div
-              className="relative inline-block"
+              className="relative inline-block mt-0.5"
               onMouseEnter={() => setIsLevelHover(true)}
               onMouseLeave={() => setIsLevelHover(false)}
             >
