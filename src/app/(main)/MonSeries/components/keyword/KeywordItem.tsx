@@ -6,11 +6,18 @@ import { useRouter } from "next/navigation";
 import KeywordModal from "./KeywordModal";
 import { Keyword } from "@/types/monSeries";
 
-export default function KeywordItem({ id, keyword, explain, series }: Keyword) {
+export default function KeywordItem({
+  index,
+  id,
+  keyword,
+  explain,
+  series,
+}: Keyword) {
   const router = useRouter();
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
-  const isYellow = id % 4 === 1 || id % 4 === 0;
+  // 노랑, 2개 파랑/2개 노랑 반복 패턴
+  const isYellow = index === 0 ? true : Math.floor(((index - 1) % 4) / 2) === 1;
 
   const openModal = () => {
     setIsModalOpen(true);
