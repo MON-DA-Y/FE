@@ -173,6 +173,41 @@ export default function StudentMyPage() {
             >
               하루 학습(단어·뉴스·퀴즈·시리즈)을 모두 완료한 일수
             </div>
+            <div
+              className="relative inline-block"
+              onMouseEnter={() => setIsLevelHover(true)}
+              onMouseLeave={() => setIsLevelHover(false)}
+            >
+              <Image
+                src="/icons/Warning.svg"
+                alt="tooltip"
+                width={18}
+                height={18}
+              />
+              {isLevelHover && (
+                <div
+                  className="absolute top-full -left-25 w-71 rounded-lg z-10 p-5"
+                  style={{
+                    backgroundColor: COLORS.series.yellow1,
+                    fontWeight: FONT_WEIGHT.body1,
+                    fontSize: FONT_SIZE.body1,
+                  }}
+                >
+                  하루에 단어·뉴스·퀴즈·시리즈를 모두 끝내면 스트라이크 수가
+                  쌓여요.
+                  <br />이 스트라이크 수가 일정 기준을 넘을 때마다 레벨이
+                  올라갑니다. <br />
+                  <br />
+                  🥑 씨앗: 기본 <br />
+                  🌱 새싹: 21일 <br />
+                  🌿 잎새: 30일 <br />
+                  🪵 가지: 66일 <br />
+                  🌳 나무: 100일 <br />
+                  🌼 꽃: 365일 <br />
+                  🍎 열매: 700일
+                </div>
+              )}
+            </div>
           </div>
         </div>
 
@@ -185,7 +220,7 @@ export default function StudentMyPage() {
             }}
           >
             <div
-              className="flex items-center justify-center w-9 h-9 border rounded-full mt-[-46px] mx-150 mb-2 cursor-pointer"
+              className="flex items-center justify-center w-9 h-9 border rounded-full mt-[-46px] mx-155 mb-2 cursor-pointer"
               style={{
                 boxShadow: SHADOW.interactive,
                 borderColor: COLORS.sub.gray1,
@@ -221,37 +256,9 @@ export default function StudentMyPage() {
             <div className="flex items-center">
               <div className="absolute flex flex-col left-50">
                 <Image src={profileImg} alt="image" width={80} height={80} />
-                <div
-                  className="relative inline-block -mt-4 mx-2"
-                  onMouseEnter={() => setIsLevelHover(true)}
-                  onMouseLeave={() => setIsLevelHover(false)}
-                >
+                <div className="-mt-4 mx-2">
                   <StudentLevel />
                 </div>
-                {isLevelHover && (
-                  <div
-                    className="absolute top-full mt-2 -left-25 w-71 rounded-lg z-10 p-5"
-                    style={{
-                      backgroundColor: COLORS.series.yellow1,
-                      fontWeight: FONT_WEIGHT.body1,
-                      fontSize: FONT_SIZE.body1,
-                    }}
-                  >
-                    하루에 단어·뉴스·퀴즈·시리즈를 모두 끝내면 스트라이크 수가
-                    쌓여요.
-                    <br />
-                    이 스트라이크 수가 일정 기준을 넘을 때마다 레벨이
-                    올라갑니다. <br />
-                    <br />
-                    🥑 씨앗: 기본 <br />
-                    🌱 새싹: 21일 <br />
-                    🌿 잎새: 30일 <br />
-                    🪵 가지: 66일 <br />
-                    🌳 나무: 100일 <br />
-                    🌼 꽃: 365일 <br />
-                    🍎 열매: 700일
-                  </div>
-                )}
               </div>
               <div className="flex flex-col ml-30">
                 <div className="flex gap-3 items-center">
@@ -259,7 +266,7 @@ export default function StudentMyPage() {
                     className="w-20"
                     style={{
                       fontSize: FONT_SIZE.subtitle2,
-                      fontWeight: FONT_WEIGHT.subtitle2,
+                      fontWeight: FONT_WEIGHT.body1,
                     }}
                   >
                     이름
@@ -267,7 +274,7 @@ export default function StudentMyPage() {
                   <div
                     className="text-[23px]"
                     style={{
-                      fontWeight: FONT_WEIGHT.subtitle1,
+                      fontWeight: FONT_WEIGHT.subtitle2,
                     }}
                   >
                     {user.std_name}
@@ -279,7 +286,7 @@ export default function StudentMyPage() {
                     className="w-20"
                     style={{
                       fontSize: FONT_SIZE.subtitle2,
-                      fontWeight: FONT_WEIGHT.subtitle2,
+                      fontWeight: FONT_WEIGHT.body1,
                     }}
                   >
                     학교
@@ -287,7 +294,7 @@ export default function StudentMyPage() {
                   <div
                     className="text-[23px]"
                     style={{
-                      fontWeight: FONT_WEIGHT.subtitle1,
+                      fontWeight: FONT_WEIGHT.subtitle2,
                     }}
                   >
                     {user.std_schoolType === "middle" ? "중학교" : "고등학교"}
@@ -299,7 +306,7 @@ export default function StudentMyPage() {
                     className="w-20"
                     style={{
                       fontSize: FONT_SIZE.subtitle2,
-                      fontWeight: FONT_WEIGHT.subtitle2,
+                      fontWeight: FONT_WEIGHT.body1,
                     }}
                   >
                     학년
@@ -307,7 +314,7 @@ export default function StudentMyPage() {
                   <div
                     className="text-[23px]"
                     style={{
-                      fontWeight: FONT_WEIGHT.subtitle1,
+                      fontWeight: FONT_WEIGHT.subtitle2,
                     }}
                   >
                     {user.std_grade}학년
@@ -319,7 +326,7 @@ export default function StudentMyPage() {
                     className="w-20"
                     style={{
                       fontSize: FONT_SIZE.subtitle2,
-                      fontWeight: FONT_WEIGHT.subtitle2,
+                      fontWeight: FONT_WEIGHT.body1,
                     }}
                   >
                     이메일
@@ -327,7 +334,7 @@ export default function StudentMyPage() {
                   <div
                     className="text-[23px]"
                     style={{
-                      fontWeight: FONT_WEIGHT.subtitle1,
+                      fontWeight: FONT_WEIGHT.subtitle2,
                     }}
                   >
                     {user.std_email}
