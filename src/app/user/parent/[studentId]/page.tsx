@@ -177,7 +177,17 @@ export default function ParentPage() {
                 width={24}
                 height={24}
               />
-              총 학습일 : {progress?.strikeDay ?? 0}일
+              총 스트라이크 수 : {progress?.strikeDay ?? 0}일
+              <div
+                className="flex flex-row gap-1.5"
+                style={{
+                  color: COLORS.sub.gray3,
+                  fontSize: FONT_SIZE.body2,
+                  fontWeight: FONT_WEIGHT.body2,
+                }}
+              >
+                하루 학습(단어·뉴스·퀴즈·시리즈)을 모두 완료한 일수
+              </div>
             </div>
           </div>
         </div>
