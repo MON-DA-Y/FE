@@ -37,9 +37,9 @@ export default function MonNews() {
         setMonNews(data);
       } catch (error: any) {
         console.error("오늘 monQuiz 채점 조회 실패: ", error);
-        const msg =
-          error.response?.data?.message || "서버와 연결할 수 없습니다.";
-        alert(msg);
+        // const msg =
+        //   error.response?.data?.message || "서버와 연결할 수 없습니다.";
+        // alert(msg);
       } finally {
         setIsLoading(false);
       }
