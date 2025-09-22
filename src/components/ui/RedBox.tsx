@@ -14,6 +14,7 @@ const RedBox = ({ title, children }: RedBoxProps) => {
     >
       <div
         style={{
+          whiteSpace: "nowrap",
           fontSize: FONT_SIZE.subtitle2,
           fontWeight: FONT_WEIGHT.subtitle2,
         }}

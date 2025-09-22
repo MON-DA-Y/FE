@@ -3,15 +3,42 @@
 import { useState, useEffect } from "react";
 import { COLORS, FONT_SIZE, FONT_WEIGHT } from "@/styles/theme/tokens";
 import { useRouter } from "next/navigation";
+import { monQuizApi } from "@/apis/monQuiz/monQuiz";
+import AssignLoading from "@/components/shared/AssignLoading";
 
 export default function MonQuiz() {
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const [isQuizActive, setIsQuizActive] = useState<boolean>(false);
   const router = useRouter();
 
   useEffect(() => {
-    // Quiz 활성화 유무
-    setIsQuizActive(true);
+    const assignMonQuiz = async () => {
+      try {
+        setIsLoading(true);
+        const data = await monQuizApi.postMonQuizAssign();
+      } catch (error) {
+        console.error("monQuiz 배정 실패: ", error);
+      }
+    };
+
+    const quizActive = async () => {
+      try {
+        setIsLoading(true);
+        const data = await monQuizApi.getMonQuizActive();
+        // console.log(data);
+        setIsQuizActive(data.active);
+      } catch (error) {
+        console.error("monQuiz 활성화 실패: ", error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    assignMonQuiz();
+    quizActive();
   }, []);
+
+  if (isLoading) return <AssignLoading />;
 
   return (
     <>

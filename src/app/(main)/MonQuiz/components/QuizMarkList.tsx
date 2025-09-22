@@ -6,6 +6,7 @@ import CommonBtn from "@/components/shared/CommonBtn";
 import { QuizMark } from "@/types/monQuiz";
 import { monQuizMarkApi } from "@/apis/monQuiz/monQuizMark";
 import { useRouter } from "next/navigation";
+import AssignLoading from "@/components/shared/AssignLoading";
 
 export default function QuizList() {
   const router = useRouter();
@@ -17,6 +18,7 @@ export default function QuizList() {
       try {
         setIsLoading(true);
         const data = await monQuizMarkApi.getMonQuizMark();
+        console.log("채점 조회: ", data);
         setQuizMarks(data);
       } catch (error) {
         console.error("오늘 monQuiz 채점 조회 실패: ", error);
@@ -29,18 +31,11 @@ export default function QuizList() {
   }, []);
 
   const handleFinishClick = async () => {
-    try {
-      setIsLoading(true);
-      await monQuizMarkApi.postMonQuizDone();
-      alert("오늘 MonQuiz 학습 완료 처리되었습니다!");
-      router.push("/");
-    } catch (error) {
-      console.error("MonQuiz 학습 완료 처리 실패:", error);
-      alert("학습 완료 처리 중 오류가 발생했습니다.");
-    } finally {
-      setIsLoading(false);
-    }
+    alert("오늘 MonQuiz 학습 완료 처리되었습니다!");
+    router.push("/student");
   };
+
+  if (isLoading) return <AssignLoading />;
 
   return (
     <>

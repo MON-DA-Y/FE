@@ -21,6 +21,34 @@ const getAuthHeader = () => {
 };
 
 export const monQuizApi = {
+  // monQuiz 학생 배정
+  postMonQuizAssign: async () => {
+    try {
+      const headers = getAuthHeader();
+      const response = await axios.post(
+        `${baseURL}/monQuiz/assign`,
+        {},
+        { headers }
+      );
+      return response.data.result;
+    } catch (error) {
+      console.error("monQuiz 배정 실패:", error);
+    }
+  },
+
+  // monQuiz 활성화 여부
+  getMonQuizActive: async () => {
+    try {
+      const headers = getAuthHeader();
+      const response = await axios.get(`${baseURL}/monQuiz/active/status`, {
+        headers,
+      });
+      return response.data;
+    } catch (error) {
+      console.error("monQuiz 활성화 여부 get 실패: ", error);
+    }
+  },
+
   // monQuiz 제출 여부
   getStudentSubmit: async () => {
     try {
@@ -28,7 +56,7 @@ export const monQuizApi = {
       const response = await axios.get(`${baseURL}/monQuiz/submit/status`, {
         headers,
       });
-      return response.data.result;
+      return response.data;
     } catch (error) {
       console.error("monQuiz 제출 여부 get 실패: ", error);
       throw error;
