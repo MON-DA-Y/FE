@@ -21,12 +21,12 @@ const getAuthHeader = () => {
 
 export const monSeriesApi = {
   // monSeries 배정
-  postMonSeriesAssign: async () => {
+  postMonSeriesAssign: async (msId: number, msaId: number) => {
     try {
       const headers = getAuthHeader();
       const response = await axios.post(
         `${baseURL}/monSeries/assign`,
-        {},
+        { msId, msaId },
         { headers }
       );
       // console.log("monSeries 배정 post 결과:", response.data);
@@ -36,11 +36,27 @@ export const monSeriesApi = {
     }
   },
 
-  // monSeries 조회
+  // monSeries 전체 조회
   getMonSeries: async () => {
     try {
       const headers = getAuthHeader();
       const response = await axios.get(`${baseURL}/monSeries`, { headers });
+      // console.log("monSeries 조회 결과:", response.data);
+      return response.data.result;
+    } catch (error) {
+      console.error("monSeries get 실패:", error);
+      throw error;
+    }
+  },
+
+  // monSeries 특정 시리즈의 특정 파트 조회
+  getMonSeriesPart: async (seriesId: number, partId: number) => {
+    try {
+      const headers = getAuthHeader();
+      const response = await axios.get(
+        `${baseURL}/monSeries/${seriesId}/parts/${partId}`,
+        { headers }
+      );
       // console.log("monSeries 조회 결과:", response.data);
       return response.data.result;
     } catch (error) {
