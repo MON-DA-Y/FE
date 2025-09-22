@@ -15,6 +15,7 @@ import TabBar from "../components/TabBar";
 import HistoryBtn from "../components/HistoryBtn";
 import StudentEdit from "./components/StudentEdit";
 import { getStudentInfo } from "@/apis/studentInfo";
+import { getProgress, ProgressResponse } from "@/apis/progress";
 
 export default function StudentMyPage() {
   const router = useRouter();
@@ -38,6 +39,8 @@ export default function StudentMyPage() {
   const [weaknessData, setWeaknessData] = useState<WeaknessResponse | null>(
     null
   );
+  // 총 학습일
+  const [progress, setProgress] = useState<ProgressResponse | null>(null);
 
   const [selectedTab, setSelectedTab] = useState<"word" | "news">("word");
   const handleTabChange = (value: { selectedTab: "word" | "news" }) => {
@@ -71,6 +74,11 @@ export default function StudentMyPage() {
       // 약점 조회
       const weakness = await getWeakness(week);
       setWeaknessData(weakness);
+
+      // 총 학습일 조회
+      const progressData = await getProgress(week);
+      console.log("progressData:", progressData);
+      setProgress(progressData);
     } catch (err) {
       console.error("데이터 조회 실패:", err);
     } finally {
@@ -123,10 +131,41 @@ export default function StudentMyPage() {
           }}
         >
           마이페이지
+          <div
+            className="flex flex-row gap-1.5 pt-5"
+            style={{
+              fontSize: FONT_SIZE.body2,
+              fontWeight: FONT_WEIGHT.body2,
+            }}
+          >
+            <Image
+              src="/icons/Calendar.svg"
+              alt="calendar"
+              width={24}
+              height={24}
+            />
+            {/* 가입일 바꾸기 ! */}
+            가입일 : {user?.std_joinDate}
+          </div>
+          <div
+            className="flex flex-row gap-1.5"
+            style={{
+              fontSize: FONT_SIZE.body2,
+              fontWeight: FONT_WEIGHT.body2,
+            }}
+          >
+            <Image
+              src="/icons/Edit_Pencil.svg"
+              alt="pencil"
+              width={24}
+              height={24}
+            />
+            총 학습일 : {progress?.strikeDay ?? 0}일
+          </div>
         </div>
 
         {/*개인정보 박스*/}
-        <div className="flex flex-col mt-8 px-10">
+        <div className="flex flex-col mt-3 px-10">
           <div
             className="w-full rounded-[30px] px-25 pt-8 pb-5 border"
             style={{
