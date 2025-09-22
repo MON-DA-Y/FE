@@ -10,7 +10,8 @@ interface CommonBtnProps {
     | "series"
     | "series_study"
     | "quiz_submit"
-    | "monday_complete"; // 패딩
+    | "monday_complete" // 패딩
+    | "series_next";
   subText?: string;
   seriesName?: string;
   children?: React.ReactNode;
@@ -159,6 +160,30 @@ export default function CommonBtn({
             onClick={onClick}
           >
             오늘의 MON+DAY 완료
+          </div>
+        </div>
+      )}
+      {/* 시리즈 다음 파트 버튼 */}
+      {type === "series_next" && (
+        <div
+          className="px-4 py-2.5 gap-[5px] rounded-2xl shadow-[0px_0px_10px_0px_rgba(0,0,0,0.25)] text-white text-center cursor-pointer relative flex justify-center items-center"
+          style={{ backgroundColor: COLORS.primary.mint }}
+          onClick={onClick}
+        >
+          <Image
+            src="/icons/MonSeries_more.svg"
+            alt="->"
+            width={15}
+            height={15}
+          />
+          <div
+            style={{
+              color: COLORS.series.deepGreen,
+              fontSize: FONT_SIZE.caption1,
+              fontWeight: FONT_WEIGHT.caption1,
+            }}
+          >
+            시리즈 이어보기
           </div>
         </div>
       )}
