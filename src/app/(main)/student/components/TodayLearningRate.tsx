@@ -4,8 +4,11 @@ import { useState, useEffect } from "react";
 import styled from "styled-components";
 import { COLORS, FONT_SIZE, FONT_WEIGHT } from "@/styles/theme/tokens";
 import { LearningRate } from "@/types/studentMain";
+import AssignLoading from "@/components/shared/AssignLoading";
+import { stdMainApi } from "@/apis/stdMain";
 
 export default function TodayLearningRate() {
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const [todayLearn, setTodayLearn] = useState<LearningRate | null>(null);
   const [wordBarWidth, setWordBarWidth] = useState(0);
   const [newsBarWidth, setNewsBarWidth] = useState(0);
@@ -16,15 +19,30 @@ export default function TodayLearningRate() {
   };
 
   useEffect(() => {
-    // 오늘의 학습률 더미데이터
-    setTodayLearn({
-      learn_word: 4,
-      today_word: 10,
-      learn_news: 1,
-      today_news: 1,
-      learn_series: 0,
-      today_series: 2,
-    });
+    // // 오늘의 학습률 더미데이터
+    // setTodayLearn({
+    //   learn_word: 4,
+    //   today_word: 10,
+    //   learn_news: 1,
+    //   today_news: 1,
+    //   learn_series: 0,
+    //   today_series: 2,
+    // });
+    const TodayLearnRate = async () => {
+      try {
+        setIsLoading(true);
+        const data = await stdMainApi.getTodayLearningRate();
+        console.log(data);
+        setTodayLearn(data);
+        console.log("todayLearn", todayLearn);
+      } catch (error) {
+        console.error("오늘의 학습률 조회 실패", error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    TodayLearnRate();
   }, []);
 
   useEffect(() => {
@@ -48,7 +66,7 @@ export default function TodayLearningRate() {
     }
   }, [todayLearn]);
 
-  if (!todayLearn) return null;
+  if (!todayLearn || isLoading) return <AssignLoading />;
 
   return (
     <div className="mt-2 p-6 bg-White rounded-[30px] shadow-[0px_0px_10px_0px_rgba(0,0,0,0.25)] inline-flex flex-col justify-start items-start gap-3">
