@@ -12,9 +12,9 @@ export default function ProgressItem({ days }: ProgressItemProps) {
 
   return (
     <div>
-      <div className="w-full flex flex-col py-6 pl-8 whitespace-nowrap">
+      <div className="w-full flex flex-col py-6 pl-12 whitespace-nowrap">
         <div
-          className="flex items-center gap-16"
+          className="flex items-center gap-34"
           style={{
             fontSize: FONT_SIZE.subtitle2,
             fontWeight: FONT_WEIGHT.subtitle2,

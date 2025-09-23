@@ -103,7 +103,7 @@ export default function StudentMyPage() {
             >
               <span>날짜</span> <span>학습 기록</span>
             </div>
-            <div className="flex ml-13 mt-4 gap-12 whitespace-nowrap">
+            <div className="flex ml-20 mt-4 gap-12 whitespace-nowrap">
               <div
                 className="flex items-center w-3 h-3 rounded-full"
                 style={{
