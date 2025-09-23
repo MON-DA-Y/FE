@@ -2,10 +2,10 @@
 
 import { useRouter } from "next/navigation";
 import Image from "next/image";
-import Icon from "../components/icon";
-import MessageBox from "../components/MessageBox";
+import Icon from "../_components/icon";
+import MessageBox from "../_components/MessageBox";
 import { COLORS, FONT_SIZE, FONT_WEIGHT, SHADOW } from "@/styles/theme/tokens";
-import Input from "../components/Input";
+import Input from "../_components/Input";
 import { useState } from "react";
 import { studentLogin, parentLogin } from "@/apis/auth";
 

@@ -1,6 +1,6 @@
 "use client";
 
-import { useSearchParams } from "next/navigation";
+import { useParams } from "next/navigation";
 import { useState, useEffect } from "react";
 import Image from "next/image";
 import SeriesCard from "./SeriesCard";
@@ -13,7 +13,7 @@ interface SeriesHistoryProps {
 }
 
 export default function SeriesHistory({ keywordFilter }: SeriesHistoryProps) {
-  const searchParams = useSearchParams();
+  const params = useParams();
 
   const [isOpen, setIsOpen] = useState(false);
   const [seriesList, setSeriesList] = useState<Series[]>([]);
@@ -21,7 +21,15 @@ export default function SeriesHistory({ keywordFilter }: SeriesHistoryProps) {
 
   const router = useRouter();
 
-  const week = searchParams.get("week") === "이번주" ? "이번주" : "저번주";
+  // params.week이 배열일 수 있으므로 문자열로 변환
+  const weekParam = params.week;
+  const week = Array.isArray(weekParam)
+    ? weekParam[0] === "이번주"
+      ? "이번주"
+      : "저번주"
+    : weekParam === "이번주"
+    ? "이번주"
+    : "저번주";
 
   useEffect(() => {
     getSeriesHistory(week)
@@ -30,7 +38,6 @@ export default function SeriesHistory({ keywordFilter }: SeriesHistoryProps) {
   }, [week]);
 
   const filteredSeries = seriesList.filter((series) => {
-    // 키워드 필터
     if (keywordFilter !== "all" && series.keyword !== keywordFilter)
       return false;
     return true;
@@ -42,10 +49,6 @@ export default function SeriesHistory({ keywordFilter }: SeriesHistoryProps) {
         <SeriesCard
           key={series.msId}
           keyword={series.keyword}
-          // status={series.status}
-          // totalCount={series.totalCount}
-          // learnedCount={series.learnedCount}
-          // imgUrl={series.imgUrl}
           title={series.title}
           onClick={() => {
             setSelectedSeries(series);
@@ -91,14 +94,6 @@ export default function SeriesHistory({ keywordFilter }: SeriesHistoryProps) {
                 }
               >
                 <div className="flex justify-start items-center gap-[10px] mt-4">
-                  {/* {part.isLearned === true ? ( */}
-                  <Image
-                    src="/icons/Pin_LearnedPart.svg"
-                    alt="Pin"
-                    width={30}
-                    height={30}
-                  />
-                  ) : (
                   <Image
                     src="/icons/Pin_UpcomingPart.svg"
                     alt="Pin"
@@ -108,9 +103,6 @@ export default function SeriesHistory({ keywordFilter }: SeriesHistoryProps) {
                   <div className="flex flex-col">
                     <div
                       style={{
-                        // color: part.isLearned
-                        //   ? COLORS.sub.gray4
-                        //   : COLORS.sub.black,
                         fontSize: FONT_SIZE.body1,
                         fontWeight: FONT_WEIGHT.body1,
                       }}
@@ -119,9 +111,6 @@ export default function SeriesHistory({ keywordFilter }: SeriesHistoryProps) {
                     </div>
                     <div
                       style={{
-                        // color: part.isLearned
-                        //   ? COLORS.sub.gray3
-                        //   : COLORS.sub.black,
                         fontSize: FONT_SIZE.caption2,
                         fontWeight: FONT_WEIGHT.caption2,
                       }}

@@ -4,8 +4,8 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import ReactConfetti from "react-confetti";
 import Image from "next/image";
-import Icon from "../../components/icon";
-import MessageBox from "../../components/MessageBox";
+import Icon from "../../_components/icon";
+import MessageBox from "../../_components/MessageBox";
 import { COLORS } from "@/styles/theme/tokens";
 
 export default function SuccessPage() {

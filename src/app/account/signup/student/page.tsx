@@ -4,7 +4,7 @@ import { FONT_SIZE, FONT_WEIGHT } from "@/styles/theme/tokens";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
-import Icon from "@/app/account/components/icon";
+import Icon from "@/app/account/_components/icon";
 import SignUpBtn from "../components/SignUpBtn";
 import SignUpForm from "../components/SignUpForm";
 import { studentSignUp } from "@/apis/auth";

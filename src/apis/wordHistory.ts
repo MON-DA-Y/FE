@@ -1,5 +1,6 @@
 import { Category } from "@/types/category";
 import { API } from "./config";
+import { useParams } from "next/navigation";
 
 export interface Word {
   mwiId: number;
@@ -15,7 +16,7 @@ export interface WordHistoryResponse {
 }
 
 export async function getWordHistory(
-  week: "이번주" | "저번주"
+  week: string
 ): Promise<WordHistoryResponse> {
   const res = await API.get<WordHistoryResponse>(
     `/users/history/word?week=${week}`
@@ -25,7 +26,7 @@ export async function getWordHistory(
 }
 
 export async function getParentWordHistory(
-  week: "이번주" | "저번주"
+  week: string
 ): Promise<WordHistoryResponse> {
   const res = await API.get<WordHistoryResponse>(
     `/users/parent/history/word?week=${week}`

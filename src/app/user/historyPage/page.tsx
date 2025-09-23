@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { useSearchParams } from "next/navigation";
+import { useParams } from "next/navigation";
 import HomeBtn from "./components/HomeBtn";
 import Dropdown from "../components/Dropdown";
 import WordHistory from "./components/WordHistory";
@@ -13,10 +13,11 @@ import { Category_Label } from "../../../../constants/categoryLabel";
 import { getParentInfo } from "@/apis/parentInfo";
 
 export default function HistoryPage() {
-  const searchParams = useSearchParams();
-  const role = searchParams.get("role") === "parent" ? "parent" : "student";
+  const params = useParams();
+  const role = params.role === "parent" ? "parent" : "student";
   const [studentId, setStudentId] = useState<string | null>(null);
-  const type = searchParams.get("type") || "series";
+  const typeParam = params.type;
+  const type = Array.isArray(typeParam) ? typeParam[0] : typeParam || "series";
 
   const [keywordFilter, setKeywordFilter] = useState<"all" | string>("all");
   const [statusFilter, setStatusFilter] = useState<"all" | "done" | "ongoing">(
@@ -73,7 +74,7 @@ export default function HistoryPage() {
       ContentComponent = (
         <SeriesHistory
           keywordFilter={keywordFilter}
-          statusFilter={statusFilter}
+          // statusFilter={statusFilter}
         />
       );
       break;

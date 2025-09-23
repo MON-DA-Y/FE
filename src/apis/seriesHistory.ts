@@ -1,4 +1,5 @@
 import { API } from "./config";
+import { useParams } from "next/navigation";
 
 export interface Part {
   msaId: number;
@@ -19,7 +20,7 @@ export interface SeriesHistoryResponse {
 }
 
 export async function getSeriesHistory(
-  week: "이번주" | "저번주"
+  week: string
 ): Promise<SeriesHistoryResponse> {
   const res = await API.get<SeriesHistoryResponse>(
     `/users/history/series?week=${week}`

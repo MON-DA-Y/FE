@@ -1,6 +1,6 @@
 "use client";
 
-import { useSearchParams } from "next/navigation";
+import { useParams } from "next/navigation";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { FONT_SIZE, FONT_WEIGHT, COLORS } from "@/styles/theme/tokens";
@@ -16,13 +16,13 @@ import { getParentInfo } from "@/apis/parentInfo";
 
 export default function StudentMyPage() {
   const router = useRouter();
-  const searchParams = useSearchParams();
-  const role = searchParams.get("role") === "parent" ? "parent" : "student";
+  const params = useParams();
+  const role = params.role === "parent" ? "parent" : "student";
   const [progress, setProgress] = useState<ProgressResponse | null>(null);
   const [studentId, setStudentId] = useState<string | null>(null);
 
   // 기본을 이번주로 수정
-  const week = searchParams.get("week") === "저번주" ? "저번주" : "이번주";
+  const week = params.week === "저번주" ? "저번주" : "이번주";
 
   useEffect(() => {
     const fetchData = async () => {
@@ -79,20 +79,13 @@ export default function StudentMyPage() {
             }}
           >
             진도 현황
-            {/* <div className="flex gap-4.5">
-            <Dropdown type="year" />
-            <Dropdown type="month" />
-            <Dropdown type="week" />
-          </div> */}
           </div>
-          {/*Slider*/}
           <div className="pt-10">
             <ProgressSlider
               weekCompletionRate={progress.weekCompletionRate}
               strikeDay={progress.strikeDay || 0}
             />
           </div>
-          {/*진도 현황*/}
           <div className="flex items-center pt-13">
             <div
               className="flex pl-19 gap-80"
@@ -113,15 +106,6 @@ export default function StudentMyPage() {
               >
                 <div className="ml-5">완료</div>
               </div>
-              {/* <div
-                className="flex items-center w-3 h-3 rounded-full"
-                style={{
-                  backgroundColor: COLORS.series.yellow2,
-                  color: COLORS.series.yellow2,
-                }}
-              >
-                <div className="ml-5">진행중</div>
-              </div> */}
               <div
                 className="flex items-center w-3 h-3 rounded-full ml-3"
                 style={{

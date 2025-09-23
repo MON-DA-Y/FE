@@ -1,6 +1,6 @@
 "use client";
 
-import { useSearchParams } from "next/navigation";
+import { useParams } from "next/navigation";
 import { useState, useEffect } from "react";
 import { Word, getWordHistory, getParentWordHistory } from "@/apis/wordHistory";
 import { COLORS, SHADOW } from "@/styles/theme/tokens";
@@ -16,9 +16,9 @@ export default function WordHistory({
   categoryFilter,
   resultFilter,
 }: WordHistoryProps) {
-  const searchParams = useSearchParams();
-  const role = searchParams.get("role") as "student" | "parent";
-  const week = searchParams.get("week") === "저번주" ? "저번주" : "이번주";
+  const params = useParams();
+  const role = params.role === "parent" ? "parent" : "student";
+  const week = params.week === "저번주" ? "저번주" : "이번주";
 
   const [words, setWords] = useState<Word[]>([]);
 
@@ -45,7 +45,6 @@ export default function WordHistory({
     // 정답/오답 필터
     if (resultFilter === "correct" && !word.isCorrect) return false;
     if (resultFilter === "incorrect" && word.isCorrect) return false;
-
     return true;
   });
 

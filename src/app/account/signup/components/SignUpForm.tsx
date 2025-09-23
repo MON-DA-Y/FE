@@ -1,4 +1,4 @@
-import Input from "../../components/Input";
+import Input from "../../_components/Input";
 import { COLORS, FONT_SIZE, FONT_WEIGHT } from "@/styles/theme/tokens";
 import GradeBtn from "./GradeBtn";
 
