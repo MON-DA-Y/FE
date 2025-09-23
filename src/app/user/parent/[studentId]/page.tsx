@@ -390,7 +390,7 @@ export default function ParentPage() {
               fontWeight: FONT_WEIGHT.subtitle2,
             }}
           >
-            {user?.std_name} 학생은 이번 주에
+            {user?.std_name} 학생은 오늘{" "}
           </div>
           <span
             style={{
@@ -398,7 +398,7 @@ export default function ParentPage() {
               fontWeight: FONT_WEIGHT.subtitle1,
             }}
           >
-            "관세율 인상"
+            "노란봉투법"
           </span>
           <span
             style={{
@@ -422,8 +422,9 @@ export default function ParentPage() {
                 fontWeight: FONT_WEIGHT.body2,
               }}
             >
-              Q. 트럼프가 관세를 팍 올리면 <br />
-              햄버거 가격도 따라 오를까?
+              Q. 직원이 안전해야 회사도 안전
+              <br />
+              하다면 누가 먼저 양보해야 할까?
             </span>
 
             <Image
@@ -439,8 +440,8 @@ export default function ParentPage() {
                 fontWeight: FONT_WEIGHT.body2,
               }}
             >
-              Q. 사람들이 갤럭시로 갈아탈까, <br /> 아니면 비싸도 그냥 아이폰을
-              살까?
+              Q. 해고가 어려우면 새로운
+              <br /> 일자리는 줄어들까?
             </span>
           </div>
         </div>

@@ -21,7 +21,9 @@ export async function getProgress(
   week: "이번주" | "저번주"
 ): Promise<ProgressResponse> {
   const res = await API.get<ProgressResponse>(`/users/progress?week=${week}`);
-  console.log("API response:", res.data);
+  console.log("전체 응답(res):", res);
+  console.log("res.data:", res.data);
+  console.log("res.data.result:", (res.data as any).result);
   return res.data;
 }
 
