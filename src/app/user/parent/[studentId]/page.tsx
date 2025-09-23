@@ -41,6 +41,7 @@ export default function ParentPage() {
 
   // 로딩 화면
   const [loadingWeakness, setLoadingWeakness] = useState(true);
+  const [loadingQuiz, setLoadingQuiz] = useState(true);
 
   // 출석률
   const [attendanceData, setAttendanceData] = useState<boolean[]>([]);
@@ -79,6 +80,7 @@ export default function ParentPage() {
   // 적용 버튼 누르면 실행되는 함수
   const handleApply = async () => {
     setLoadingWeakness(true);
+    setLoadingQuiz(true);
     try {
       // 출석 조회
       const attendance = await getStudentAttendance(id, week);
@@ -101,6 +103,7 @@ export default function ParentPage() {
       console.error("데이터 조회 실패:", err);
     } finally {
       setLoadingWeakness(false);
+      setLoadingQuiz(false);
     }
   };
 
@@ -354,9 +357,13 @@ export default function ParentPage() {
           이번 주 퀴즈
         </div>
         <div className="flex flex-col pt-5 gap-2.5">
-          {uniqueQuizResults.map((quiz) => (
-            <QuizBtn key={quiz.day} day={quiz.day} score={quiz.score} />
-          ))}
+          {loadingWeakness ? (
+            <div>퀴즈 결과 로딩중...</div>
+          ) : (
+            uniqueQuizResults.map((quiz) => (
+              <QuizBtn key={quiz.day} day={quiz.day} score={quiz.score} />
+            ))
+          )}
         </div>
       </div>
 

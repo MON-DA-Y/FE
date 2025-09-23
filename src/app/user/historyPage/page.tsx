@@ -73,7 +73,7 @@ export default function HistoryPage() {
       ContentComponent = (
         <SeriesHistory
           keywordFilter={keywordFilter}
-          statusFilter={statusFilter}
+          // statusFilter={statusFilter}
         />
       );
       break;

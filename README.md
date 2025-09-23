@@ -7,8 +7,6 @@
 - **기술 스택:** Next.js, React, tailwindCSS
 - **배포 환경:** AWS S3, CloudFront
 
-
-
 ### **💻 시작하기**
 
 ```bash
@@ -33,17 +31,17 @@ frontend/
 │   │   │   ├── mon-news/
 │   │   │   ├── mon-word/
 │   │   │   ├── ...
-│   │   │   ├── student/           # 학생 
-│   │   │   │   └── [id]/         
-│   │   │   ├── parent/            # 부모 
-│   │   │   │   └── [id]/    
+│   │   │   ├── student/           # 학생
+│   │   │   │   └── [id]/
+│   │   │   ├── parent/            # 부모
+│   │   │   │   └── [id]/
 │   │   │   ├── layout.tsx         # 메인 레이아웃
 │   │   │   ├── error.tsx          # 에러 처리
 │   │   │   └── loading.tsx        # 로딩 UI
-│   │   │   └── 
+│   │   │   └──
 │   │   └── (auth)/                # 인증 레이아웃
 │   │       └── layout.tsx
-│   │ 
+│   │
 │   ├── components/                # 공통 컴포넌트
 │   │   ├── auth/                      # 인증 플로우 전용
 │   │   ├── ui/                        # UI 요소(버튼, 카드 등)
@@ -70,9 +68,8 @@ frontend/
 ├── tsconfig.json                  # TS 설정
 └── package.json
 
-+ 계층 구조 최대 3-depth 
++ 계층 구조 최대 3-depth
 ```
-
 
 ### 🔥 Git Branch 전략
 
@@ -81,8 +78,7 @@ frontend/
 - **feat**: 새로운 기능 개발 브랜치 (예: `feat/#이슈넘버/login-api`)
 - **fix**: 긴급 수정 사항 반영 (예: `fix/#이슈넘버/critical-login-bug`)
 
-> 브랜치 네이밍 예시: feat/#이슈넘버/{기능명}  fix/#이슈넘버/{기능명}
-> 
+> 브랜치 네이밍 예시: feat/#이슈넘버/{기능명} fix/#이슈넘버/{기능명}
 
 ### 📌 Commit Message Convention
 
@@ -119,7 +115,6 @@ frontend/
 **`Comment`** : 필요한 주석 추가 및 변경
 
 > 커밋 예시: fix/#이슈넘버 : 커밋 내용 설명
-> 
 
 ### ⭐ PR & Code Review
 
@@ -129,5 +124,5 @@ frontend/
 ### 🛠️ 코드 스타일 가이드
 
 - **Airbnb JavaScript Style Guide**
-    - [Airbnb Jabascript Style Guide](https://github.com/airbnb/javascript)
-    - [Airbnb Jabascript Style Guide - 한글 번역](https://github.com/tipjs/javascript-style-guide)
+  - [Airbnb Jabascript Style Guide](https://github.com/airbnb/javascript)
+  - [Airbnb Jabascript Style Guide - 한글 번역](https://github.com/tipjs/javascript-style-guide)
