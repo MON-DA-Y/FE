@@ -12,7 +12,7 @@ export async function studentSignUp(data: {
   schoolType: "middle" | "high";
   grade: number | null;
 }): Promise<AuthResponse> {
-  const res = await API.post<AuthResponse>("/signup/student", data);
+  const res = await API.post<AuthResponse>("/signUp/student", data);
   console.log("학생 회원가입 API response:", res.data);
   return res.data;
 }
@@ -24,7 +24,7 @@ export async function parentSignUp(data: {
   phone: string;
   password: string;
 }): Promise<AuthResponse> {
-  const res = await API.post<AuthResponse>("/signup/parent", data);
+  const res = await API.post<AuthResponse>("/signUp/parent", data);
   console.log("학부모 회원가입 API response:", res.data);
   return res.data;
 }
