@@ -31,7 +31,7 @@ export async function getStudentInfoById(
 export async function getStudentByEmail(
   email: string
 ): Promise<StdInfoResponse> {
-  const res = await API.get(`/student/email?email=${email}`);
+  const res = await API.get(`/stdInfo/student/email?email=${email}`);
   const data = res.data;
   return {
     std_id: data._id,

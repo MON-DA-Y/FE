@@ -36,7 +36,10 @@ export async function addStudent(
   studentId: string
 ): Promise<AddStudentResponse> {
   const reqBody: AddStudentRequest = { studentId }; // 인터페이스 사용
-  const res = await API.post<AddStudentResponse>("/add-student", reqBody);
+  const res = await API.post<AddStudentResponse>(
+    "/prtInfo/add-student",
+    reqBody
+  );
   console.log("자녀 추가 API response:", res.data);
   return res.data;
 }
