@@ -1,0 +1,39 @@
+import { Category } from "@/types/category";
+import { API } from "./config";
+
+export interface CategoryScore {
+  category: Category;
+  total: number;
+  correct: number;
+}
+
+export interface Weakness {
+  date: Date;
+  categories: CategoryScore[];
+  summary_words?: string | null;
+  summary_news?: string | null;
+}
+
+export interface WeaknessResponse {
+  weakWord: Weakness;
+  weakNews: Weakness;
+}
+
+export async function getWeakness(
+  week: "이번주" | "저번주"
+): Promise<WeaknessResponse> {
+  const res = await API.get<WeaknessResponse>(`/users/weakness?week=${week}`);
+  console.log("API response:", res.data);
+  return res.data;
+}
+
+export async function getStudentWeakness(
+  studentId: string,
+  week: "이번주" | "저번주"
+): Promise<WeaknessResponse> {
+  const res = await API.get<WeaknessResponse>(
+    `/users/${studentId}/weakness?week=${week}`
+  );
+  console.log("API response:", res.data);
+  return res.data;
+}
