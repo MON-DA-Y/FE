@@ -25,7 +25,7 @@ export default function ProgressSlider({
       >
         현재 스트라이크
         <div
-          className="absolute top-0 right-0 w-15 h-8 rounded-[30px] text-center pl-2"
+          className="absolute top-0 right-0 w-15 h-8 rounded-[30px] text-center pl-2 ml-3"
           style={{
             backgroundColor: COLORS.primary.navy,
             color: COLORS.sub.white,
@@ -36,7 +36,7 @@ export default function ProgressSlider({
       </div>
 
       <div
-        className="relative h-7 rounded-[10px] ml-5 mr-10"
+        className="relative h-7 rounded-[10px] ml-10 mr-10"
         style={{
           width: `(${weekCompletionRate})%`,
           backgroundColor: COLORS.sub.gray1,
