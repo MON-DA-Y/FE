@@ -16,7 +16,7 @@ import type { NextConfig } from "next";
 
 // 배포 ver
 const nextConfig: NextConfig = {
-  output: "export",
+  // output: "export",
   image: {
     unoptimized: true,
   },
