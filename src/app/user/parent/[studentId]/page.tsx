@@ -379,7 +379,7 @@ export default function ParentPage() {
           자녀와의 경제TalkTalk
         </div>
         <div
-          className="px-13 py-3 ml-[-8px] mt-6 w-92 h-24 rounded-[30px]"
+          className="px-13 py-3 ml-[-8px] mt-6 w-95 h-24 rounded-[30px]"
           style={{
             backgroundColor: COLORS.sub.gray1,
           }}
@@ -398,7 +398,7 @@ export default function ParentPage() {
               fontWeight: FONT_WEIGHT.subtitle1,
             }}
           >
-            "노란봉투법"
+            "대출 금리"
           </span>
           <span
             style={{
@@ -406,7 +406,7 @@ export default function ParentPage() {
               fontWeight: FONT_WEIGHT.subtitle2,
             }}
           >
-            을 배웠어요
+            를 배웠어요
           </span>
           <div className="flex flex-col pt-8 gap-10">
             <Image
@@ -422,9 +422,9 @@ export default function ParentPage() {
                 fontWeight: FONT_WEIGHT.body2,
               }}
             >
-              Q. 직원이 안전해야 회사도 안전
+              Q. 대출이 줄어들면 집을 사려는
               <br />
-              하다면 누가 먼저 양보해야 할까?
+              사람들에게 어떤 일이 생길까?
             </span>
 
             <Image
@@ -440,8 +440,8 @@ export default function ParentPage() {
                 fontWeight: FONT_WEIGHT.body2,
               }}
             >
-              Q. 해고가 어려우면 새로운
-              <br /> 일자리는 줄어들까?
+              Q. 대출 심사가 엄격해지는 건
+              <br /> 무슨 의미일까?
             </span>
           </div>
         </div>
