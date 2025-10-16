@@ -1,9 +1,54 @@
+"use client";
+import Image from "next/image";
+import { useRouter } from "next/navigation";
+
 export default function Home() {
+  const router = useRouter();
+
+  // const loginClick = () => {
+  //   router.push("/account/login");
+  // };
+
+  const signupClick = () => {
+    router.push("/account");
+  };
+
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
-      <h1 className="text-headline">HEADLINE</h1>
-      <p className="text-body2">본문 내용입니다.</p>
-      <button className="bg-[#1C376B]">안녕</button>
+    <div className="relative flex justify-center">
+      <div className="flex flex-col gap-0">
+        <div onClick={signupClick}>
+          <Image
+            src="/home/home1.svg"
+            alt="home1"
+            fill
+            className="object-contain"
+          />
+        </div>
+        <Image
+          src="/home/home2.svg"
+          alt="home2"
+          fill
+          className="object-contain"
+        />
+        <Image
+          src="/home/home3.svg"
+          alt="home3"
+          fill
+          className="object-contain"
+        />
+        <Image
+          src="/home/home4.svg"
+          alt="home4"
+          fill
+          className="object-contain"
+        />
+        <Image
+          src="/home/home5.svg"
+          alt="home5"
+          fill
+          className="object-contain"
+        />
+      </div>
     </div>
   );
 }
