@@ -361,14 +361,14 @@ export default function ParentPage() {
       </div>
 
       {/*히스토리 버튼*/}
-      <div className="absolute top-150 left-145 flex flex-col gap-5">
+      <div className="absolute top-250 left-145 flex flex-col gap-5">
         <HistoryBtn type="word" week={week} role="parent" />
         <HistoryBtn type="news" week={week} role="parent" />
         <HistoryBtn type="series" week={week} role="parent" />
       </div>
 
       {/*경제 TalkTalk*/}
-      <div className="absolute top-250 left-145">
+      <div className="absolute top-143 left-145">
         <div
           className="whitespace-nowrap"
           style={{
