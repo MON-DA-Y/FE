@@ -9,8 +9,14 @@ export default function Home() {
   };
 
   return (
-    <div className="relative flex justify-center w-full gap-5">
-      <div className="flex flex-col gap-0">
+    <div className="relative flex justify-center w-100dvw gap-5">
+      <div
+        className="flex flex-col gap-0"
+        style={{
+          scrollbarWidth: "none", // Firefox
+          msOverflowStyle: "none", // IE/Edge
+        }}
+      >
         <img
           src="/home/home1.svg"
           alt="home1"
