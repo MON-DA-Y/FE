@@ -196,7 +196,7 @@ export default function ParentPage() {
         </div>
 
         {/*날짜 드롭다운*/}
-        <div className="flex pt-10 gap-4.5">
+        <div className="flex pt-8 gap-4.5">
           <Dropdown
             type="week"
             value={week}
@@ -228,7 +228,7 @@ export default function ParentPage() {
         </div>
 
         {/*출석 현황*/}
-        <div className="flex pt-10 items-center gap-26">
+        <div className="flex pt-8 items-center gap-26">
           <div
             style={{
               fontSize: FONT_SIZE.subtitle1,
@@ -249,7 +249,7 @@ export default function ParentPage() {
         </div>
 
         {/*약점 분석*/}
-        <div className="flex flex-col pt-17">
+        <div className="flex flex-col pt-10">
           <div
             style={{
               fontSize: FONT_SIZE.subtitle1,
@@ -343,7 +343,7 @@ export default function ParentPage() {
       </div> */}
 
       {/*이번 주 퀴즈*/}
-      <div className="absolute top-85 left-145">
+      <div className="absolute top-82.5 left-145">
         <div
           className="whitespace-nowrap"
           style={{
@@ -361,14 +361,14 @@ export default function ParentPage() {
       </div>
 
       {/*히스토리 버튼*/}
-      <div className="absolute top-150 left-145 flex flex-col gap-5">
+      <div className="absolute top-240 left-145 flex flex-col gap-5">
         <HistoryBtn type="word" week={week} role="parent" />
         <HistoryBtn type="news" week={week} role="parent" />
         <HistoryBtn type="series" week={week} role="parent" />
       </div>
 
       {/*경제 TalkTalk*/}
-      <div className="absolute top-250 left-145">
+      <div className="absolute top-131 left-145">
         <div
           className="whitespace-nowrap"
           style={{
@@ -379,7 +379,7 @@ export default function ParentPage() {
           자녀와의 경제TalkTalk
         </div>
         <div
-          className="px-13 py-3 ml-[-8px] mt-6 w-92 h-24 rounded-[30px]"
+          className="px-13 py-3 ml-[-8px] mt-6 w-95 h-24 rounded-[30px]"
           style={{
             backgroundColor: COLORS.sub.gray1,
           }}
@@ -398,7 +398,7 @@ export default function ParentPage() {
               fontWeight: FONT_WEIGHT.subtitle1,
             }}
           >
-            "노란봉투법"
+            "대출 금리"
           </span>
           <span
             style={{
@@ -406,7 +406,7 @@ export default function ParentPage() {
               fontWeight: FONT_WEIGHT.subtitle2,
             }}
           >
-            을 배웠어요
+            를 배웠어요
           </span>
           <div className="flex flex-col pt-8 gap-10">
             <Image
@@ -422,9 +422,9 @@ export default function ParentPage() {
                 fontWeight: FONT_WEIGHT.body2,
               }}
             >
-              Q. 직원이 안전해야 회사도 안전
+              Q. 대출이 줄어들면 집을 사려는
               <br />
-              하다면 누가 먼저 양보해야 할까?
+              사람들에게 어떤 일이 생길까?
             </span>
 
             <Image
@@ -440,8 +440,8 @@ export default function ParentPage() {
                 fontWeight: FONT_WEIGHT.body2,
               }}
             >
-              Q. 해고가 어려우면 새로운
-              <br /> 일자리는 줄어들까?
+              Q. 대출 심사가 엄격해지는 건
+              <br /> 무슨 의미일까?
             </span>
           </div>
         </div>
