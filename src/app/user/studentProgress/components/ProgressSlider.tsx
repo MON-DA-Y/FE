@@ -36,7 +36,7 @@ export default function ProgressSlider({
       </div>
 
       <div
-        className="relative h-7 rounded-[10px] ml-5 mr-10"
+        className="relative h-7 rounded-[10px] ml-10 mr-10"
         style={{
           width: `(${weekCompletionRate})%`,
           backgroundColor: COLORS.sub.gray1,
