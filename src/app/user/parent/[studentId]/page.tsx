@@ -196,7 +196,7 @@ export default function ParentPage() {
         </div>
 
         {/*날짜 드롭다운*/}
-        <div className="flex pt-10 gap-4.5">
+        <div className="flex pt-8 gap-4.5">
           <Dropdown
             type="week"
             value={week}
@@ -228,7 +228,7 @@ export default function ParentPage() {
         </div>
 
         {/*출석 현황*/}
-        <div className="flex pt-10 items-center gap-26">
+        <div className="flex pt-8 items-center gap-26">
           <div
             style={{
               fontSize: FONT_SIZE.subtitle1,
@@ -249,7 +249,7 @@ export default function ParentPage() {
         </div>
 
         {/*약점 분석*/}
-        <div className="flex flex-col pt-17">
+        <div className="flex flex-col pt-10">
           <div
             style={{
               fontSize: FONT_SIZE.subtitle1,
@@ -343,7 +343,7 @@ export default function ParentPage() {
       </div> */}
 
       {/*이번 주 퀴즈*/}
-      <div className="absolute top-85 left-145">
+      <div className="absolute top-82.5 left-145">
         <div
           className="whitespace-nowrap"
           style={{
@@ -361,14 +361,14 @@ export default function ParentPage() {
       </div>
 
       {/*히스토리 버튼*/}
-      <div className="absolute top-250 left-145 flex flex-col gap-5">
+      <div className="absolute top-240 left-145 flex flex-col gap-5">
         <HistoryBtn type="word" week={week} role="parent" />
         <HistoryBtn type="news" week={week} role="parent" />
         <HistoryBtn type="series" week={week} role="parent" />
       </div>
 
       {/*경제 TalkTalk*/}
-      <div className="absolute top-143 left-145">
+      <div className="absolute top-131 left-145">
         <div
           className="whitespace-nowrap"
           style={{
