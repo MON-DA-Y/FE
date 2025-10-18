@@ -16,8 +16,16 @@ export default function HistoryPage() {
   const params = useParams();
   const role = params.role === "parent" ? "parent" : "student";
   const [studentId, setStudentId] = useState<string | null>(null);
-  const typeParam = params.type;
-  const type = Array.isArray(typeParam) ? typeParam[0] : typeParam || "series";
+
+  // query param에서 type 가져오기
+  const [type, setType] = useState("series");
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const url = new URL(window.location.href);
+      const typeParam = url.searchParams.get("type");
+      if (typeParam) setType(typeParam);
+    }
+  }, []);
 
   const [keywordFilter, setKeywordFilter] = useState<"all" | string>("all");
   const [statusFilter, setStatusFilter] = useState<"all" | "done" | "ongoing">(
@@ -50,7 +58,7 @@ export default function HistoryPage() {
       word: "단어",
       news: "뉴스",
       series: "시리즈",
-    }[type] ?? "";
+    }[type as "word" | "news" | "series"] ?? "";
 
   let ContentComponent;
   switch (type) {
