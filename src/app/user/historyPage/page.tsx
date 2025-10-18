@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { useParams } from "next/navigation";
 import HomeBtn from "./components/HomeBtn";
 import Dropdown from "../components/Dropdown";
 import WordHistory from "./components/WordHistory";
@@ -13,11 +12,16 @@ import { Category_Label } from "../../../../constants/categoryLabel";
 import { getParentInfo } from "@/apis/parentInfo";
 
 export default function HistoryPage() {
-  const params = useParams();
-  const role = params.role === "parent" ? "parent" : "student";
   const [studentId, setStudentId] = useState<string | null>(null);
 
-  // query param에서 type 가져오기
+  // query param에서 type,role 가져오기
+  const [role, setRole] = useState<"student" | "parent">("student");
+  useEffect(() => {
+    const url = new URL(window.location.href);
+    const roleParam = url.searchParams.get("role");
+    if (roleParam === "parent") setRole("parent");
+  }, []);
+
   const [type, setType] = useState("series");
   useEffect(() => {
     if (typeof window !== "undefined") {

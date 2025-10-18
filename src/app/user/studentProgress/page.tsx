@@ -13,6 +13,7 @@ import {
   getParentProgress,
 } from "@/apis/progress";
 import { getParentInfo } from "@/apis/parentInfo";
+import AssignLoading from "@/components/shared/AssignLoading";
 
 export default function StudentMyPage() {
   const router = useRouter();
@@ -53,7 +54,7 @@ export default function StudentMyPage() {
     fetchData();
   }, [week, role]);
 
-  if (!progress) return <div>Loading...</div>;
+  if (!progress) return <AssignLoading />;
 
   return (
     <div className="pl-15">
