@@ -21,6 +21,13 @@ const nextConfig: NextConfig = {
     unoptimized: true,
   },
   trailingSlash: true,
+  images: {
+    unoptimized: true,
+    remotePatterns: [
+      { protocol: "https", hostname: "**.mk.co.kr" },
+      { protocol: "https", hostname: "**.naver.com" },
+    ],
+  },
 };
 
 export default nextConfig;

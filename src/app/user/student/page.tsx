@@ -16,6 +16,7 @@ import HistoryBtn from "../components/HistoryBtn";
 import StudentEdit from "./components/StudentEdit";
 import { getStudentInfo } from "@/apis/studentInfo";
 import { getProgress, ProgressResponse } from "@/apis/progress";
+import AssignLoading from "@/components/shared/AssignLoading";
 
 export default function StudentMyPage() {
   const router = useRouter();
@@ -98,7 +99,7 @@ export default function StudentMyPage() {
       .finally(() => setLoadingUser(false));
   }, []);
 
-  if (loadingUser) return <div>학생 정보 로딩중...</div>;
+  if (loadingUser) return <AssignLoading />;
 
   return (
     //학생 메인 페이지로 이동하도록 router 수정
@@ -491,7 +492,7 @@ export default function StudentMyPage() {
             <div className="flex absolute flex-col gap-5 top-195 left-130">
               <HistoryBtn type="word" week={week} role="student" />
               <HistoryBtn type="news" week={week} role="student" />
-              <HistoryBtn type="series" week={week} role="student" />
+              {/* <HistoryBtn type="series" week={week} role="student" /> */}
             </div>
           </div>
         </div>
