@@ -373,7 +373,7 @@ export default function ParentPage() {
       <div className="absolute top-240 left-145 flex flex-col gap-5">
         <HistoryBtn type="word" week={week} role="parent" />
         <HistoryBtn type="news" week={week} role="parent" />
-        <HistoryBtn type="series" week={week} role="parent" />
+        {/* <HistoryBtn type="series" week={week} role="parent" /> */}
       </div>
 
       {/*경제 TalkTalk*/}
