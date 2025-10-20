@@ -14,7 +14,7 @@ export interface Part {
   main?: string;
   practice?: string;
   summary?: string;
-  wordItem?: wordItem[];
+  wordItems?: wordItem[];
 }
 
 // 시리즈 - 기본 type

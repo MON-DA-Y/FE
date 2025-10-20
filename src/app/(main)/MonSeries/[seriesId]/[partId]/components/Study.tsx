@@ -16,8 +16,8 @@ export default function Study({ series, part }: SeriesStudyProps) {
     return <p>잘못된 접근입니다.</p>;
   }
 
-  // console.log("series:", series);
-  // console.log("part:", part);
+  console.log("series:", series);
+  console.log("part:", part);
 
   const postMonSeriesStudyDone = async () => {
     try {
@@ -69,8 +69,8 @@ export default function Study({ series, part }: SeriesStudyProps) {
         </div>
         {/* 파트 해시태그 */}
         <div className="flex gap-[10px]">
-          {Array.isArray(part.wordItem) &&
-            part.wordItem.map((item: wordItem) => (
+          {Array.isArray(part.wordItems) &&
+            part.wordItems.map((item: wordItem) => (
               <WordBox
                 key={item.msaWiId ?? item.word}
                 p={"5px 10px"}
@@ -109,8 +109,8 @@ export default function Study({ series, part }: SeriesStudyProps) {
           <TextBox
             type="term"
             text={
-              Array.isArray(part.wordItem)
-                ? part.wordItem
+              Array.isArray(part.wordItems)
+                ? part.wordItems
                     .map((item: wordItem) => `${item.word}: ${item.meaning}`)
                     .join("\n")
                 : ""
