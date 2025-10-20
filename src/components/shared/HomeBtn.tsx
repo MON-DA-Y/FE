@@ -12,7 +12,7 @@ export default function HomeBtn() {
       alt="home"
       width={40}
       height={40}
-      onClick={() => router.push("/user/student")}
+      onClick={() => router.push("/student")}
       className="cursor-pointer"
     />
   );
